@@ -1,12 +1,12 @@
-import { Navbar } from "@/components/organisms/navbar"
-import { Footer } from "@/components/organisms/footer"
+import { Footer } from "../organisms/footer/footer";
+import { StaggeredMenu } from "../organisms/navbar/staggered-menu";
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Navbar />
-      <main className="flex-1">{children}</main>
+    <div>
+      <StaggeredMenu />
+      <main>{children}</main>
       <Footer />
     </div>
-  )
+  );
 }
