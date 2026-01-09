@@ -1,33 +1,25 @@
-"use client";
+"use client"
 
-import { useStackAutoplay } from "@/hooks/useStackAutoPlay";
-import { STACK_ITEMS } from "../hero-bento.config";
-import { StackCard } from "../../../../molecules/stackCard";
-
+import Folder from "@/components/ui/folder"
+import { STACK_LAYERS } from "../hero-bento.config"
+import { LogoItem } from "@/components/atoms/logoItem"
 
 export function HeroBentoStack() {
-  const order = useStackAutoplay(STACK_ITEMS.length, 4000);
-
   return (
-    <div
-      className="relative h-full w-full rounded-xl border border-[hsl(var(--border))]"
-      style={{ perspective: 800 }}
-    >
-
-      <div className="relative  h-full w-full">
-        {order.map((itemIndex, stackIndex) => {
-          const item = STACK_ITEMS[itemIndex];
-          return (
-            <StackCard
-              key={item.id}
-              src={item.logo}
-              alt={item.name}
-              index={stackIndex}
-              total={order.length}
-            />
-          );
-        })}
-      </div>
+    <div className="grid h-full w-full grid-cols-2 place-items-center gap-12 md:gap-16 p-4">
+      {STACK_LAYERS.map((layer) => (
+        <div
+          key={layer.id}
+          className="flex flex-col items-center gap-3 transition-transform duration-300 ease-out hover:scale-[1.02]"
+        >
+          <Folder
+            color={layer.color}
+            size={0.9}
+            items={layer.items.map((item) => <LogoItem key={item.alt} src={item.src} alt={item.alt} />)}
+          />
+          <span className="text-xs font-medium tracking-wide text-[hsl(var(--muted))]/90">{layer.title}</span>
+        </div>
+      ))}
     </div>
-  );
+  )
 }

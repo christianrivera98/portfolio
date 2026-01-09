@@ -1,30 +1,43 @@
-export const STACK_ITEMS = [
+export const STACK_LAYERS = [
   {
-    id: "react",
-    name: "React",
-    logo: "/logos/react.svg",
+    id: "ui",
+    title: "UI Layer",
+    color: "#5227FF",
+    items: [
+      { src: "/logos/css.svg", alt: "CSS" },
+      { src: "/logos/tailwind.svg", alt: "Tailwind CSS" },
+      { src: "/logos/shadcn-ui.svg", alt: "ShadCN UI" }
+    ],
   },
   {
-    id: "nextjs",
-    name: "Next.js",
-    logo: "/logos/nextjs.svg",
+    id: "app",
+    title: "Application",
+    color: "#16A34A",
+    items: [
+      { src: "/logos/react.svg", alt: "React" },
+      { src: "/logos/nextjs.svg", alt: "Next.js" },
+      { src: "/logos/tanstack.svg", alt: "TANStack" },
+    ],
   },
   {
-    id: "typescript",
-    name: "TypeScript",
-    logo: "/logos/typescript.svg",
+    id: "safety",
+    title: "Type Safety",
+    color: "#2563EB",
+    items: [
+      { src: "/logos/typescript.svg", alt: "TypeScript" },
+      { src: "/logos/zod.svg", alt: "Zod" },
+    ],
   },
   {
-    id: "tailwind",
-    name: "Tailwind CSS",
-    logo: "/logos/tailwindcss.svg",
+    id: "delivery",
+    title: "Delivery",
+    color: "#0F172A",
+    items: [
+      { src: "/logos/vercel.svg", alt: "Vercel" },
+      { src: "/logos/github_light.svg", alt: "CI/CD" },
+    ],
   },
-  {
-    id: "tanstack",
-    name: "TanStack Query",
-    logo: "/logos/tanstack.svg",
-  },
-];
+] as const
 
 export const HUMAN_ITEMS = [
   {
