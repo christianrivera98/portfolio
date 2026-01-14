@@ -101,11 +101,11 @@ const Folder: React.FC<FolderProps> = ({ color = '#5227FF', size = 1, items = []
         onClick={handleClick}
       >
         <div
-          className="relative w-[100px] h-[80px] rounded-tl-0 rounded-tr-[10px] rounded-br-[10px] rounded-bl-[10px]"
+          className="relative w-25 h-20 rounded-tl-0 rounded-tr-[10px] rounded-br-[10px] rounded-bl-[10px]"
           style={{ backgroundColor: folderBackColor }}
         >
           <span
-            className="absolute z-0 bottom-[98%] left-0 w-[30px] h-[10px] rounded-tl-[5px] rounded-tr-[5px] rounded-bl-0 rounded-br-0"
+            className="absolute z-0 bottom-[98%] left-0 w-7.5 h-2.5 rounded-tl-[5px] rounded-tr-[5px] rounded-bl-0 rounded-br-0"
             style={{ backgroundColor: folderBackColor }}
           ></span>
           {papers.map((item, i) => {
@@ -138,7 +138,7 @@ const Folder: React.FC<FolderProps> = ({ color = '#5227FF', size = 1, items = []
           })}
           <div
             className={`absolute z-30 w-full h-full origin-bottom transition-all duration-300 ease-in-out ${
-              !open ? 'group-hover:[transform:skew(15deg)_scaleY(0.6)]' : ''
+              !open ? 'group-hover:transform-[skew(15deg)_scaleY(0.6)]' : ''
             }`}
             style={{
               backgroundColor: color,
@@ -148,7 +148,7 @@ const Folder: React.FC<FolderProps> = ({ color = '#5227FF', size = 1, items = []
           ></div>
           <div
             className={`absolute z-30 w-full h-full origin-bottom transition-all duration-300 ease-in-out ${
-              !open ? 'group-hover:[transform:skew(-15deg)_scaleY(0.6)]' : ''
+              !open ? 'group-hover:transform-[skew(-15deg)_scaleY(0.6)]' : ''
             }`}
             style={{
               backgroundColor: color,

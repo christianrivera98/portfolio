@@ -7,9 +7,10 @@ import { Card, CardContent } from "@/components/ui/card"
 
 interface HeroBentoHumanProps {
   activeIndex: number
+  className?: string
 }
 
-export function HeroBentoHuman({ activeIndex }: HeroBentoHumanProps) {
+export function HeroBentoHuman({ activeIndex, className }: HeroBentoHumanProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const currentRef = useRef<HTMLDivElement>(null)
   const nextRef = useRef<HTMLDivElement>(null)
@@ -51,7 +52,7 @@ export function HeroBentoHuman({ activeIndex }: HeroBentoHumanProps) {
   return (
     <Card
       ref={containerRef}
-      className="relative w-[160%] overflow-hidden rounded-2xl border-0 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_10px_20px_-2px_rgba(0,0,0,0.1),0_20px_40px_-4px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_12px_-2px_rgba(0,0,0,0.15),0_20px_40px_-4px_rgba(0,0,0,0.2),0_30px_60px_-8px_rgba(0,0,0,0.2)] transition-all duration-500 ease-out"
+      className={`relative w-[160%] overflow-hidden rounded-2xl border-0 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_10px_20px_-2px_rgba(0,0,0,0.1),0_20px_40px_-4px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_12px_-2px_rgba(0,0,0,0.15),0_20px_40px_-4px_rgba(0,0,0,0.2),0_30px_60px_-8px_rgba(0,0,0,0.2)] transition-all duration-500 ease-out ${className}`}
     >
       {/* Current */}
       <CardContent ref={currentRef} className="absolute inset-0">

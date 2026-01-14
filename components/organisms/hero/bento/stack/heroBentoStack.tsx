@@ -17,7 +17,7 @@ export function HeroBentoStack() {
             size={0.9}
             items={layer.items.map((item) => <LogoItem key={item.alt} src={item.src} alt={item.alt} />)}
           />
-          <span className="text-xs font-medium tracking-wide text-[hsl(var(--muted))]/90">{layer.title}</span>
+          <span className="text-md font-medium tracking-wide text-[hsl(var(--background))]/90">{layer.title}</span>
         </div>
       ))}
     </div>
