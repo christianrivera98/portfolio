@@ -5,8 +5,8 @@ export const STACK_LAYERS = [
     color: "#5227FF",
     items: [
       { src: "/logos/css.svg", alt: "CSS" },
-      { src: "/logos/tailwind.svg", alt: "Tailwind CSS" },
-      { src: "/logos/shadcn-ui.svg", alt: "ShadCN UI" }
+      { src: "/logos/shadcn-ui.svg", alt: "ShadCN UI" },
+      { src: "/logos/tailwindcss.svg", alt: "Tailwind CSS" }
     ],
   },
   {
@@ -14,9 +14,9 @@ export const STACK_LAYERS = [
     title: "Application",
     color: "#16A34A",
     items: [
-      { src: "/logos/react.svg", alt: "React" },
       { src: "/logos/nextjs.svg", alt: "Next.js" },
-      { src: "/logos/tanstack.svg", alt: "TANStack" },
+      { src: "/logos/nodejs.svg", alt: "TANStack" },
+      { src: "/logos/react.svg", alt: "React" },
     ],
   },
   {
@@ -24,13 +24,14 @@ export const STACK_LAYERS = [
     title: "Type Safety",
     color: "#2563EB",
     items: [
-      { src: "/logos/typescript.svg", alt: "TypeScript" },
+      { src: "/logos/tanstack.svg", alt: "Tanstack Query" },
       { src: "/logos/zod.svg", alt: "Zod" },
+      { src: "/logos/typescript.svg", alt: "TypeScript" }
     ],
   },
   {
-    id: "delivery",
-    title: "Delivery",
+    id: "ci/cd",
+    title: "CI/CD",
     color: "#0F172A",
     items: [
       { src: "/logos/vercel.svg", alt: "Vercel" },

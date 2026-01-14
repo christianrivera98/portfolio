@@ -28,14 +28,57 @@ export function StaggeredMenu({ isFixed = true }: StaggeredMenuProps) {
         aria-label="Main navigation"
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-6 bg-transparent"
       >
-        <div className="font-semibold tracking-tight">Christian Rivera</div>
+      
+        <div className="
+    relative
+    flex justify-start
+    font-bold tracking-tight
+    text-[hsl(var(--muted))]
+    text-lg
+    hover:text-[hsl(var(--muted-foreground))]
+    transition-colors duration-200
+    cursor-pointer
+    after:content-['']
+    after:absolute
+    after:left-0
+    after:-bottom-1
+    after:h-0.5
+    after:w-full
+    after:bg-[hsl(var(--muted-foreground))]
+    after:scale-x-0
+    after:origin-left
+    after:transition-transform
+    after:duration-300
+    hover:after:scale-x-100
+  ">Christian Rivera / Mid-level Frontend Engineer</div>
 
         <button
           type="button"
           aria-expanded={open}
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={toggleMenu}
-          className="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-[hsl(var(--primary))]"
+          className={`${!open ? "text-[hsl(var(--muted))]" : "text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))]"}
+          relative
+          flex justify-start
+          font-bold tracking-tight
+          text-[hsl(var(--muted))]
+          text-lg
+          hover:text-[hsl(var(--muted-foreground))]
+          transition-colors duration-200
+          cursor-pointer
+          after:content-['']
+          after:absolute
+          after:left-0
+          after:-bottom-1
+          after:h-0.5
+          after:w-full
+          ${open ? "after:bg-[hsl(var(--primary))]" : "after:bg-[hsl(var(--muted-foreground))]"}
+          after:scale-x-0
+          after:origin-left
+          after:transition-transform
+          after:duration-300
+          hover:after:scale-x-100
+  `}
         >
           {open ? "Close" : "Menu"}
         </button>
