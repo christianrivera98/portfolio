@@ -19,3 +19,33 @@ export function LogoItem({ src, alt }: LogoItemProps) {
     </div>
   )
 }
+
+interface TechLogoProps {
+  src: string
+  name: string
+  color: string
+  active: boolean
+}
+
+export function TechLogo({ src, name, color, active }: TechLogoProps) {
+  return (
+    <div
+      className={`flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 ${
+        active ? "scale-110" : "scale-100"
+      }`}
+      style={{
+        backgroundColor: active ? color : "transparent",
+        boxShadow: active ? `0 0 20px ${color}40` : "none",
+      }}
+    >
+      <Image
+        src={src || "/placeholder.svg"}
+        alt={name}
+        width={28}
+        height={28}
+        className="object-contain"
+        draggable={false}
+      />
+    </div>
+  )
+}
