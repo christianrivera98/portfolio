@@ -1,3 +1,64 @@
+// Type for stack items (used by TechOrbitItem)
+export type StackItem = {
+  logo: string
+  name: string
+  color: string
+}
+
+// Hero Profile Configuration
+export const HERO_PROFILE = {
+  name: "CHRISTIAN LAMADRID",
+  title: "Frontend Engineer",
+  subtitle: "Fintech · Production Systems",
+  bio: "5+ years building interfaces for systems that process real transactions.",
+  credentials: "Ex-Bancolombia · TypeScript strict mode · React + Next.js",
+  photo: "/images/profile.png", // Add your professional photo here
+} as const
+
+// Tech Stack Tags - shown at the bottom of hero
+export const TECH_STACK_TAGS = [
+  { id: "react", label: "React" },
+  { id: "nextjs", label: "Next.js" },
+  { id: "typescript", label: "TypeScript" },
+  { id: "nodejs", label: "Node.js" },
+  { id: "tailwind", label: "Tailwind" },
+] as const
+
+// Call to Action Buttons
+export const HERO_CTAS = [
+  {
+    id: "work",
+    label: "View Work",
+    href: "#work",
+    variant: "primary" as const,
+    icon: "arrow",
+  },
+  {
+    id: "github",
+    label: "GitHub",
+    href: "https://github.com/yourusername",
+    variant: "outline" as const,
+    icon: "external",
+    external: true,
+  },
+  {
+    id: "linkedin",
+    label: "LinkedIn",
+    href: "https://linkedin.com/in/yourusername",
+    variant: "outline" as const,
+    icon: "external",
+    external: true,
+  },
+] as const
+
+// Social Links (for other uses)
+export const SOCIAL_LINKS = {
+  github: "https://github.com/yourusername",
+  linkedin: "https://linkedin.com/in/yourusername",
+  email: "hello@christianlamadrid.com",
+} as const
+
+// Legacy: Stack Layers (kept for potential future use)
 export const STACK_LAYERS = [
   {
     id: "ui",
@@ -35,44 +96,13 @@ export const STACK_LAYERS = [
     color: "#0F172A",
     items: [
       { src: "/logos/vercel.svg", alt: "Vercel" },
-      { src: "/logos/github_light.svg", alt: "CI/CD" },
+      { src: "/logos/gitlab.svg", alt: "Git Lab" },
+      { src: "/logos/github_light.svg", alt: "CI/CD" }
     ],
   },
 ] as const
 
-export const HUMAN_ITEMS = [
-  {
-    id: "mechatronics",
-    title: "I'm a Mechatronics Engineer",
-    description: "Engineering mindset beyond software.",
-    video: "/videos/mechatronics.mp4",
-  },
-  {
-    id: "hiphop",
-    title: "I'm a hip-hop lover",
-    description: "Creativity, rhythm, and culture shape how I think.",
-    video: "/videos/hiphop.mp4",
-  },
-  {
-    id: "animals",
-    title: "I love animals",
-    description: "Empathy matters — in life and in products.",
-    video: "/videos/animals.mp4",
-  },
-  {
-    id: "travel",
-    title: "I love traveling",
-    description: "New places, new perspectives.",
-    video: "/videos/travel.mp4",
-  },
-  {
-    id: "kungfu",
-    title: "My favorite movie is Kung Fu Panda",
-    description: "Balance, discipline, and humor — always.",
-    video: "/videos/kungfu.mp4",
-  },
-];
-
+// Legacy: Focus Items (kept for potential future use)
 export const FOCUS_ITEMS = [
   {
     id: "product",
@@ -89,5 +119,15 @@ export const FOCUS_ITEMS = [
   {
     id: "performance",
     label: "Performance-first mindset",
+  },
+];
+
+// Legacy: Human Items (kept for potential future use, removed from hero per plan)
+export const HUMAN_ITEMS = [
+  {
+    id: "mechatronics",
+    title: "I'm a Mechatronics Engineer",
+    description: "Engineering mindset beyond software.",
+    video: "/videos/mechatronics.mp4",
   },
 ];
