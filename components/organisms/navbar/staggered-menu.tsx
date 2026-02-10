@@ -1,130 +1,75 @@
-"use client";
+"use client"
 
-import { useStaggeredMenu } from "@/hooks/useStaggeredMenu";
-import { MenuPreview } from "./menu-preview";
-import { NAV_ITEMS, SOCIAL_ITEMS } from "./nav.config";
+import { useRef, useCallback } from "react"
+import gsap from "gsap"
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"
+import { useMenuAnimations } from "@/hooks/useMenuAnimations"
+import { useScrollLock } from "@/hooks/useScrollLock"
+import { MenuPreview } from "./menu-preview"
+import { NAV_ITEMS, SOCIAL_ITEMS } from "./nav.config"
+
+gsap.registerPlugin(ScrollToPlugin)
 
 interface StaggeredMenuProps {
-  isFixed?: boolean;
+  open: boolean
+  onClose: () => void
 }
 
-export function StaggeredMenu({ isFixed = true }: StaggeredMenuProps) {
-  const {
-    open,
-    toggleMenu,
-    activePreview,
-    setActivePreview,
-    listRef,
-  } = useStaggeredMenu();
+export function StaggeredMenu({ open, onClose }: StaggeredMenuProps) {
+  const listRef = useRef<HTMLUListElement>(null)
+  const overlayRef = useRef<HTMLDivElement>(null)
+  const activePreviewRef = useRef<string | undefined>(NAV_ITEMS[0]?.previewImage)
+  const previewStateRef = useRef<((src: string | undefined) => void) | undefined>(undefined)
+
+  useMenuAnimations(open, listRef)
+  useScrollLock(open)
+
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+      e.preventDefault()
+      onClose()
+      gsap.delayedCall(0.35, () => {
+        gsap.to(window, { scrollTo: { y: link, offsetY: 0 }, duration: 1.2, ease: "power3.inOut" })
+      })
+    },
+    [onClose]
+  )
 
   return (
-    <div
-      className={`relative z-40 ${
-        isFixed ? "fixed inset-0 overflow-hidden" : ""
-      }`}
-      data-open={open || undefined}
-    >
-      <nav
-        aria-label="Main navigation"
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-6 bg-transparent"
-      >
-      
-        <div className="
-    relative
-    flex justify-start
-    font-bold tracking-tight
-    text-[hsl(var(--muted))]
-    text-lg
-    hover:text-[hsl(var(--muted-foreground))]
-    transition-colors duration-200
-    cursor-pointer
-    after:content-['']
-    after:absolute
-    after:left-0
-    after:-bottom-1
-    after:h-0.5
-    after:w-full
-    after:bg-[hsl(var(--muted-foreground))]
-    after:scale-x-0
-    after:origin-left
-    after:transition-transform
-    after:duration-300
-    hover:after:scale-x-100
-  ">Christian Rivera / Mid-level Frontend Engineer</div>
-
-        <button
-          type="button"
-          aria-expanded={open}
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={toggleMenu}
-          className={`${!open ? "text-[hsl(var(--muted))]" : "text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))]"}
-          relative
-          flex justify-start
-          font-bold tracking-tight
-          text-[hsl(var(--muted))]
-          text-lg
-          hover:text-[hsl(var(--muted-foreground))]
-          transition-colors duration-200
-          cursor-pointer
-          after:content-['']
-          after:absolute
-          after:left-0
-          after:-bottom-1
-          after:h-0.5
-          after:w-full
-          ${open ? "after:bg-[hsl(var(--primary))]" : "after:bg-[hsl(var(--muted-foreground))]"}
-          after:scale-x-0
-          after:origin-left
-          after:transition-transform
-          after:duration-300
-          hover:after:scale-x-100
-  `}
-        >
-          {open ? "Close" : "Menu"}
-        </button>
-      </nav>
-
-      <aside
-        aria-hidden={!open}
-        className={`fixed inset-y-0 right-0 z-40 w-full bg-[hsl(var(--background))] md:w-[38vw] ${
-          open ? "translate-x-0" : "translate-x-full"
-        } transition-transform duration-300`}
-      >
+    <div ref={overlayRef} className={`fixed inset-0 z-40 ${open ? "pointer-events-auto" : "pointer-events-none"}`} aria-hidden={!open}>
+      <div className={`absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-500 ${open ? "opacity-100" : "opacity-0"}`} onClick={onClose} />
+      <aside className={`absolute inset-y-0 right-0 w-full md:w-[50vw] lg:w-[42vw] bg-[#0a0a0a] border-l border-white/[0.06] transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${open ? "translate-x-0" : "translate-x-full"}`}>
         <div className="flex h-full">
-          <div className="w-1/2">
-            <MenuPreview src={activePreview} />
+          <div className="hidden md:block w-1/2">
+            <MenuPreview src={activePreviewRef.current} onSrcChange={previewStateRef} />
           </div>
-
-          <div className="flex w-full flex-col justify-center gap-6 p-12 md:w-1/2">
-            <ul ref={listRef} className="flex flex-col gap-6">
+          <div className="flex w-full md:w-1/2 flex-col justify-center px-8 md:px-12">
+            <ul ref={listRef} className="flex flex-col gap-5">
               {NAV_ITEMS.map((item, index) => (
                 <li key={item.label}>
                   <a
                     href={item.link}
                     aria-label={item.ariaLabel}
-                    onMouseEnter={() => setActivePreview(item.previewImage)}
-                    onFocus={() => setActivePreview(item.previewImage)}
-                    className="block text-4xl font-semibold uppercase tracking-tight transition-colors hover:text-[hsl(var(--primary))]"
+                    onClick={(e) => handleNavClick(e, item.link)}
+                    onMouseEnter={() => { activePreviewRef.current = item.previewImage; previewStateRef.current?.(item.previewImage) }}
+                    onFocus={() => { activePreviewRef.current = item.previewImage; previewStateRef.current?.(item.previewImage) }}
+                    className="group flex items-baseline gap-4 py-1"
                   >
-                    {item.label}
-                    <span className="ml-3 text-sm text-[hsl(var(--muted))]">
+                    <span className="text-xs font-mono text-white/20 group-hover:text-[hsl(356,96%,32%)] transition-colors duration-200">
                       {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-3xl md:text-4xl font-semibold uppercase tracking-tight text-white/90 group-hover:text-white transition-colors duration-200 group-hover:translate-x-2 inline-block transform-gpu">
+                      {item.label}
                     </span>
                   </a>
                 </li>
               ))}
             </ul>
-
-            <footer className="pt-12">
-              <ul className="flex gap-4">
+            <footer className="mt-16 pt-8 border-t border-white/[0.06]">
+              <ul className="flex gap-6">
                 {SOCIAL_ITEMS.map((social) => (
                   <li key={social.label}>
-                    <a
-                      href={social.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm hover:text-[hsl(var(--primary))]"
-                    >
+                    <a href={social.link} target="_blank" rel="noopener noreferrer" className="menu-social-link text-sm font-mono text-white/40 hover:text-[hsl(356,96%,32%)] transition-colors duration-200">
                       {social.label}
                     </a>
                   </li>
@@ -135,5 +80,5 @@ export function StaggeredMenu({ isFixed = true }: StaggeredMenuProps) {
         </div>
       </aside>
     </div>
-  );
+  )
 }

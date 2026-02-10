@@ -1,59 +1,91 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useRef, useEffect } from "react"
+import gsap from "gsap"
+import { SplitText } from "gsap/SplitText"
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
+import { useHeroScrollParallax } from "@/hooks/useHeroScrollParallax"
 
-interface AnimationStates {
-  frontendCard: boolean
-  stackCard: boolean
-  humanCard: boolean
-  bottomCards: boolean
-  button: boolean
-}
+gsap.registerPlugin(SplitText)
 
-export function useHeroIntroAnimation(delay = 100): AnimationStates {
-  const [states, setStates] = useState<AnimationStates>({
-    frontendCard: false,
-    stackCard: false,
-    humanCard: false,
-    bottomCards: false,
-    button: false,
-  })
+/**
+ * GSAP-based hero intro animation with SplitText.
+ *
+ * @param isReady - When true, the intro timeline plays (after preloader)
+ * @param scope - Ref to the hero <section> for GSAP context scoping
+ */
+export function useHeroIntroAnimation(
+  isReady: boolean,
+  scope: React.RefObject<HTMLElement | null>
+) {
+  const tlRef = useRef<gsap.core.Timeline | null>(null)
+  const prefersReduced = usePrefersReducedMotion()
+
+  // Call scroll parallax hook (separated concern)
+  useHeroScrollParallax(scope, prefersReduced)
 
   useEffect(() => {
-    const timers: NodeJS.Timeout[] = []
+    if (!isReady || !scope.current) return
 
-    // Card "Frontend Developer" - entra desde la izquierda (primero)
-    timers.push(
-      setTimeout(() => {
-        setStates((prev) => ({ ...prev, frontendCard: true }))
-      }, delay),
-    )
-
-    // Card "HeroBentoStack" - entra desde la derecha (segundo)
-    timers.push(
-      setTimeout(() => {
-        setStates((prev) => ({ ...prev, stackCard: true }))
-      }, delay + 200),
-    )
-
-    // Card "HeroBentoHuman" + Cards "Focus" y "Experience" - entran desde abajo (tercero)
-    timers.push(
-      setTimeout(() => {
-        setStates((prev) => ({ ...prev, humanCard: true, bottomCards: true }))
-      }, delay + 400),
-    )
-
-    // Button "View Projects" - aparece suavemente (último)
-    timers.push(
-      setTimeout(() => {
-        setStates((prev) => ({ ...prev, button: true }))
-      }, delay + 700),
-    )
-
-    return () => {
-      timers.forEach((timer) => clearTimeout(timer))
+    // Reduced motion: show everything immediately
+    if (prefersReduced) {
+      const all = scope.current.querySelectorAll(
+        ".hero-label, .hero-name-1, .hero-name-2, .hero-title, .hero-bio, .hero-credentials, .hero-cta, .hero-photo, .hero-tag, .hero-scroll-indicator, .hero-accent-line"
+      )
+      gsap.set(all, { opacity: 1, y: 0, clipPath: "none" })
+      return
     }
-  }, [delay])
 
-  return states
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } })
+      tlRef.current = tl
+
+      // 1. Label — clip reveal left to right
+      tl.fromTo(".hero-label", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7 }, 0)
+
+      // 2. Name line 1 — SplitText char reveal with rotateX
+      const name1El = scope.current!.querySelector(".hero-name-1")
+      if (name1El) {
+        gsap.set(name1El, { opacity: 1 })
+        const split1 = SplitText.create(name1El, { type: "chars" })
+        tl.from(split1.chars, { y: 80, rotateX: -90, opacity: 0, stagger: 0.025, duration: 0.9, ease: "power4.out" }, 0.15)
+      }
+
+      // 3. Name line 2 — SplitText char reveal
+      const name2El = scope.current!.querySelector(".hero-name-2")
+      if (name2El) {
+        gsap.set(name2El, { opacity: 1 })
+        const split2 = SplitText.create(name2El, { type: "chars" })
+        tl.from(split2.chars, { y: 80, rotateX: -90, opacity: 0, stagger: 0.025, duration: 0.9, ease: "power4.out" }, 0.3)
+      }
+
+      // 4. Red accent line — draw from left
+      tl.fromTo(".hero-accent-line", { scaleX: 0 }, { scaleX: 1, transformOrigin: "left center", duration: 0.8, ease: "power2.inOut" }, 0.7)
+
+      // 5. Title + subtitle — fade in
+      tl.fromTo(".hero-title", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 0.8)
+
+      // 6. Bio — fade in
+      tl.fromTo(".hero-bio", { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 0.95)
+
+      // 7. Credentials
+      tl.fromTo(".hero-credentials", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 1.05)
+
+      // 8. CTAs — stagger
+      tl.fromTo(".hero-cta", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 }, 1.15)
+
+      // 9. Photo — circle mask expand
+      tl.fromTo(".hero-photo", { clipPath: "circle(0% at 50% 50%)", opacity: 0 }, { clipPath: "circle(75% at 50% 50%)", opacity: 1, duration: 1.4, ease: "power2.out" }, 0.6)
+
+      // 10. Tech tags — stagger fade
+      tl.fromTo(".hero-tag", { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.06 }, 1.3)
+
+      // 11. Scroll indicator — fade in
+      tl.fromTo(".hero-scroll-indicator", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 1.6)
+    }, scope)
+
+    return () => ctx.revert()
+  }, [isReady, prefersReduced, scope])
+
+  return tlRef
 }

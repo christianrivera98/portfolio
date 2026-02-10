@@ -27,10 +27,9 @@ export const NAV_ITEMS = [
   { label: "Contact", ariaLabel: "Go to contact section", link: "#contact", previewImage: "/previews/contact.png" },
 ] as const;
 
+import { SITE_CONFIG } from "@/lib/site.config"
+
 export const SOCIAL_ITEMS = [
-  { label: "GitHub", link: "https://github.com/christianrivera98" },
-  {
-    label: "LinkedIn",
-    link: "https://linkedin.com/in/christianrivera-ingeniero/",
-  },
+  { label: "GitHub", link: SITE_CONFIG.social.github },
+  { label: "LinkedIn", link: SITE_CONFIG.social.linkedin },
 ] as const;

@@ -1,44 +1,54 @@
 "use client"
 
 import Image from "next/image"
-import { useLayoutEffect, useRef } from "react"
-import { gsap } from "gsap"
+import { useLayoutEffect, useRef, useState, useEffect } from "react"
+import gsap from "gsap"
 
 interface MenuPreviewProps {
   src?: string
+  onSrcChange?: React.MutableRefObject<((src: string | undefined) => void) | undefined>
 }
 
-export function MenuPreview({ src }: MenuPreviewProps) {
+export function MenuPreview({ src: initialSrc, onSrcChange }: MenuPreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null)
+  const [currentSrc, setCurrentSrc] = useState(initialSrc)
 
+  // Register the setter so parent can update without re-rendering
+  useEffect(() => {
+    if (onSrcChange) {
+      onSrcChange.current = setCurrentSrc
+    }
+  }, [onSrcChange])
+
+  // Animate on image change
   useLayoutEffect(() => {
-    if (!containerRef.current) return
+    if (!containerRef.current || !currentSrc) return
 
     gsap.fromTo(
       containerRef.current,
-      { opacity: 0, scale: 0.98 },
+      { opacity: 0, scale: 0.97 },
       { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }
     )
-  }, [src])
+  }, [currentSrc])
 
   return (
     <div
       ref={containerRef}
-      className="relative hidden h-full w-full items-center justify-center overflow-hidden bg-[hsl(var(--primary))] md:flex"
+      className="relative h-full w-full items-center justify-center overflow-hidden bg-[#0a0a0a] flex"
     >
-      {src ? (
+      {currentSrc ? (
         <Image
-          key={src}
-          src={src}
+          key={currentSrc}
+          src={currentSrc}
           alt=""
           fill
-          className="object-cover"
+          className="object-cover opacity-60"
           priority
         />
       ) : (
-        <div className="text-sm text-[hsl(var(--muted))]">
+        <span className="text-xs font-mono text-white/20 uppercase tracking-widest">
           Hover a section
-        </div>
+        </span>
       )}
     </div>
   )
