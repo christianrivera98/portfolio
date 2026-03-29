@@ -1,14 +1,19 @@
 import { useEffect } from "react"
+import { useLenis } from "lenis/react"
 
 /**
- * Locks/unlocks body scroll based on locked state.
- * Useful for modals and full-screen menus.
- *
- * @param locked - Whether scroll should be locked
+ * Locks/unlocks Lenis scroll based on locked state.
+ * Uses lenis.stop()/start() for proper integration.
  */
 export function useScrollLock(locked: boolean) {
+  const lenis = useLenis()
+
   useEffect(() => {
-    document.body.style.overflow = locked ? "hidden" : ""
-    return () => { document.body.style.overflow = "" }
-  }, [locked])
+    if (!lenis) return
+    if (locked) {
+      lenis.stop()
+    } else {
+      lenis.start()
+    }
+  }, [locked, lenis])
 }

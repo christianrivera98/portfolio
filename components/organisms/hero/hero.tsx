@@ -23,13 +23,13 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative min-h-screen flex flex-col bg-[#0a0a0a] overflow-hidden"
+      className="relative min-h-screen flex flex-col bg-[#0a0a0a] overflow-hidden "
     >
       <div className="absolute inset-0 z-0">
         <Silk speed={0.5} color="#0a0a0a" noiseIntensity={0.3} rotation={0} />
       </div>
 
-      <div className="hero-content relative z-10 flex-1 flex items-center pt-20">
+      <div className="hero-content relative z-10 flex-1 flex items-center justify-center py-24 md:py-20">
         <div className="w-full max-w-7xl mx-auto px-6 md:px-16">
           <span
             className="hero-label block text-[11px] font-mono uppercase tracking-[0.3em] text-white/35 mb-6"
@@ -52,7 +52,7 @@ export function Hero() {
 
           <div className="hero-accent-line h-[2px] w-24 bg-[hsl(356,96%,32%)] mb-10 md:mb-14 scale-x-0 origin-left" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 lg:gap-12">
             <div className="flex flex-col gap-5 max-w-xl">
               <div className="hero-title flex flex-col gap-1 opacity-0">
                 <h2 className="text-lg md:text-xl font-semibold text-white/90">
@@ -73,7 +73,7 @@ export function Hero() {
             </div>
 
             <div
-              className="hero-photo hidden lg:block relative w-[400px] xl:w-[440px] h-[500px] xl:h-[540px] rounded-sm opacity-0"
+              className="hero-photo hidden lg:block relative -top-80 -mb-80 w-[400px] xl:w-[440px] h-[500px] xl:h-[550px] rounded-sm opacity-0"
               style={{
                 clipPath: "circle(0% at 50% 50%)",
                 maskImage: "radial-gradient(ellipse 85% 90% at 50% 40%, black 60%, transparent 100%)",

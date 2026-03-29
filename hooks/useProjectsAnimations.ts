@@ -4,6 +4,7 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { SplitText } from "gsap/SplitText"
 import { useGSAP } from "@gsap/react"
+import { usePrefersReducedMotion } from "./usePrefersReducedMotion"
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText)
 
@@ -11,8 +12,11 @@ export function useProjectsAnimations(
   containerRef: React.RefObject<HTMLElement | null>,
   titleRef: React.RefObject<HTMLHeadingElement | null>
 ) {
+  const prefersReduced = usePrefersReducedMotion()
+
   useGSAP(
     () => {
+      if (prefersReduced) return
       // Section label clip-path reveal
       gsap.fromTo(
         ".projects-label",
@@ -76,6 +80,6 @@ export function useProjectsAnimations(
         })
       })
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [prefersReduced] }
   )
 }

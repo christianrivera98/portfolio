@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
+import { usePrefersReducedMotion } from "./usePrefersReducedMotion"
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
@@ -21,12 +22,14 @@ export function useNavbarAnimations(
   menuOpen: boolean
 ) {
   const [scrolled, setScrolled] = useState(false)
+  const prefersReduced = usePrefersReducedMotion()
 
   // Navbar fade-in after preloader
   useGSAP(() => {
     if (!isComplete || !navRef.current) return
+    if (prefersReduced) { gsap.set(navRef.current, { opacity: 1 }); return }
     gsap.fromTo(navRef.current, { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", delay: 0.3 })
-  }, { dependencies: [isComplete] })
+  }, { dependencies: [isComplete, prefersReduced] })
 
   // Scroll progress bar
   useGSAP(() => {

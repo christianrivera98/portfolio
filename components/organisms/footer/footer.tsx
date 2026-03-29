@@ -1,48 +1,49 @@
-import Link from "next/link"
 import { SITE_CONFIG } from "@/lib/site.config"
 
 export function Footer() {
   return (
-    <footer className="border-t border-[hsl(var(--border))] mt-32">
-      <div className="mx-auto max-w-6xl px-6 py-12 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-        <div className="flex flex-col gap-1">
-          <span className="text-sm font-medium">{SITE_CONFIG.name}</span>
-          <span className="text-sm text-[hsl(var(--muted))]">
-            {SITE_CONFIG.title} · React · Next.js
-          </span>
+    <footer className="relative bg-[#0a0a0a] border-t border-white/[0.06]">
+      <div className="w-full max-w-6xl mx-auto px-6 md:px-16 py-12 md:py-16">
+        {/* Top row: Initials + Social links */}
+        <div className="flex items-start justify-between mb-12">
+          <div className="flex flex-col gap-1">
+            <span className="font-serif-display text-2xl text-white/80">
+              CL
+            </span>
+            <span className="text-xs font-mono text-white/30">
+              &copy; {new Date().getFullYear()}
+            </span>
+          </div>
+
+          <div className="flex flex-col items-end gap-2 text-sm">
+            <a
+              href={SITE_CONFIG.social.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub profile"
+              className="text-white/40 hover:text-[hsl(356,96%,32%)] transition-colors duration-300"
+            >
+              GitHub
+            </a>
+            <a
+              href={SITE_CONFIG.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn profile"
+              className="text-white/40 hover:text-[hsl(356,96%,32%)] transition-colors duration-300"
+            >
+              LinkedIn
+            </a>
+          </div>
         </div>
 
-        <div className="text-sm text-[hsl(var(--muted))]">
-          <Link
-            href={`mailto:${SITE_CONFIG.email}`}
-            className="hover:text-[hsl(var(--primary))] transition-colors"
-          >
-            {SITE_CONFIG.email}
-          </Link>
+        {/* Credit line */}
+        <div className="text-xs font-mono text-white/20 leading-relaxed">
+          <p>
+            Designed &amp; built by {SITE_CONFIG.name}
+          </p>
+          <p>with Next.js, GSAP &amp; Three.js</p>
         </div>
-
-        <div className="flex items-center gap-4 text-sm">
-          <a
-            href={SITE_CONFIG.social.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[hsl(var(--primary))] transition-colors"
-          >
-            GitHub
-          </a>
-          <a
-            href={SITE_CONFIG.social.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[hsl(var(--primary))] transition-colors"
-          >
-            LinkedIn
-          </a>
-        </div>
-      </div>
-
-      <div className="px-6 pb-6 text-center text-xs text-[hsl(var(--muted))]">
-        &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
       </div>
     </footer>
   )

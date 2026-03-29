@@ -10,16 +10,28 @@ export type ExperienceEntry = {
 
 export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
   {
-    id: "toolbooks",
-    company: "ToolBooks",
-    role: "Software Engineer Frontend",
+    id: "precision-logistica",
+    company: "Precisión Logística S.A.S.",
+    role: "Frontend Developer",
     type: "fulltime",
-    location: "USA",
     period: "Jan 2025 — Present",
     highlights: [
+      "Lead frontend development of QPER, a modular B2B SaaS platform for transport companies in Colombia.",
+      "Architected the role-based access control system, component standardization, and form patterns across the platform.",
+      "Built and integrated modules for RNDC operations, real-time GPS distribution, HR management, and regulatory compliance (SG-SST/PESV, SARLAFT/PTEE).",
+    ],
+  },
+  {
+    id: "toolbooks",
+    company: "ToolBooks",
+    role: "Frontend Developer",
+    type: "freelance",
+    location: "USA",
+    period: "2025 — Present",
+    highlights: [
+      "Freelance project managed in parallel with full-time role, handling timelines and deliveries autonomously.",
       "Lead the frontend evolution by proposing UX improvements that simplified ML models, reducing user operational load by 50%.",
       "Make critical architecture decisions for Fintech integrations (Stripe/Plaid), ensuring 99.9% data accuracy.",
-      "Accelerated feature delivery by 25% using Docker and Plesk, projecting 30% improvement in load performance.",
     ],
   },
   {

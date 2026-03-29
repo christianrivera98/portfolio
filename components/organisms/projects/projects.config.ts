@@ -38,11 +38,12 @@ export const PROJECTS: Project[] = [
     githubUrl: undefined,
   },
   {
-    id: "bancolombia-monitor",
-    name: "Bancolombia Monitor",
-    description: "Internal monitoring interface for resolving technical bugs 40% faster.",
-    tech: ["React", "TypeScript", "Jest", "Micro-frontends"],
-    metrics: "40% faster bug resolution",
+    id: "qper",
+    name: "QPER — Plataforma SaaS de Gestión Logística",
+    description:
+      "Plataforma SaaS B2B para empresas de transporte en Colombia. Gestiona operaciones RNDC, distribución GPS en tiempo real, talento humano, cumplimiento normativo y marketplace de personal desde una sola plataforma modular con control de acceso por roles.",
+    tech: ["React", "TypeScript", "shadcn/ui", "TanStack Query", "React Hook Form", "Zod", "NestJS", "Prisma", "PostgreSQL"],
+    metrics: "En desarrollo activo",
     image: "/projects/proyecto-3.png",
   },
   {

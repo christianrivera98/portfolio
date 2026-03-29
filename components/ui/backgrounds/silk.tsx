@@ -60,8 +60,11 @@ const Silk: React.FC<SilkProps> = ({ speed = 5, scale = 1, color = "#7B7481", no
     [speed, scale, noiseIntensity, color, rotation]
   )
 
+  const reducedMotion = typeof window !== "undefined"
+    && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
   return (
-    <Canvas dpr={[1, 2]} frameloop="always">
+    <Canvas dpr={[1, 1.5]} frameloop={reducedMotion ? "demand" : "always"}>
       <SilkPlane ref={meshRef} uniforms={uniforms} />
     </Canvas>
   )

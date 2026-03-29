@@ -3,6 +3,7 @@
 import { useRef } from "react"
 import { usePreloader } from "@/hooks/usePreloader"
 import { useNavbarAnimations } from "@/hooks/useNavbarAnimations"
+import { useSectionIndicator } from "@/hooks/useSectionIndicator"
 
 interface NavbarProps {
   menuOpen: boolean
@@ -15,6 +16,7 @@ export function Navbar({ menuOpen, onToggleMenu }: NavbarProps) {
   const topLineRef = useRef<HTMLSpanElement>(null)
   const bottomLineRef = useRef<HTMLSpanElement>(null)
   const { isComplete } = usePreloader()
+  const { label, totalLabel } = useSectionIndicator()
 
   const scrolled = useNavbarAnimations(navRef, progressRef, topLineRef, bottomLineRef, isComplete, menuOpen)
 
@@ -34,6 +36,17 @@ export function Navbar({ menuOpen, onToggleMenu }: NavbarProps) {
         >
           CL
         </a>
+
+        {/* Section indicator */}
+        <span
+          className={`hidden md:block text-[11px] font-mono tracking-wider transition-opacity duration-300 ${
+            menuOpen ? "opacity-0" : "text-white/30"
+          }`}
+          aria-live="polite"
+        >
+          {label}
+          <span className="text-white/15"> / {totalLabel}</span>
+        </span>
 
         <button
           type="button"

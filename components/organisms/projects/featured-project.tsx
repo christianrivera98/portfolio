@@ -17,6 +17,7 @@ export function FeaturedProject({ project }: { project: Project }) {
             src={project.image}
             alt={project.name}
             fill
+            sizes="(max-width: 1024px) 100vw, 60vw"
             className="object-cover group-hover:scale-[1.03] transition-transform duration-700"
             onError={() => setImgError(true)}
           />

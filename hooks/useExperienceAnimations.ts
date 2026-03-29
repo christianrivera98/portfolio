@@ -4,6 +4,7 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { SplitText } from "gsap/SplitText"
 import { useGSAP } from "@gsap/react"
+import { usePrefersReducedMotion } from "./usePrefersReducedMotion"
 import {
   animateExperienceCards,
   animateTimelineSvg,
@@ -16,8 +17,11 @@ export function useExperienceAnimations(
   containerRef: React.RefObject<HTMLElement | null>,
   titleRef: React.RefObject<HTMLHeadingElement | null>
 ) {
+  const prefersReduced = usePrefersReducedMotion()
+
   useGSAP(
     () => {
+      if (prefersReduced) return
       // Section label: clip-path reveal
       gsap.fromTo(
         ".experience-label",
@@ -60,6 +64,6 @@ export function useExperienceAnimations(
       animateExperienceCards()
       animateTimelineDots()
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [prefersReduced] }
   )
 }
