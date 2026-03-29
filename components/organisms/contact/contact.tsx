@@ -25,7 +25,7 @@ export function Contact() {
         {/* CTA Title */}
         <h2
           ref={titleRef}
-          className="font-serif-display text-5xl md:text-7xl lg:text-8xl text-white tracking-tight leading-[1.05] whitespace-pre-line"
+          className="font-serif-display font-extrabold text-5xl md:text-7xl lg:text-8xl text-white tracking-tight leading-[1.05] whitespace-pre-line"
           style={{ perspective: "500px" }}
         >
           {CONTACT_SECTION.title}

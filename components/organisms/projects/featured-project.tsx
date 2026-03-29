@@ -33,7 +33,7 @@ export function FeaturedProject({ project }: { project: Project }) {
         <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[hsl(356,96%,45%)]">
           Featured Project
         </span>
-        <h3 className="font-serif-display text-3xl md:text-4xl text-white tracking-tight">
+        <h3 className="font-serif-display font-bold text-3xl md:text-4xl text-white tracking-tight">
           {project.name}
         </h3>
         <p className="text-base leading-relaxed text-white/50">

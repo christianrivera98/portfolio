@@ -39,7 +39,7 @@ export function Hero() {
           </span>
 
           <h1
-            className="font-serif-display tracking-tight text-white mb-4 md:mb-6"
+            className="font-serif-display font-extrabold tracking-tight text-white mb-4 md:mb-6"
             style={{ perspective: "600px" }}
           >
             <span className="hero-name-1 block text-[clamp(3rem,10vw,9rem)] leading-[0.9] opacity-0">

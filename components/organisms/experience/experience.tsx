@@ -29,7 +29,7 @@ export function Experience() {
           </span>
           <h2
             ref={titleRef}
-            className="font-serif-display text-4xl md:text-6xl lg:text-7xl text-white tracking-tight"
+            className="font-serif-display font-extrabold text-4xl md:text-6xl lg:text-7xl text-white tracking-tight"
             style={{ perspective: "500px" }}
           >
             {EXPERIENCE_SECTION.title}

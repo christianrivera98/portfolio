@@ -10,7 +10,8 @@
       "Bash(python:*)",
       "Bash(curl:*)",
       "Bash(npx playwright:*)",
-      "Bash(node -e:*)"
+      "Bash(node -e:*)",
+      "WebSearch"
     ]
   }
 }

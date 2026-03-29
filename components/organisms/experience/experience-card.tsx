@@ -52,7 +52,7 @@ export function ExperienceCard({
             <span className="experience-number text-xs font-mono text-white/15 group-hover:text-[hsl(356,96%,32%)]/60 transition-colors duration-300 hidden md:inline">
               {String(index + 1).padStart(2, "0")}
             </span>
-            <h3 className="experience-company font-serif-display text-2xl md:text-3xl text-white tracking-tight">
+            <h3 className="experience-company font-serif-display font-bold text-2xl md:text-3xl text-white tracking-tight">
               {entry.company}
               {entry.location && (
                 <span className="text-white/25 text-base ml-2 font-sans font-normal">

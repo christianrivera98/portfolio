@@ -67,6 +67,7 @@ html {
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
+  font-family: var(--font-manrope), sans-serif;
 }
 
 :focus-visible {
@@ -76,7 +77,11 @@ body {
 
 /* Typography utilities */
 .font-serif-display {
-  font-family: var(--font-instrument-serif), serif;
+  font-family: var(--font-manrope), sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-manrope), sans-serif;
 }
 
 /* Reduced motion preference */
