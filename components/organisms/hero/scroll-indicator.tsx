@@ -1,11 +1,13 @@
 "use client"
 
 import { useRef } from "react"
+import { useTranslations } from "next-intl"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 
 export function ScrollIndicator() {
   const arrowRef = useRef<SVGSVGElement>(null)
+  const t = useTranslations("Common")
 
   useGSAP(() => {
     if (!arrowRef.current) return
@@ -21,7 +23,7 @@ export function ScrollIndicator() {
   return (
     <div className="hero-scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0">
       <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/30">
-        Scroll
+        {t("scroll")}
       </span>
       <svg
         ref={arrowRef}

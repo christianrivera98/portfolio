@@ -1,6 +1,8 @@
+import { useTranslations } from "next-intl"
 import { SITE_CONFIG } from "@/lib/site.config"
 
 export function Footer() {
+  const t = useTranslations("Footer")
   return (
     <footer className="relative bg-[#0a0a0a] border-t border-white/[0.06]">
       <div className="w-full max-w-6xl mx-auto px-6 md:px-16 py-12 md:py-16">
@@ -20,7 +22,7 @@ export function Footer() {
               href={SITE_CONFIG.social.github}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="GitHub profile"
+              aria-label={t("githubAria")}
               className="text-white/40 hover:text-[hsl(356,96%,32%)] transition-colors duration-300"
             >
               GitHub
@@ -29,7 +31,7 @@ export function Footer() {
               href={SITE_CONFIG.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="LinkedIn profile"
+              aria-label={t("linkedinAria")}
               className="text-white/40 hover:text-[hsl(356,96%,32%)] transition-colors duration-300"
             >
               LinkedIn
@@ -39,10 +41,8 @@ export function Footer() {
 
         {/* Credit line */}
         <div className="text-xs font-mono text-white/20 leading-relaxed">
-          <p>
-            Designed &amp; built by {SITE_CONFIG.name}
-          </p>
-          <p>with Next.js, GSAP &amp; Three.js</p>
+          <p>{t("designedBy", { name: SITE_CONFIG.name })}</p>
+          <p>{t("builtWith")}</p>
         </div>
       </div>
     </footer>

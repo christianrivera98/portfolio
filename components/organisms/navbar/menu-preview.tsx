@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useLayoutEffect, useRef, useState, useEffect } from "react"
+import { useTranslations } from "next-intl"
 import gsap from "gsap"
 
 interface MenuPreviewProps {
@@ -12,6 +13,7 @@ interface MenuPreviewProps {
 export function MenuPreview({ src: initialSrc, onSrcChange }: MenuPreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [currentSrc, setCurrentSrc] = useState(initialSrc)
+  const t = useTranslations("Nav")
 
   // Register the setter so parent can update without re-rendering
   useEffect(() => {
@@ -47,7 +49,7 @@ export function MenuPreview({ src: initialSrc, onSrcChange }: MenuPreviewProps) 
         />
       ) : (
         <span className="text-xs font-mono text-white/20 uppercase tracking-widest">
-          Hover a section
+          {t("hoverSection")}
         </span>
       )}
     </div>

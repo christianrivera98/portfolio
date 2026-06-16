@@ -2,11 +2,16 @@
 
 import Image from "next/image"
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 import { ExternalLinkIcon } from "@/components/ui/icons"
 import { type Project } from "./projects.config"
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [imgError, setImgError] = useState(false)
+  const t = useTranslations("Projects")
+  const name = t(`items.${project.id}.name`)
+  const description = t(`items.${project.id}.description`)
+  const hasMetrics = t.has(`items.${project.id}.metrics`)
 
   return (
     <div className="project-card group relative overflow-hidden rounded-sm border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-300">
@@ -15,22 +20,22 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
         {!imgError && project.image ? (
           <Image
             src={project.image}
-            alt={project.name}
+            alt={name}
             fill
             className="object-cover group-hover:scale-[1.05] transition-transform duration-700"
             onError={() => setImgError(true)}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-serif-display text-3xl text-white/10">{project.name[0]}</span>
+            <span className="font-serif-display text-3xl text-white/10">{name[0]}</span>
           </div>
         )}
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
           <div className="flex flex-wrap gap-1.5">
-            {project.tech.map((t) => (
-              <span key={t} className="px-2 py-0.5 text-[10px] font-mono text-white/70 border border-white/20 rounded-full">
-                {t}
+            {project.tech.map((tech) => (
+              <span key={tech} className="px-2 py-0.5 text-[10px] font-mono text-white/70 border border-white/20 rounded-full">
+                {tech}
               </span>
             ))}
           </div>
@@ -44,24 +49,26 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
             {String(index + 1).padStart(2, "0")}
           </span>
           <h3 className="font-serif-display text-xl text-white tracking-tight">
-            {project.name}
+            {name}
           </h3>
         </div>
         <p className="text-sm text-white/40 leading-relaxed line-clamp-2">
-          {project.description}
+          {description}
         </p>
-        {project.metrics && (
-          <span className="text-xs font-mono text-[hsl(356,96%,45%)]">{project.metrics}</span>
+        {hasMetrics && (
+          <span className="text-xs font-mono text-[hsl(356,96%,45%)]">
+            {t(`items.${project.id}.metrics`)}
+          </span>
         )}
         <div className="flex gap-3 mt-1">
           {project.liveUrl && (
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-colors">
-              Live <ExternalLinkIcon className="w-3 h-3" />
+              {t("live")} <ExternalLinkIcon className="w-3 h-3" />
             </a>
           )}
           {project.githubUrl && (
             <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-colors">
-              Code <ExternalLinkIcon className="w-3 h-3" />
+              {t("code")} <ExternalLinkIcon className="w-3 h-3" />
             </a>
           )}
         </div>

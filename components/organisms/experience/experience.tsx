@@ -1,13 +1,15 @@
 "use client"
 
 import { useRef } from "react"
+import { useTranslations } from "next-intl"
 import { useExperienceAnimations } from "@/hooks/useExperienceAnimations"
 import { ExperienceCard } from "./experience-card"
-import { EXPERIENCE_ENTRIES, EXPERIENCE_SECTION } from "./experience.config"
+import { EXPERIENCE_ENTRIES } from "./experience.config"
 
 export function Experience() {
   const containerRef = useRef<HTMLElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
+  const t = useTranslations("Experience")
 
   useExperienceAnimations(containerRef, titleRef)
 
@@ -25,17 +27,17 @@ export function Experience() {
             className="experience-label inline-block text-[11px] font-mono uppercase tracking-[0.3em] text-white/35 mb-4"
             style={{ clipPath: "inset(0 100% 0 0)" }}
           >
-            {EXPERIENCE_SECTION.label}
+            {t("label")}
           </span>
           <h2
             ref={titleRef}
             className="font-serif-display font-extrabold text-4xl md:text-6xl lg:text-7xl text-white tracking-tight"
             style={{ perspective: "500px" }}
           >
-            {EXPERIENCE_SECTION.title}
+            {t("title")}
           </h2>
           <p className="experience-subtitle mt-4 text-base md:text-lg text-white/35 max-w-md">
-            {EXPERIENCE_SECTION.subtitle}
+            {t("subtitle")}
           </p>
           <div className="experience-accent-line h-[2px] w-16 bg-[hsl(356,96%,32%)] mt-6 scale-x-0 origin-left" />
         </div>

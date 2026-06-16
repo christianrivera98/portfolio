@@ -1,14 +1,17 @@
 "use client"
 
 import { useRef } from "react"
+import { useTranslations } from "next-intl"
 import { useAboutAnimations } from "@/hooks/useAboutAnimations"
 import { AboutPhoto } from "./about-photo"
 import { InterestCard } from "./interest-card"
-import { ABOUT_PROFILE, ABOUT_SECTION } from "./about.config"
+import { ABOUT_PROFILE } from "./about.config"
 
 export function About() {
   const containerRef = useRef<HTMLElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
+  const t = useTranslations("About")
+  const bio = t.raw("bio") as string[]
 
   useAboutAnimations(containerRef, titleRef)
 
@@ -27,14 +30,14 @@ export function About() {
             className="about-label inline-block text-[11px] font-mono uppercase tracking-[0.3em] text-white/35 mb-4"
             style={{ clipPath: "inset(0 100% 0 0)" }}
           >
-            {ABOUT_SECTION.label}
+            {t("label")}
           </span>
           <h2
             ref={titleRef}
             className="font-serif-display font-extrabold text-4xl md:text-6xl lg:text-7xl text-white tracking-tight"
             style={{ perspective: "500px" }}
           >
-            {ABOUT_SECTION.title}
+            {t("title")}
           </h2>
           <div className="about-accent-line h-[2px] w-16 bg-[hsl(356,96%,32%)] mt-6 scale-x-0 origin-left" />
         </div>
@@ -45,10 +48,10 @@ export function About() {
 
           <div className="flex flex-col gap-6">
             <blockquote className="about-quote font-serif-display text-2xl md:text-3xl italic text-white/80 leading-snug">
-              &ldquo;{ABOUT_PROFILE.quote}&rdquo;
+              &ldquo;{t("quote")}&rdquo;
             </blockquote>
 
-            {ABOUT_PROFILE.bio.map((paragraph, i) => (
+            {bio.map((paragraph, i) => (
               <p
                 key={i}
                 className="about-bio-p text-base md:text-lg leading-relaxed text-white/60"
@@ -62,7 +65,11 @@ export function About() {
         {/* Interests */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
           {ABOUT_PROFILE.interests.map((interest) => (
-            <InterestCard key={interest.id} interest={interest} />
+            <InterestCard
+              key={interest.id}
+              interest={interest}
+              label={t(`interests.${interest.id}`)}
+            />
           ))}
         </div>
       </div>

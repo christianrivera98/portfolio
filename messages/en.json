@@ -1,0 +1,193 @@
+{
+  "Meta": {
+    "title": "Christian Lamadrid | Frontend Lead",
+    "description": "Frontend Lead with 3+ years building production SaaS with React, Next.js and strict TypeScript. Fintech and logistics platforms, integrating Plaid, Stripe and AWS Cognito."
+  },
+  "Hero": {
+    "title": "Frontend Lead",
+    "subtitle": "Fintech · Logistics · Production Systems",
+    "bio": "Frontend engineer with 3+ years building production SaaS platforms with React, Next.js and strict TypeScript.",
+    "credentials": "Ex-Bancolombia · TypeScript strict mode · React + Next.js",
+    "ctaWork": "View Work"
+  },
+  "Nav": {
+    "home": "Home",
+    "experience": "Experience",
+    "projects": "Projects",
+    "technologies": "Technologies",
+    "about": "About",
+    "contact": "Contact",
+    "homeAria": "Go to home section",
+    "experienceAria": "Go to experience section",
+    "projectsAria": "Go to projects section",
+    "technologiesAria": "Go to technologies section",
+    "aboutAria": "Go to about section",
+    "contactAria": "Go to contact section",
+    "goToTop": "Go to top",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "hoverSection": "Hover a section",
+    "switchLanguage": "Switch language"
+  },
+  "Experience": {
+    "label": "Work",
+    "title": "Experience",
+    "subtitle": "Where I've shipped production code.",
+    "fulltime": "Full-time",
+    "freelance": "Freelance",
+    "items": {
+      "toolbooks": {
+        "role": "Frontend Lead (Contractor)",
+        "period": "Jan 2025 — Present",
+        "highlights": [
+          "Lead the platform frontend: defined a Domain-Driven Feature architecture that scales to 23 product modules with no coupling between features.",
+          "Integrated real financial flows: bank linking with Plaid, payments with Stripe, and enterprise auth with AWS Cognito + NextAuth.",
+          "Built the bank statement import wizard end-to-end: bulk upload, client-side PDF preview and atomic transaction confirmation.",
+          "Hardened HTTP security (HSTS, X-Frame-Options, full header stack) and migrated critical widgets to real server state with TanStack Query."
+        ]
+      },
+      "precision-logistica": {
+        "role": "Frontend Lead",
+        "period": "Feb 2026 — May 2026",
+        "highlights": [
+          "Designed and built the entire frontend from scratch for a transport-company SaaS on a Feature-Sliced Design architecture; delivered in four months.",
+          "Integrated RNDC, Colombia's government freight dispatch system, with a bulk importer (upload → preview → commit) and automatic classification.",
+          "Implemented role-based access control (13 roles, 6 portals) and moved the refresh token to an httpOnly cookie with Edge middleware route protection.",
+          "Set up the testing strategy with Vitest and Playwright: 219 tests, 80% coverage on critical areas, documented as ADRs."
+        ]
+      },
+      "geeks5g": {
+        "role": "Full-Stack Web Developer",
+        "period": "May 2025 — Jan 2026",
+        "highlights": [
+          "Built the full frontend of Emergency Service (getservice.ai), a real-time dispatch platform for locksmiths now in production.",
+          "Implemented live SMS-confirmation state with seamless re-escalation, Google Maps geocoding and routes, and Twilio/Payarc status webhooks.",
+          "Defined the architecture: TanStack Query for server state, Redux for UI state, and a component system on shadcn/ui + Tailwind."
+        ]
+      },
+      "bancolombia": {
+        "role": "Junior Software Engineer",
+        "period": "Feb 2024 — Aug 2024",
+        "highlights": [
+          "Built an internal monitoring interface that helped the team identify and resolve technical incidents faster in a high-criticality banking environment.",
+          "Contributed to multi-repo migrations and improved deployment reliability through Jest unit testing and rigorous code reviews."
+        ]
+      },
+      "dicosoft": {
+        "role": "Freelance Web Developer",
+        "period": "Jul 2023 — May 2025",
+        "highlights": [
+          "Built responsive e-commerce platforms with React and SASS, integrating the MercadoPago gateway and optimizing the checkout experience.",
+          "Handled end-to-end deployments with Docker and Plesk for stable, high-availability client environments."
+        ]
+      },
+      "radkiddo": {
+        "role": "Freelance Web Developer",
+        "period": "2023 — 2024",
+        "highlights": [
+          "Built a hybrid e-commerce combining React for high-interactivity components with WordPress/WooCommerce for the catalog.",
+          "Integrated Cloudinary for media management and dynamic geolocation in the storefront."
+        ]
+      }
+    }
+  },
+  "Projects": {
+    "label": "Selected Work",
+    "title": "Projects",
+    "subtitle": "What I've built and shipped.",
+    "featured": "Featured Project",
+    "viewLive": "View Live",
+    "live": "Live",
+    "source": "Source",
+    "code": "Code",
+    "items": {
+      "toolbooks": {
+        "name": "ToolBooks",
+        "description": "Bookkeeping & payroll SaaS (US) with Plaid, Stripe and AWS Cognito on a Domain-Driven Feature architecture.",
+        "longDescription": "Lead the frontend of a US bookkeeping and payroll platform: defined a Domain-Driven Feature architecture scaling to 23 modules, integrated Plaid, Stripe and AWS Cognito, and built the bank-statement import wizard end-to-end.",
+        "metrics": "23 product modules"
+      },
+      "geeks5g": {
+        "name": "Emergency Service",
+        "description": "Real-time dispatch platform for locksmiths (getservice.ai), in production. Live SMS state, Google Maps and Twilio/Payarc webhooks.",
+        "metrics": "Live in production"
+      },
+      "qper": {
+        "name": "QPER — Logistics SaaS",
+        "description": "Multi-role logistics SaaS for Colombian transport companies: RNDC integration, 13 roles across 6 portals, on a Feature-Sliced Design architecture.",
+        "metrics": "219 tests · 80% coverage"
+      },
+      "radkiddo": {
+        "name": "Rad Kiddo",
+        "description": "Hybrid e-commerce: React for high-interactivity components, WordPress/WooCommerce catalog, Cloudinary media and geolocation.",
+        "metrics": "React + WooCommerce"
+      },
+      "portfolio": {
+        "name": "This Portfolio",
+        "description": "Immersive portfolio with GSAP cinematics, Three.js shaders and scroll-driven animations."
+      }
+    }
+  },
+  "Technologies": {
+    "label": "Stack",
+    "title": "Technologies",
+    "subtitle": "Tools I ship with.",
+    "layers": {
+      "frontend": "Frontend",
+      "styling": "Styling",
+      "state-data": "State & Data",
+      "integrations": "Integrations",
+      "quality": "Quality & DevOps"
+    }
+  },
+  "About": {
+    "label": "About",
+    "title": "Beyond the Code",
+    "quote": "I see the frontend as part of a larger system.",
+    "bio": [
+      "I trained as a mechatronics engineer with a postgraduate diploma in IoT before moving into the web. That background taught me to think through systems end-to-end before writing the first line of code.",
+      "For 3+ years I've built production SaaS with React, Next.js and strict TypeScript — recently leading the frontend of fintech and logistics platforms, integrating mission-critical services like Plaid, Stripe and AWS Cognito.",
+      "I care about architecture that scales, code quality that holds as the product grows, and the small details that make an interface feel alive."
+    ],
+    "facts": {
+      "location": "Location",
+      "locationValue": "Medellín, Colombia",
+      "languages": "Languages",
+      "languagesValue": "ES (native) / EN B2",
+      "current": "Current",
+      "currentValue": "Frontend Lead",
+      "education": "Education",
+      "educationValue": "Mechatronics Eng. · IoT"
+    },
+    "interests": {
+      "travel": "Travel",
+      "hiphop": "Hip Hop",
+      "kungfu": "Kung Fu",
+      "animals": "Animals",
+      "mechatronics": "Mechatronics"
+    }
+  },
+  "Contact": {
+    "title": "Let's build\nsomething.",
+    "status": "Currently open to new opportunities.",
+    "links": {
+      "email": "Email",
+      "linkedin": "LinkedIn",
+      "github": "GitHub"
+    }
+  },
+  "Footer": {
+    "designedBy": "Designed & built by {name}",
+    "builtWith": "with Next.js, GSAP & Three.js",
+    "githubAria": "GitHub profile",
+    "linkedinAria": "LinkedIn profile"
+  },
+  "Preloader": {
+    "loading": "Loading...",
+    "welcome": "Welcome to my portfolio"
+  },
+  "Common": {
+    "scroll": "Scroll",
+    "skipToContent": "Skip to content"
+  }
+}

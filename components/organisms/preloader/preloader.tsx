@@ -1,55 +1,68 @@
 "use client"
 
 import { useRef, useState, useCallback } from "react"
+import { useTranslations } from "next-intl"
 import { usePreloaderAnimation } from "@/hooks/usePreloaderAnimation"
+import VaporizeTextCycle, { Tag } from "@/components/vapour-text-effect"
 
 interface PreloaderProps {
   onComplete: () => void
 }
 
 export function Preloader({ onComplete }: PreloaderProps) {
+  const t = useTranslations("Preloader")
   const containerRef = useRef<HTMLDivElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const textRef = useRef<HTMLDivElement>(null)
   const [unmounted, setUnmounted] = useState(false)
   const handleUnmount = useCallback(() => setUnmounted(true), [])
 
-  usePreloaderAnimation(containerRef, onComplete, handleUnmount)
+  const { showText } = usePreloaderAnimation(
+    containerRef, canvasRef, textRef, onComplete, handleUnmount
+  )
 
   if (unmounted) return null
 
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[100] pointer-events-none"
+      className="fixed inset-0 z-[100] bg-black"
       aria-hidden="true"
     >
-      <div className="preloader-top absolute inset-x-0 top-0 h-1/2 bg-[#0a0a0a]" />
-      <div className="preloader-bottom absolute inset-x-0 bottom-0 h-1/2 bg-[#0a0a0a]" />
+      <canvas
+        ref={canvasRef}
+        className="preloader-canvas absolute inset-0 w-full h-full"
+      />
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-        <span
-          className="preloader-initials font-serif-display text-[18vw] md:text-[14vw] lg:text-[10vw] leading-none text-white/[0.08] select-none"
-          style={{ clipPath: "inset(100% 0 0 0)" }}
+      {showText && (
+        <div
+          ref={textRef}
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          style={{ opacity: 0 }}
         >
-          CL
-        </span>
-
-        <div className="preloader-line-container">
-          <svg width="120" height="2" viewBox="0 0 120 2" className="overflow-visible">
-            <line
-              className="preloader-line"
-              x1="0"
-              y1="1"
-              x2="120"
-              y2="1"
-              stroke="hsl(356, 96%, 32%)"
-              strokeWidth="2"
-              strokeDasharray="200"
-              strokeDashoffset="200"
-              strokeLinecap="round"
+          <div className="w-[90vw] h-64">
+            <VaporizeTextCycle
+              texts={[t("loading"), t("welcome")]}
+              font={{
+                fontFamily: "Manrope, sans-serif",
+                fontSize: "44px",
+                fontWeight: 300,
+              }}
+              color="rgb(255, 255, 255)"
+              spread={5}
+              density={5}
+              animation={{
+                fadeInDuration: 1,
+                waitDuration: 3,
+                vaporizeDuration: 1.5,
+              }}
+              direction="left-to-right"
+              alignment="center"
+              tag={Tag.P}
             />
-          </svg>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

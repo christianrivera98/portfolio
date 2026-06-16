@@ -1,6 +1,6 @@
 export const SITE_CONFIG = {
   name: "Christian Lamadrid",
-  title: "Frontend Engineer",
+  url: "https://christianlamadrid.dev",
   email: "riveralamadridchristian@gmail.com",
   social: {
     github: "https://github.com/christianrivera98",

@@ -1,9 +1,11 @@
 "use client"
 
 import { useRef } from "react"
+import { useTranslations } from "next-intl"
 import { usePreloader } from "@/hooks/usePreloader"
 import { useNavbarAnimations } from "@/hooks/useNavbarAnimations"
 import { useSectionIndicator } from "@/hooks/useSectionIndicator"
+import { LanguageSwitcher } from "./language-switcher"
 
 interface NavbarProps {
   menuOpen: boolean
@@ -17,6 +19,7 @@ export function Navbar({ menuOpen, onToggleMenu }: NavbarProps) {
   const bottomLineRef = useRef<HTMLSpanElement>(null)
   const { isComplete } = usePreloader()
   const { label, totalLabel } = useSectionIndicator()
+  const t = useTranslations("Nav")
 
   const scrolled = useNavbarAnimations(navRef, progressRef, topLineRef, bottomLineRef, isComplete, menuOpen)
 
@@ -32,7 +35,7 @@ export function Navbar({ menuOpen, onToggleMenu }: NavbarProps) {
         <a
           href="#home"
           className="font-serif-display text-xl text-white/80 hover:text-white transition-colors duration-200"
-          aria-label="Go to top"
+          aria-label={t("goToTop")}
         >
           CL
         </a>
@@ -48,11 +51,13 @@ export function Navbar({ menuOpen, onToggleMenu }: NavbarProps) {
           <span className="text-white/15"> / {totalLabel}</span>
         </span>
 
-        <button
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher menuOpen={menuOpen} />
+          <button
           type="button"
           onClick={onToggleMenu}
           aria-expanded={menuOpen}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
           className="relative flex flex-col items-center justify-center w-10 h-10 gap-[7px] group"
         >
           <span
@@ -67,7 +72,8 @@ export function Navbar({ menuOpen, onToggleMenu }: NavbarProps) {
               menuOpen ? "bg-white" : "bg-white/70 group-hover:bg-white"
             }`}
           />
-        </button>
+          </button>
+        </div>
       </div>
 
       <div

@@ -3,16 +3,15 @@ export type TechItem = {
   logo?: string
 }
 
+// Layer `id` maps to a translated label in messages (Technologies.layers.*)
 export type TechLayer = {
   id: string
-  label: string
   items: TechItem[]
 }
 
 export const TECH_LAYERS: TechLayer[] = [
   {
     id: "frontend",
-    label: "Frontend",
     items: [
       { name: "React", logo: "/logos/react.svg" },
       { name: "Next.js", logo: "/logos/nextjs.svg" },
@@ -22,55 +21,44 @@ export const TECH_LAYERS: TechLayer[] = [
   },
   {
     id: "styling",
-    label: "Styling",
     items: [
       { name: "Tailwind CSS", logo: "/logos/tailwindcss.svg" },
-      { name: "Shadcn/ui", logo: "/logos/shadcn-ui.svg" },
-      { name: "CSS", logo: "/logos/css.svg" },
+      { name: "Radix / shadcn", logo: "/logos/shadcn-ui.svg" },
       { name: "SASS" },
+      { name: "Framer Motion" },
+      { name: "GSAP" },
     ],
   },
   {
     id: "state-data",
-    label: "State & Data",
     items: [
       { name: "TanStack Query", logo: "/logos/tanstack.svg" },
-      { name: "Zustand" },
+      { name: "TanStack Table" },
+      { name: "Redux Toolkit" },
+      { name: "React Hook Form" },
       { name: "Zod", logo: "/logos/zod.svg" },
     ],
   },
   {
-    id: "backend",
-    label: "Backend",
+    id: "integrations",
     items: [
-      { name: "Node.js", logo: "/logos/nodejs.svg" },
-      { name: "Express" },
-      { name: "REST APIs" },
+      { name: "Plaid" },
+      { name: "Stripe" },
+      { name: "AWS Cognito" },
+      { name: "NextAuth" },
+      { name: "Socket.io" },
+      { name: "RNDC" },
     ],
   },
   {
-    id: "devops",
-    label: "DevOps",
+    id: "quality",
     items: [
-      { name: "Vercel", logo: "/logos/vercel.svg" },
-      { name: "Docker" },
-      { name: "GitHub", logo: "/logos/github_light.svg" },
-      { name: "GitLab", logo: "/logos/gitlab.svg" },
-    ],
-  },
-  {
-    id: "testing",
-    label: "Testing",
-    items: [
-      { name: "Jest" },
+      { name: "Vitest" },
       { name: "Playwright" },
-      { name: "React Testing Library" },
+      { name: "Testing Library" },
+      { name: "Docker" },
+      { name: "Git", logo: "/logos/github_light.svg" },
+      { name: "AWS S3" },
     ],
   },
 ]
-
-export const TECHNOLOGIES_SECTION = {
-  label: "Stack",
-  title: "Technologies",
-  subtitle: "Tools I ship with.",
-} as const

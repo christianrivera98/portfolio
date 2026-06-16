@@ -1,88 +1,16 @@
 export type ExperienceEntry = {
   id: string
   company: string
-  role: string
   type: "fulltime" | "freelance"
   location?: string
-  period: string
-  highlights: string[]
 }
 
+// Language-neutral data only; role / period / highlights live in messages (Experience.items.*)
 export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
-  {
-    id: "precision-logistica",
-    company: "Precisión Logística S.A.S.",
-    role: "Frontend Developer",
-    type: "fulltime",
-    period: "Jan 2025 — Present",
-    highlights: [
-      "Lead frontend development of QPER, a modular B2B SaaS platform for transport companies in Colombia.",
-      "Architected the role-based access control system, component standardization, and form patterns across the platform.",
-      "Built and integrated modules for RNDC operations, real-time GPS distribution, HR management, and regulatory compliance (SG-SST/PESV, SARLAFT/PTEE).",
-    ],
-  },
-  {
-    id: "toolbooks",
-    company: "ToolBooks",
-    role: "Frontend Developer",
-    type: "freelance",
-    location: "USA",
-    period: "2025 — Present",
-    highlights: [
-      "Freelance project managed in parallel with full-time role, handling timelines and deliveries autonomously.",
-      "Lead the frontend evolution by proposing UX improvements that simplified ML models, reducing user operational load by 50%.",
-      "Make critical architecture decisions for Fintech integrations (Stripe/Plaid), ensuring 99.9% data accuracy.",
-    ],
-  },
-  {
-    id: "geeks5g",
-    company: "Geeks5G Agency",
-    role: "Web Developer — Full Stack",
-    type: "fulltime",
-    period: "May 2025 — Jan 2026",
-    highlights: [
-      "Maintained and scaled SaaS codebases, identifying bottlenecks and proposing structural improvements that increased capacity by 40%.",
-      "Developed reusable component libraries with Shadcn UI and SASS, eliminating 99% of data errors.",
-      "Implemented WebSockets for real-time features and optimized SSR/data-fetching patterns in Next.js.",
-    ],
-  },
-  {
-    id: "bancolombia",
-    company: "Bancolombia",
-    role: "Software Engineer Junior",
-    type: "fulltime",
-    period: "Feb 2024 — Aug 2024",
-    highlights: [
-      "Developed an internal monitoring interface that allowed the team to resolve technical bugs 40% faster.",
-      "Contributed to complex multi-repo migrations and improved deployment reliability by 25% through Jest unit testing.",
-    ],
-  },
-  {
-    id: "dicosoft",
-    company: "DicoSoft Digital",
-    role: "Web Developer Freelance",
-    type: "freelance",
-    period: "Dec 2024 — May 2025",
-    highlights: [
-      "Built responsive e-commerce platforms using React and SASS, improving client conversion rates by 25%.",
-      "Managed VTEX-like workflows and integrations for retail clients, optimizing checkout and payment security.",
-    ],
-  },
-  {
-    id: "radkiddo",
-    company: "Rad Kiddo",
-    role: "Web Developer — E-commerce",
-    type: "freelance",
-    period: "Nov 2023 — Feb 2024",
-    highlights: [
-      "Designed and developed an e-commerce platform using React + WordPress/WooCommerce, increasing conversion by 25%.",
-      "Implemented secure payment gateways (MercadoPago) and dynamic geolocation systems, improving performance by 30%.",
-    ],
-  },
-] as const
-
-export const EXPERIENCE_SECTION = {
-  label: "Work",
-  title: "Experience",
-  subtitle: "Where I've shipped production code.",
-} as const
+  { id: "toolbooks", company: "ToolBooks", type: "freelance", location: "US" },
+  { id: "precision-logistica", company: "Precisión Logística", type: "fulltime" },
+  { id: "geeks5g", company: "Geeks5G Agency", type: "fulltime" },
+  { id: "bancolombia", company: "Bancolombia", type: "fulltime" },
+  { id: "dicosoft", company: "DicoSoft", type: "freelance" },
+  { id: "radkiddo", company: "Rad Kiddo", type: "freelance" },
+]

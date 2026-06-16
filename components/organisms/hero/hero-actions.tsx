@@ -1,12 +1,16 @@
 import Link from "next/link"
+import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { ArrowRightIcon, ExternalLinkIcon } from "@/components/ui/icons"
 import { HERO_CTAS, TECH_STACK_TAGS } from "./hero.config"
 
 export function HeroCTAs() {
+  const t = useTranslations("Hero")
   return (
     <div className="flex flex-wrap gap-3 mt-3">
-      {HERO_CTAS.map((cta) => (
+      {HERO_CTAS.map((cta) => {
+        const label = cta.label ?? t("ctaWork")
+        return (
         <div key={cta.id} className="hero-cta opacity-0">
           <Button
             asChild
@@ -25,18 +29,19 @@ export function HeroCTAs() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2"
               >
-                {cta.label}
+                {label}
                 <ExternalLinkIcon className="w-4 h-4" />
               </a>
             ) : (
               <Link href={cta.href} className="inline-flex items-center gap-2">
-                {cta.label}
+                {label}
                 <ArrowRightIcon className="w-4 h-4" />
               </Link>
             )}
           </Button>
         </div>
-      ))}
+        )
+      })}
     </div>
   )
 }

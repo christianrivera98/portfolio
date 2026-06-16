@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useCallback } from "react"
+import { useTranslations } from "next-intl"
 import gsap from "gsap"
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 import { useMenuAnimations } from "@/hooks/useMenuAnimations"
@@ -16,6 +17,7 @@ interface StaggeredMenuProps {
 }
 
 export function StaggeredMenu({ open, onClose }: StaggeredMenuProps) {
+  const t = useTranslations("Nav")
   const listRef = useRef<HTMLUListElement>(null)
   const overlayRef = useRef<HTMLDivElement>(null)
   const activePreviewRef = useRef<string | undefined>(NAV_ITEMS[0]?.previewImage)
@@ -46,10 +48,10 @@ export function StaggeredMenu({ open, onClose }: StaggeredMenuProps) {
           <div className="flex w-full md:w-1/2 flex-col justify-center px-8 md:px-12">
             <ul ref={listRef} className="flex flex-col gap-5">
               {NAV_ITEMS.map((item, index) => (
-                <li key={item.label}>
+                <li key={item.id}>
                   <a
                     href={item.link}
-                    aria-label={item.ariaLabel}
+                    aria-label={t(`${item.id}Aria`)}
                     onClick={(e) => handleNavClick(e, item.link)}
                     onMouseEnter={() => { activePreviewRef.current = item.previewImage; previewStateRef.current?.(item.previewImage) }}
                     onFocus={() => { activePreviewRef.current = item.previewImage; previewStateRef.current?.(item.previewImage) }}
@@ -59,7 +61,7 @@ export function StaggeredMenu({ open, onClose }: StaggeredMenuProps) {
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <span className="text-3xl md:text-4xl font-semibold uppercase tracking-tight text-white/90 group-hover:text-white transition-colors duration-200 group-hover:translate-x-2 inline-block transform-gpu">
-                      {item.label}
+                      {t(item.id)}
                     </span>
                   </a>
                 </li>

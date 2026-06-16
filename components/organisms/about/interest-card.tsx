@@ -5,9 +5,10 @@ import type { Interest } from "./about.config"
 
 type Props = {
   interest: Interest
+  label: string
 }
 
-export function InterestCard({ interest }: Props) {
+export function InterestCard({ interest, label }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const handleMouseEnter = () => {
@@ -24,7 +25,7 @@ export function InterestCard({ interest }: Props) {
   return (
     <div
       role="img"
-      aria-label={`Interest: ${interest.label}`}
+      aria-label={label}
       className="interest-card group relative aspect-[4/3] rounded-sm overflow-hidden cursor-default border border-white/[0.06] bg-white/[0.02]"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -40,7 +41,7 @@ export function InterestCard({ interest }: Props) {
       />
       <div className="absolute inset-0 flex items-center justify-center">
         <span className="text-sm font-mono uppercase tracking-wider text-white/50 group-hover:text-white/80 transition-colors duration-300">
-          {interest.label}
+          {label}
         </span>
       </div>
     </div>

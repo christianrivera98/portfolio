@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef } from "react"
+import { useTranslations } from "next-intl"
 import { useHeroIntroAnimation } from "@/hooks/useHeroIntroAnimation"
 import { usePreloader } from "@/hooks/usePreloader"
 import Silk from "@/components/ui/backgrounds/silk"
@@ -12,6 +13,7 @@ import { HERO_PROFILE } from "./hero.config"
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const { isComplete } = usePreloader()
+  const t = useTranslations("Hero")
 
   useHeroIntroAnimation(isComplete, sectionRef)
 
@@ -35,7 +37,7 @@ export function Hero() {
             className="hero-label block text-[11px] font-mono uppercase tracking-[0.3em] text-white/35 mb-6"
             style={{ clipPath: "inset(0 100% 0 0)" }}
           >
-            {HERO_PROFILE.title} &mdash; {HERO_PROFILE.subtitle}
+            {t("title")} &mdash; {t("subtitle")}
           </span>
 
           <h1
@@ -50,22 +52,22 @@ export function Hero() {
             </span>
           </h1>
 
-          <div className="hero-accent-line h-[2px] w-24 bg-[hsl(356,96%,32%)] mb-10 md:mb-14 scale-x-0 origin-left" />
+          <div className="hero-accent-line h-0.5 w-24 bg-[hsl(356,96%,32%)] mb-10 md:mb-14 scale-x-0 origin-left" />
 
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 lg:gap-12">
             <div className="flex flex-col gap-5 max-w-xl">
               <div className="hero-title flex flex-col gap-1 opacity-0">
                 <h2 className="text-lg md:text-xl font-semibold text-white/90">
-                  {HERO_PROFILE.title}
+                  {t("title")}
                 </h2>
-                <p className="text-base text-white/60">{HERO_PROFILE.subtitle}</p>
+                <p className="text-base text-white/60">{t("subtitle")}</p>
               </div>
 
               <p className="hero-bio text-base md:text-lg leading-relaxed text-white/60 opacity-0">
-                {HERO_PROFILE.bio}
+                {t("bio")}
               </p>
               <p className="hero-credentials text-sm text-white/35 font-mono opacity-0">
-                {HERO_PROFILE.credentials}
+                {t("credentials")}
               </p>
 
               <HeroCTAs />
@@ -82,7 +84,7 @@ export function Hero() {
             >
               <ProfileImage
                 src={HERO_PROFILE.photo}
-                alt={`${HERO_PROFILE.name} - ${HERO_PROFILE.title}`}
+                alt={`${HERO_PROFILE.name} - ${t("title")}`}
                 name={HERO_PROFILE.name}
               />
             </div>

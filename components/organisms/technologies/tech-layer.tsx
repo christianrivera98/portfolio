@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { useTranslations } from "next-intl"
 import type { TechLayer } from "./technologies.config"
 
 type Props = {
@@ -8,6 +9,7 @@ type Props = {
 }
 
 export function TechLayerRow({ layer, index, isFirst }: Props) {
+  const t = useTranslations("Technologies")
   return (
     <div
       className={`tech-layer relative ${
@@ -25,7 +27,7 @@ export function TechLayerRow({ layer, index, isFirst }: Props) {
               isFirst ? "text-[hsl(356,96%,32%)]" : "text-white/50"
             }`}
           >
-            {layer.label}
+            {t(`layers.${layer.id}`)}
           </span>
         </div>
 
