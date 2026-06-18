@@ -8,7 +8,8 @@
     "subtitle": "Fintech · Logística · Sistemas en Producción",
     "bio": "Ingeniero frontend con más de 3 años construyendo plataformas SaaS en producción con React, Next.js y TypeScript estricto.",
     "credentials": "Ex-Bancolombia · TypeScript estricto · React + Next.js",
-    "ctaWork": "Ver proyectos"
+    "ctaWork": "Ver proyectos",
+    "welcome": "Bienvenido a mi portafolio"
   },
   "Nav": {
     "home": "Inicio",
@@ -183,8 +184,18 @@
     "linkedinAria": "Perfil de LinkedIn"
   },
   "Preloader": {
-    "loading": "Cargando...",
-    "welcome": "Bienvenido a mi portafolio"
+    "title": "Cargando portafolio...",
+    "username": "christian@portfolio",
+    "commands": [
+      "git clone christianlamadrid/portfolio",
+      "pnpm install && pnpm build",
+      "./launch"
+    ],
+    "outputs": {
+      "0": ["✔ Clonados 1337 objetos, hecho."],
+      "1": ["✔ 428 paquetes · compilado en 3.4s"],
+      "2": ["✔ Bienvenido a bordo — disfruta el viaje"]
+    }
   },
   "Common": {
     "scroll": "Scroll",
