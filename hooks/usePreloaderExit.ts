@@ -4,7 +4,7 @@ import { useCallback, useEffect } from "react"
 import gsap from "gsap"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
 
-const HOLD_AFTER_DONE = 0.5
+const HOLD_AFTER_DONE = 0.6
 const FADE_DURATION = 0.6
 
 interface PreloaderExit {

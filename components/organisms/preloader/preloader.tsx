@@ -37,9 +37,9 @@ export function Preloader({ onComplete }: PreloaderProps) {
         commands={commands}
         outputs={outputs}
         username={t("username")}
-        typingSpeed={22}
-        delayBetweenCommands={300}
-        initialDelay={250}
+        typingSpeed={9}
+        delayBetweenCommands={80}
+        initialDelay={80}
         enableSound={false}
         onComplete={onTerminalComplete}
       />

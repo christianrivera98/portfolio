@@ -287,6 +287,9 @@ export interface TerminalProps {
   onComplete?: () => void;
 }
 
+// Reveal several chars per render to cut re-render overhead (keeps it fast in dev).
+const CHARS_PER_TICK = 4
+
 export function Terminal({
   commands = ["npx shadcn@latest init"],
   outputs = {},
@@ -335,10 +338,10 @@ export function Terminal({
       const t = setTimeout(
         () => {
           up(char);
-          setCurrentText(currentCommand.slice(0, charIdx + 1));
-          setCharIdx((c) => c + 1);
+          setCurrentText(currentCommand.slice(0, charIdx + CHARS_PER_TICK));
+          setCharIdx((c) => c + CHARS_PER_TICK);
         },
-        typingSpeed + Math.random() * 30,
+        typingSpeed + Math.random() * 12,
       );
       return () => clearTimeout(t);
     } else {
@@ -359,7 +362,7 @@ export function Terminal({
         } else {
           setPhase("pausing");
         }
-      }, 80);
+      }, 40);
       return () => clearTimeout(t);
     }
   }, [
@@ -383,7 +386,7 @@ export function Terminal({
           { type: "output", content: currentOutputs[outputIdx] },
         ]);
         setOutputIdx((i) => i + 1);
-      }, 150);
+      }, 60);
       return () => clearTimeout(t);
     } else if (outputIdx >= currentOutputs.length) {
       const t = setTimeout(() => {
@@ -392,7 +395,7 @@ export function Terminal({
         } else {
           setPhase("pausing");
         }
-      }, 300);
+      }, 120);
       return () => clearTimeout(t);
     }
   }, [phase, outputIdx, currentOutputs, isLastCommand]);

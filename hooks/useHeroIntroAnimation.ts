@@ -74,8 +74,8 @@ export function useHeroIntroAnimation(
       // 8. CTAs — stagger
       tl.fromTo(".hero-cta", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 }, 1.15)
 
-      // 9. Photo — circle mask expand
-      tl.fromTo(".hero-photo", { clipPath: "circle(0% at 50% 50%)", opacity: 0 }, { clipPath: "circle(75% at 50% 50%)", opacity: 1, duration: 1.4, ease: "power2.out" }, 0.6)
+      // 9. Laptop — fade + scale in
+      tl.fromTo(".hero-photo", { opacity: 0, scale: 0.9, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 1.1, ease: "power2.out" }, 0.6)
 
       // 10. Tech tags — stagger fade
       tl.fromTo(".hero-tag", { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.06 }, 1.3)

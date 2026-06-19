@@ -2,16 +2,29 @@ import Link from "next/link"
 import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { ArrowRightIcon, ExternalLinkIcon } from "@/components/ui/icons"
-import { HERO_CTAS, TECH_STACK_TAGS } from "./hero.config"
+import { HERO_CTAS, SOCIAL_PREVIEWS, TECH_STACK_TAGS, type SocialKey } from "./hero.config"
 
-export function HeroCTAs() {
+interface HeroCTAsProps {
+  onSocialHover?: (social: SocialKey | null) => void
+}
+
+export function HeroCTAs({ onSocialHover }: HeroCTAsProps) {
   const t = useTranslations("Hero")
   return (
     <div className="flex flex-wrap gap-3 mt-3">
       {HERO_CTAS.map((cta) => {
         const label = cta.label ?? t("ctaWork")
+        const social = cta.id in SOCIAL_PREVIEWS ? (cta.id as SocialKey) : null
+        const hoverProps = social
+          ? {
+              onMouseEnter: () => onSocialHover?.(social),
+              onMouseLeave: () => onSocialHover?.(null),
+              onFocus: () => onSocialHover?.(social),
+              onBlur: () => onSocialHover?.(null),
+            }
+          : {}
         return (
-        <div key={cta.id} className="hero-cta opacity-0">
+        <div key={cta.id} className="hero-cta opacity-0" {...hoverProps}>
           <Button
             asChild
             variant={cta.variant === "primary" ? "default" : "outline"}
