@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl"
 import { useHeroIntroAnimation } from "@/hooks/useHeroIntroAnimation"
 import { usePreloader } from "@/hooks/usePreloader"
 import { ScrollIndicator } from "./scroll-indicator"
+import { HeroScrollInvite } from "./hero-scroll-invite"
 import { HeroCTAs, TechStackTags } from "./hero-actions"
 import { HERO_PROFILE, type SocialKey } from "./hero.config"
 
@@ -90,6 +91,7 @@ export function Hero() {
       </div>
 
       <ScrollIndicator />
+      <HeroScrollInvite />
     </section>
   )
 }

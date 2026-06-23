@@ -41,6 +41,14 @@ html.lenis body {
   --border: 30 6% 43%;
   --ring: 356 96% 22%;
   --radius: 0.75rem;
+
+  /* Tablet shader backdrop (REQ-02) — order: crimson, black, crimson */
+  --shader-color-1: #a0030e;
+  --shader-color-2: #000000;
+  --shader-color-3: #a0030e;
+
+  /* Lighter crimson accent for text on dark surfaces */
+  --accent: 356 96% 55%;
 }
 
 

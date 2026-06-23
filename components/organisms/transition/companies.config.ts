@@ -7,6 +7,9 @@ export interface CompanyInfo {
   title: string
   logo: string
   stack: string[]
+  // true when the logo PNG is transparent with dark content → needs a light
+  // backdrop to be legible. Logos that ship their own background omit this.
+  transparentLogo?: boolean
 }
 
 const TB = "/projects/toolbooks/logos_stack"
@@ -35,6 +38,7 @@ export const COMPANIES: CompanyInfo[] = [
     id: "precision-logistica",
     title: "Precision Logistica",
     logo: "/projects/qper/logo-full.png",
+    transparentLogo: true,
     stack: [
       `${QP}/nextjs/nextjs_icon_dark.svg`, `${QP}/React_light_dark/React_dark.svg`,
       `${QP}/shadcn/ui_dark.svg`, `${QP}/tailwind/tailwindcss.svg`,
@@ -58,6 +62,7 @@ export const COMPANIES: CompanyInfo[] = [
     id: "bancolombia",
     title: "Bancolombia",
     logo: "/projects/bancolombia/logo-company.png",
+    transparentLogo: true,
     stack: [
       `${BC}/angular/angular.svg`, `${BC}/azure/azure.svg`, `${BC}/java/java.svg`,
       `${BC}/postgrestSQL/postgresql.svg`, `${BC}/spring/spring.svg`,
@@ -67,6 +72,7 @@ export const COMPANIES: CompanyInfo[] = [
     id: "dicosoft",
     title: "DicoSoft Digital",
     logo: "/projects/dicosoftDigital/logo-company.png",
+    transparentLogo: true,
     stack: [
       `${DS}/css/css_old.svg`, `${DS}/googleAnalitics/google-analytics.svg`,
       `${DS}/html/html5.svg`, `${DS}/js/javascript.svg`, `${DS}/wordpress/wordpress.svg`,

@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils"
 
 interface ScrollTabletProps {
   children: ReactNode
+  background?: ReactNode
   className?: string
 }
 
@@ -13,7 +14,7 @@ interface ScrollTabletProps {
  * A device/tablet frame that tilts flat as it scrolls into view — a subtle
  * scroll-driven transition surface. Respects prefers-reduced-motion.
  */
-export function ScrollTablet({ children, className }: ScrollTabletProps) {
+export function ScrollTablet({ children, background, className }: ScrollTabletProps) {
   const ref = useRef<HTMLDivElement>(null)
   const reduceMotion = useReducedMotion()
   const { scrollYProgress } = useScroll({
@@ -30,8 +31,9 @@ export function ScrollTablet({ children, className }: ScrollTabletProps) {
         style={reduceMotion ? undefined : { rotateX, scale, opacity }}
         className="origin-bottom rounded-[22px] border border-white/10 bg-white/[0.04] p-2 shadow-2xl backdrop-blur-sm"
       >
-        <div className="overflow-hidden rounded-[16px] border border-white/[0.06] bg-[#0a0a0a]">
-          {children}
+        <div className="relative overflow-hidden rounded-[16px] border border-white/[0.06] bg-[#0a0a0a]">
+          {background && <div className="absolute inset-0">{background}</div>}
+          <div className="relative z-10">{children}</div>
         </div>
       </motion.div>
     </div>

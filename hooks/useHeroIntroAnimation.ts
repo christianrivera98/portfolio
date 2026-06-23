@@ -30,7 +30,7 @@ export function useHeroIntroAnimation(
     // Reduced motion: show everything immediately
     if (prefersReduced) {
       const all = scope.current.querySelectorAll(
-        ".hero-label, .hero-name-1, .hero-name-2, .hero-title, .hero-bio, .hero-credentials, .hero-cta, .hero-photo, .hero-tag, .hero-scroll-indicator, .hero-accent-line"
+        ".hero-label, .hero-name-1, .hero-name-2, .hero-title, .hero-bio, .hero-credentials, .hero-cta, .hero-photo, .hero-tag, .hero-scroll-indicator, .hero-scroll-invite, .hero-accent-line"
       )
       gsap.set(all, { opacity: 1, y: 0, clipPath: "none" })
       return
@@ -80,8 +80,8 @@ export function useHeroIntroAnimation(
       // 10. Tech tags — stagger fade
       tl.fromTo(".hero-tag", { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.06 }, 1.3)
 
-      // 11. Scroll indicator — fade in
-      tl.fromTo(".hero-scroll-indicator", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 1.6)
+      // 11. Scroll indicator + invite — fade in
+      tl.fromTo(".hero-scroll-indicator, .hero-scroll-invite", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 1.6)
     }, scope)
 
     return () => ctx.revert()

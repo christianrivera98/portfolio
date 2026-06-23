@@ -1,14 +1,15 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, type RefObject } from "react"
 
 /**
- * Tracks which experience period is closest to the viewport center while
- * scrolling, so the sticky tablet can mirror it. Reads `[data-exp-entry]`
- * indices stamped on each entry. rAF-throttled scroll listener.
+ * Returns the experience period currently *beside* the sticky tablet, or null
+ * when none is (idle state). Matches the entry whose vertical bounds contain
+ * the tablet's center line — so the card only mirrors a company while that
+ * company's period is actually next to the tablet. rAF-throttled.
  */
-export function useActiveExperience(count: number) {
-  const [active, setActive] = useState(0)
+export function useActiveExperience(count: number, tabletRef: RefObject<HTMLElement | null>) {
+  const [active, setActive] = useState<number | null>(null)
 
   useEffect(() => {
     const els = Array.from(document.querySelectorAll<HTMLElement>("[data-exp-entry]"))
@@ -17,18 +18,16 @@ export function useActiveExperience(count: number) {
     let raf = 0
     const update = () => {
       raf = 0
-      const mid = window.innerHeight / 2
-      let best = 0
-      let bestDist = Infinity
+      const tablet = tabletRef.current
+      if (!tablet) return
+      const rect = tablet.getBoundingClientRect()
+      const mid = (rect.top + rect.bottom) / 2
+      let beside: number | null = null
       els.forEach((el) => {
-        const rect = el.getBoundingClientRect()
-        const dist = Math.abs(rect.top + rect.height / 2 - mid)
-        if (dist < bestDist) {
-          bestDist = dist
-          best = Number(el.dataset.expEntry)
-        }
+        const r = el.getBoundingClientRect()
+        if (r.top <= mid && mid <= r.bottom) beside = Number(el.dataset.expEntry)
       })
-      setActive(best)
+      setActive(beside)
     }
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update)
@@ -42,7 +41,7 @@ export function useActiveExperience(count: number) {
       window.removeEventListener("resize", onScroll)
       if (raf) cancelAnimationFrame(raf)
     }
-  }, [count])
+  }, [count, tabletRef])
 
   return active
 }

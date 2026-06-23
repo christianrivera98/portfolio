@@ -13,7 +13,9 @@
   "Transition": {
     "label": "Antes de seguir",
     "title": "Scrollea y conóceme",
-    "subtitle": "Un vistazo de cerca a lo que construyo."
+    "subtitle": "Un vistazo de cerca a lo que construyo.",
+    "idle": "Hola Mundo! Aquí vamos",
+    "stack": "stack"
   },
   "Nav": {
     "home": "Inicio",
@@ -202,9 +204,15 @@
       "./launch"
     ],
     "outputs": {
-      "0": ["✔ Clonados 1337 objetos, hecho."],
-      "1": ["✔ 428 paquetes · compilado en 3.4s"],
-      "2": ["✔ Bienvenido a bordo — disfruta el viaje"]
+      "0": [
+        "✔ Clonados 1337 objetos, hecho."
+      ],
+      "1": [
+        "✔ 428 paquetes · compilado en 3.4s"
+      ],
+      "2": [
+        "✔ Bienvenido a bordo — disfruta el viaje"
+      ]
     }
   },
   "Common": {

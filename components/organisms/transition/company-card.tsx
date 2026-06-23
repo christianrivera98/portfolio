@@ -3,55 +3,97 @@
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { motion, AnimatePresence, useReducedMotion } from "motion/react"
+import { cn } from "@/lib/utils"
 import { COMPANIES } from "./companies.config"
 
 /**
  * Company info shown inside the sticky tablet. Driven by `index` (the
- * experience period currently in view). Crossfades logo + copy + tech stack.
+ * experience period beside the tablet) or null when idle. Crossfades logo +
+ * copy + tech stack; shows an idle hint when no period is beside it.
  */
-export function CompanyCard({ index }: { index: number }) {
+export function CompanyCard({ index }: { index: number | null }) {
   const t = useTranslations("Experience")
+  const tt = useTranslations("Transition")
   const reduce = useReducedMotion()
-  const company = COMPANIES[index] ?? COMPANIES[0]
+  const company = index === null ? null : COMPANIES[index]
   const fade = reduce
     ? {}
     : { initial: { opacity: 0, y: 8 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -8 } }
 
+  if (!company) {
+    return (
+      <motion.div
+        {...(reduce ? {} : { initial: { opacity: 0 }, animate: { opacity: 1 } })}
+        className="flex h-[380px] flex-col items-center justify-center gap-6 p-6 text-center"
+      >
+        <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-white/45">
+          christian@portfolio
+        </span>
+        <p className="flex items-center font-serif-display text-3xl text-white">
+          {tt("idle")}
+          <span className="ml-1.5 h-7 w-[3px] animate-pulse bg-[hsl(var(--primary))]" />
+        </p>
+      </motion.div>
+    )
+  }
+
   return (
-    <div className="flex h-[360px] flex-col p-6">
-      <AnimatePresence mode="wait">
-        <motion.div key={company.id} {...fade} transition={{ duration: 0.35, ease: "easeOut" }}>
-          <div className="flex h-10 items-center">
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={company.id}
+        {...fade}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+        className="flex h-[380px]"
+      >
+        {/* Left: logo as a uniform band (Toolbooks size). Transparent logos get
+            a compact white panel; logos with their own background show as-is. */}
+        <div className="flex w-[42%] shrink-0 items-center justify-center p-4">
+          <div
+            className={cn(
+              "w-full",
+              company.transparentLogo && "rounded-xl bg-white p-3 shadow-lg ring-1 ring-black/5"
+            )}
+          >
             <Image
               src={company.logo}
               alt={company.title}
-              width={150}
-              height={40}
-              className="h-9 w-auto object-contain"
+              width={240}
+              height={120}
+              className={cn(
+                "object-contain",
+                company.transparentLogo
+                  ? "mx-auto max-h-[80px] w-auto max-w-full"
+                  : "max-h-[110px] w-full rounded-xl"
+              )}
             />
           </div>
+        </div>
 
-          <h3 className="mt-5 font-serif-display text-xl text-white">{company.title}</h3>
-          <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.18em] text-white/40">
-            {t(`items.${company.id}.role`)} · {t(`items.${company.id}.period`)}
-          </p>
+        {/* Right: role, description, tech stack */}
+        <div className="flex min-w-0 flex-1 flex-col justify-center gap-3 py-6 pr-6">
+          <h3 className="font-serif-display text-2xl font-bold leading-tight text-white">
+            {company.title}
+          </h3>
 
-          <p className="mt-4 text-sm leading-relaxed text-white/55 line-clamp-5">
+          <p className="text-[13px] leading-relaxed text-white/65 line-clamp-4">
             {t(`items.${company.id}.description`)}
           </p>
 
-          <div className="mt-5 flex flex-wrap gap-2">
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/45">
+            {tt("stack")}
+          </p>
+          <div className="flex flex-wrap gap-2">
             {company.stack.map((logo) => (
               <span
                 key={logo}
-                className="flex h-7 w-7 items-center justify-center rounded-md bg-white/90 p-1"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 ring-1 ring-white/10"
               >
-                <Image src={logo} alt="" width={20} height={20} className="h-full w-full object-contain" />
+                <Image src={logo} alt="" width={18} height={18} className="h-4 w-4 object-contain" />
               </span>
             ))}
           </div>
-        </motion.div>
-      </AnimatePresence>
-    </div>
+        </div>
+      </motion.div>
+    </AnimatePresence>
   )
 }

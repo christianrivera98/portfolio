@@ -13,7 +13,9 @@
   "Transition": {
     "label": "Before you go further",
     "title": "Scroll on, get to know me",
-    "subtitle": "A closer look at what I build."
+    "subtitle": "A closer look at what I build.",
+    "idle": "Hello World! Here we go",
+    "stack": "stack"
   },
   "Nav": {
     "home": "Home",
@@ -202,9 +204,15 @@
       "./launch"
     ],
     "outputs": {
-      "0": ["✔ Cloned 1337 objects, done."],
-      "1": ["✔ 428 packages · built in 3.4s"],
-      "2": ["✔ Welcome aboard — enjoy the ride"]
+      "0": [
+        "✔ Cloned 1337 objects, done."
+      ],
+      "1": [
+        "✔ 428 packages · built in 3.4s"
+      ],
+      "2": [
+        "✔ Welcome aboard — enjoy the ride"
+      ]
     }
   },
   "Common": {
