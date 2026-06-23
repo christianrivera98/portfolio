@@ -21,7 +21,7 @@ export function Experience() {
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[hsl(356,96%,22%)] opacity-[0.03] blur-[120px] pointer-events-none" />
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-16">
+      <div className="relative z-10 w-full max-w-6xl px-6 md:px-12 lg:pl-28 lg:pr-0">
         <div className="mb-16 md:mb-24">
           <span
             className="experience-label inline-block text-[11px] font-mono uppercase tracking-[0.3em] text-white/35 mb-4"
@@ -69,7 +69,7 @@ export function Experience() {
           </svg>
 
           {EXPERIENCE_ENTRIES.map((entry, index) => (
-            <div key={entry.id} className="relative">
+            <div key={entry.id} data-exp-entry={index} className="relative">
               <div className="experience-dot hidden md:flex absolute left-[194px] top-10 w-[13px] h-[13px] items-center justify-center z-10">
                 <span className="block w-[7px] h-[7px] rounded-full bg-[hsl(356,96%,32%)] ring-[3px] ring-[#0a0a0a]" />
               </div>

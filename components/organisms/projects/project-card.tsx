@@ -1,13 +1,11 @@
 "use client"
 
-import Image from "next/image"
-import { useState } from "react"
 import { useTranslations } from "next-intl"
 import { ExternalLinkIcon } from "@/components/ui/icons"
+import { ProjectMarquee } from "./project-marquee"
 import { type Project } from "./projects.config"
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const [imgError, setImgError] = useState(false)
   const t = useTranslations("Projects")
   const name = t(`items.${project.id}.name`)
   const description = t(`items.${project.id}.description`)
@@ -15,21 +13,9 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
 
   return (
     <div className="project-card group relative overflow-hidden rounded-sm border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-300">
-      {/* Image */}
+      {/* Image — 3D marquee of project shots */}
       <div className="relative aspect-[4/3] overflow-hidden bg-white/[0.03]">
-        {!imgError && project.image ? (
-          <Image
-            src={project.image}
-            alt={name}
-            fill
-            className="object-cover group-hover:scale-[1.05] transition-transform duration-700"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-serif-display text-3xl text-white/10">{name[0]}</span>
-          </div>
-        )}
+        <ProjectMarquee images={project.images} fallback={name[0]} fallbackSize="text-3xl" />
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
           <div className="flex flex-wrap gap-1.5">

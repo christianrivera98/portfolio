@@ -46,3 +46,6 @@ next-env.d.ts
 # .md files
 *.md
 !README.md
+
+# local playwright scratch
+.pw7*

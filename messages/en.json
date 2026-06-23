@@ -10,6 +10,11 @@
     "credentials": "Ex-Bancolombia · TypeScript strict mode · React + Next.js",
     "ctaWork": "View Work"
   },
+  "Transition": {
+    "label": "Before you go further",
+    "title": "Scroll on, get to know me",
+    "subtitle": "A closer look at what I build."
+  },
   "Nav": {
     "home": "Home",
     "experience": "Experience",
@@ -37,6 +42,7 @@
     "freelance": "Freelance",
     "items": {
       "toolbooks": {
+        "description": "ToolBooks is a US bookkeeping and payroll SaaS. The platform unifies accounting, bank reconciliation, invoicing and vendor payments into a single product for small businesses.",
         "role": "Frontend Lead (Contractor)",
         "period": "Jan 2025 — Present",
         "highlights": [
@@ -47,6 +53,7 @@
         ]
       },
       "precision-logistica": {
+        "description": "Precisión Logística is a Colombian freight transport and logistics company that integrates transport, logistics talent and technology to guarantee operational continuity for cargo-generating companies.",
         "role": "Frontend Lead",
         "period": "Feb 2026 — May 2026",
         "highlights": [
@@ -57,6 +64,7 @@
         ]
       },
       "geeks5g": {
+        "description": "Geeks5G is an Austin (USA) agency offering digital marketing, web design and custom software development for small and medium businesses.",
         "role": "Full-Stack Web Developer",
         "period": "May 2025 — Jan 2026",
         "highlights": [
@@ -66,6 +74,7 @@
         ]
       },
       "bancolombia": {
+        "description": "Bancolombia is one of Colombia's largest banks and a financial group present across several Latin American countries. It offers personal, business and investment banking services.",
         "role": "Junior Software Engineer",
         "period": "Feb 2024 — Aug 2024",
         "highlights": [
@@ -74,6 +83,7 @@
         ]
       },
       "dicosoft": {
+        "description": "DicoSoft Digital is a digital marketing agency specialized in medical clinics and practices, with complementary web development services. Its clients are mainly in healthcare (dentistry, dermatology, aesthetics).",
         "role": "Freelance Web Developer",
         "period": "Jul 2023 — May 2025",
         "highlights": [
@@ -82,6 +92,7 @@
         ]
       },
       "radkiddo": {
+        "description": "Rad Kiddo is a US-based kids' streetwear brand. It sells tees, hoodies, pants and shorts through a Shopify online store, shipping across the USA.",
         "role": "Freelance Web Developer",
         "period": "2023 — 2024",
         "highlights": [

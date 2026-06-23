@@ -21,7 +21,7 @@ export function Technologies() {
     >
       <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] rounded-full bg-[hsl(356,96%,22%)] opacity-[0.02] blur-[120px] pointer-events-none" />
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-16">
+      <div className="relative z-10 w-full max-w-6xl px-6 md:px-12 lg:pl-28 lg:pr-0">
         {/* Section Header */}
         <div className="mb-16 md:mb-24">
           <span

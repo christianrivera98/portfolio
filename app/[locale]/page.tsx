@@ -5,7 +5,7 @@ import { Projects } from "@/components/organisms/projects/projects"
 import { Technologies } from "@/components/organisms/technologies/technologies"
 import { About } from "@/components/organisms/about/about"
 import { Contact } from "@/components/organisms/contact/contact"
-import { SectionDivider } from "@/components/ui/section-divider"
+import { ScrollInvite } from "@/components/organisms/transition/scroll-invite"
 
 export default async function Home({
   params,
@@ -18,15 +18,13 @@ export default async function Home({
   return (
     <>
       <Hero />
-      <SectionDivider />
-      <Experience />
-      <SectionDivider />
+      <div className="relative">
+        <Experience />
+        <ScrollInvite />
+      </div>
       <Projects />
-      <SectionDivider />
       <Technologies />
-      <SectionDivider />
       <About />
-      <SectionDivider />
       <Contact />
     </>
   )

@@ -10,6 +10,11 @@
     "credentials": "Ex-Bancolombia · TypeScript estricto · React + Next.js",
     "ctaWork": "Ver proyectos"
   },
+  "Transition": {
+    "label": "Antes de seguir",
+    "title": "Scrollea y conóceme",
+    "subtitle": "Un vistazo de cerca a lo que construyo."
+  },
   "Nav": {
     "home": "Inicio",
     "experience": "Experiencia",
@@ -37,6 +42,7 @@
     "freelance": "Freelance",
     "items": {
       "toolbooks": {
+        "description": "ToolBooks es un SaaS estadounidense de bookkeeping y payroll. La plataforma centraliza contabilidad, conciliación bancaria, facturación y pagos a proveedores en un solo producto para pequeñas empresas.",
         "role": "Frontend Lead (Contractor)",
         "period": "Ene 2025 — Presente",
         "highlights": [
@@ -47,6 +53,7 @@
         ]
       },
       "precision-logistica": {
+        "description": "Precisión Logística es una empresa colombiana de transporte de carga y soluciones logísticas que integra transporte, talento logístico y tecnología para garantizar continuidad operativa a empresas generadoras de carga.",
         "role": "Frontend Lead",
         "period": "Feb 2026 — May 2026",
         "highlights": [
@@ -57,6 +64,7 @@
         ]
       },
       "geeks5g": {
+        "description": "Geeks5G es una agencia de Austin (EE. UU.) que ofrece servicios de marketing digital, diseño web y desarrollo de software a medida para pequeñas y medianas empresas.",
         "role": "Desarrollador Web Full-Stack",
         "period": "May 2025 — Ene 2026",
         "highlights": [
@@ -66,6 +74,7 @@
         ]
       },
       "bancolombia": {
+        "description": "Bancolombia es uno de los bancos más grandes de Colombia y un grupo financiero con presencia en varios países de Latinoamérica. Ofrece servicios de banca personal, empresarial y de inversión.",
         "role": "Ingeniero de Software Junior",
         "period": "Feb 2024 — Ago 2024",
         "highlights": [
@@ -74,6 +83,7 @@
         ]
       },
       "dicosoft": {
+        "description": "DicoSoft Digital es una agencia de marketing digital especializada en clínicas y consultorios médicos, con servicios complementarios de desarrollo web. Sus clientes son principalmente del sector salud (odontología, dermatología, estética).",
         "role": "Desarrollador Web Freelance",
         "period": "Jul 2023 — May 2025",
         "highlights": [
@@ -82,6 +92,7 @@
         ]
       },
       "radkiddo": {
+        "description": "Rad Kiddo es una marca de streetwear para niños con base en Estados Unidos. Vende camisetas, hoodies, pantalones y shorts a través de una tienda online sobre Shopify, con envíos en todo EE. UU.",
         "role": "Desarrollador Web Freelance",
         "period": "2023 — 2024",
         "highlights": [

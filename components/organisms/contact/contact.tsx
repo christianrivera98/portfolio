@@ -21,7 +21,7 @@ export function Contact() {
     >
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-200 h-100 rounded-full bg-[hsl(356,96%,22%)] opacity-[0.03] blur-[120px] pointer-events-none" />
 
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 md:px-16">
+      <div className="relative z-10 w-full max-w-4xl px-6 md:px-12 lg:pl-28 lg:pr-0">
         {/* CTA Title */}
         <h2
           ref={titleRef}

@@ -1,13 +1,11 @@
 "use client"
 
-import Image from "next/image"
-import { useState } from "react"
 import { useTranslations } from "next-intl"
 import { ArrowRightIcon, ExternalLinkIcon } from "@/components/ui/icons"
+import { ProjectMarquee } from "./project-marquee"
 import { type Project } from "./projects.config"
 
 export function FeaturedProject({ project }: { project: Project }) {
-  const [imgError, setImgError] = useState(false)
   const t = useTranslations("Projects")
   const name = t(`items.${project.id}.name`)
   const description = project.hasLongDescription
@@ -17,22 +15,9 @@ export function FeaturedProject({ project }: { project: Project }) {
 
   return (
     <div className="featured-project group relative grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-8 lg:gap-12 p-6 md:p-10 rounded-sm border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-300">
-      {/* Image */}
+      {/* Image — 3D marquee of project shots */}
       <div className="featured-image relative aspect-[16/10] overflow-hidden rounded-sm bg-white/[0.03]">
-        {!imgError && project.image ? (
-          <Image
-            src={project.image}
-            alt={name}
-            fill
-            sizes="(max-width: 1024px) 100vw, 60vw"
-            className="object-cover group-hover:scale-[1.03] transition-transform duration-700"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-serif-display text-4xl text-white/10">{name[0]}</span>
-          </div>
-        )}
+        <ProjectMarquee images={project.images} fallback={name[0]} fallbackSize="text-4xl" />
       </div>
 
       {/* Info */}
