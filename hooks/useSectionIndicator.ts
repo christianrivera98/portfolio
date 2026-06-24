@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const SECTIONS = ["home", "experience", "projects", "technologies", "about", "contact"]
+const SECTIONS = ["home", "experience", "technologies", "about", "contact"]
 
 export function useSectionIndicator() {
   const [activeIndex, setActiveIndex] = useState(0)

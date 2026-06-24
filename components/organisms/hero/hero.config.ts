@@ -32,7 +32,7 @@ export type HeroCta = {
 }
 
 export const HERO_CTAS: HeroCta[] = [
-  { id: "work", href: "#projects", variant: "primary", external: false },
+  { id: "work", href: "#experience", variant: "primary", external: false },
   {
     id: "github",
     label: "GitHub",

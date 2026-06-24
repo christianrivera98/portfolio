@@ -15,7 +15,8 @@
     "title": "Scroll on, get to know me",
     "subtitle": "A closer look at what I build.",
     "idle": "Hello World! Here we go",
-    "stack": "stack"
+    "stack": "stack",
+    "hide": "Hide"
   },
   "Nav": {
     "home": "Home",
@@ -42,6 +43,9 @@
     "subtitle": "Where I've shipped production code.",
     "fulltime": "Full-time",
     "freelance": "Freelance",
+    "viewCompany": "View company info",
+    "companyHint": "View company",
+    "viewProject": "Explore some {project} interfaces here",
     "items": {
       "toolbooks": {
         "description": "ToolBooks is a US bookkeeping and payroll SaaS. The platform unifies accounting, bank reconciliation, invoicing and vendor payments into a single product for small businesses.",
@@ -107,6 +111,9 @@
   "Projects": {
     "label": "Selected Work",
     "title": "Projects",
+    "noShots": "Screenshots coming soon",
+    "expand": "Expand screenshot",
+    "collapse": "Close expanded screenshot",
     "subtitle": "What I've built and shipped.",
     "featured": "Featured Project",
     "viewLive": "View Live",
@@ -142,15 +149,27 @@
     }
   },
   "Technologies": {
-    "label": "Stack",
-    "title": "Technologies",
-    "subtitle": "Tools I ship with.",
-    "layers": {
-      "frontend": "Frontend",
-      "styling": "Styling",
-      "state-data": "State & Data",
-      "integrations": "Integrations",
-      "quality": "Quality & DevOps"
+    "label": "Process & stack",
+    "title": "So, how I work...",
+    "subtitle": "Process? Yeah, I have one — and a sharp stack to run it.",
+    "skillsLabel": "The stack I use most",
+    "process": {
+      "understand": {
+        "title": "Understand the problem",
+        "desc": "I break down the requirement, not just the ticket: aligning business goals, user needs and technical constraints before writing a line."
+      },
+      "architecture": {
+        "title": "Architecture that scales",
+        "desc": "I define a feature-based architecture (Domain-Driven / Feature-Sliced) that grows to dozens of modules with no coupling or debt."
+      },
+      "build": {
+        "title": "Focused implementation",
+        "desc": "I build with real server state, production integrations and accessibility from the first component — not as an afterthought."
+      },
+      "quality": {
+        "title": "Quality & handoff",
+        "desc": "I lock it in with tests (Vitest, Playwright), optimize performance and harden security before every handoff."
+      }
     }
   },
   "About": {

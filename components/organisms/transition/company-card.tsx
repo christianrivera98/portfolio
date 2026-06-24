@@ -43,11 +43,12 @@ export function CompanyCard({ index }: { index: number | null }) {
         key={company.id}
         {...fade}
         transition={{ duration: 0.35, ease: "easeOut" }}
-        className="flex h-[380px]"
+        className="flex flex-col min-[575px]:h-[380px] min-[575px]:flex-row"
       >
-        {/* Left: logo as a uniform band (Toolbooks size). Transparent logos get
-            a compact white panel; logos with their own background show as-is. */}
-        <div className="flex w-[42%] shrink-0 items-center justify-center p-4">
+        {/* Mobile: column (logo on top, info below). ≥575px: keep the original
+            row layout. Transparent logos get a compact white panel; logos with
+            their own background show as-is. */}
+        <div className="flex w-full shrink-0 items-center justify-center p-4 min-[575px]:w-[42%]">
           <div
             className={cn(
               "w-full",
@@ -69,8 +70,8 @@ export function CompanyCard({ index }: { index: number | null }) {
           </div>
         </div>
 
-        {/* Right: role, description, tech stack */}
-        <div className="flex min-w-0 flex-1 flex-col justify-center gap-3 py-6 pr-6">
+        {/* role, description, tech stack — right column ≥575px, stacked below on mobile */}
+        <div className="flex min-w-0 flex-1 flex-col justify-center gap-3 px-6 pb-6 min-[575px]:px-0 min-[575px]:py-6 min-[575px]:pr-6">
           <h3 className="font-serif-display text-2xl font-bold leading-tight text-white">
             {company.title}
           </h3>

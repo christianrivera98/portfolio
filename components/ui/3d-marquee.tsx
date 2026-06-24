@@ -50,13 +50,13 @@ export function ThreeDMarquee({ images, className, scaleClassName }: ThreeDMarqu
                     key={`${col}-${i}-${image}`}
                     whileHover={reduceMotion ? undefined : { y: -10 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="relative aspect-[970/700] w-[970px] shrink-0"
+                    className="relative aspect-[470/600] w-[400px] shrink-0"
                   >
                     <Image
                       src={image}
                       alt={`Showcase ${i + 1}`}
                       fill
-                      sizes="970px"
+                      sizes="370px"
                       className="rounded-lg object-cover ring ring-white/10 transition-shadow hover:shadow-2xl"
                     />
                   </motion.div>

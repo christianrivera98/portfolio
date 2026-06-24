@@ -82,37 +82,41 @@ export function useTechnologiesAnimations(
         }
       )
 
-      // Layers build-up stagger
-      gsap.utils.toArray<HTMLElement>(".tech-layer").forEach((layer, i) => {
-        gsap.from(layer, {
-          y: 40,
-          opacity: 0,
-          duration: 0.7,
-          ease: "power3.out",
-          delay: i * 0.08,
-          scrollTrigger: {
-            trigger: layer,
-            start: "top 90%",
-            toggleActions: "play none none reverse",
-          },
-        })
-
-        // Items within each layer
-        const items = layer.querySelectorAll(".tech-item")
-        gsap.from(items, {
-          y: 20,
-          opacity: 0,
-          stagger: 0.05,
-          duration: 0.5,
-          ease: "power3.out",
-          delay: i * 0.08 + 0.2,
-          scrollTrigger: {
-            trigger: layer,
-            start: "top 88%",
-            toggleActions: "play none none reverse",
-          },
-        })
+      // Reveal-on-enter via an explicit onEnter tween. Pre-created from-tweens
+      // got stuck hidden under StrictMode re-invocation; firing a fresh gsap.to
+      // on enter is reliable. Generous start so it never stays hidden.
+      gsap.set(".process-card", { opacity: 0, y: 50 })
+      ScrollTrigger.create({
+        trigger: ".tech-bento",
+        start: "top bottom-=80",
+        once: true,
+        onEnter: () =>
+          gsap.to(".process-card", {
+            opacity: 1,
+            y: 0,
+            stagger: 0.1,
+            duration: 0.8,
+            ease: "power3.out",
+          }),
       })
+
+      gsap.set(".skill-logo", { opacity: 0, y: 24, scale: 0.85 })
+      ScrollTrigger.create({
+        trigger: ".tech-skills",
+        start: "top bottom-=40",
+        once: true,
+        onEnter: () =>
+          gsap.to(".skill-logo", {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            stagger: 0.04,
+            duration: 0.5,
+            ease: "back.out(1.6)",
+          }),
+      })
+
+      ScrollTrigger.refresh()
     },
     { scope: containerRef, dependencies: [prefersReduced] }
   )

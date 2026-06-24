@@ -21,7 +21,7 @@ export function Experience() {
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[hsl(356,96%,22%)] opacity-[0.03] blur-[120px] pointer-events-none" />
 
-      <div className="relative z-10 w-full max-w-6xl px-6 md:px-12 lg:pl-28 lg:pr-0">
+      <div className="relative z-10 w-full max-w-6xl px-6 md:px-12 lg:pl-28 lg:pr-0 xl:pl-4 xl:pr-[27rem] 2xl:pl-28 2xl:pr-0">
         <div className="mb-16 md:mb-24">
           <span
             className="experience-label inline-block text-[11px] font-mono uppercase tracking-[0.3em] text-white/35 mb-4"
@@ -77,7 +77,7 @@ export function Experience() {
               {index < EXPERIENCE_ENTRIES.length - 1 && (
                 <div
                   data-divider={index}
-                  className="experience-divider h-px bg-gradient-to-r from-white/[0.04] via-white/[0.10] to-white/[0.04] md:ml-[220px]"
+                  className="experience-divider h-px bg-gradient-to-r from-[hsl(356,96%,32%)]/10 via-[hsl(356,96%,32%)]/50 to-[hsl(356,96%,32%)]/10 md:ml-[220px]"
                 />
               )}
             </div>

@@ -3,6 +3,8 @@
 import { useTranslations } from "next-intl"
 import { type ExperienceEntry } from "./experience.config"
 import { HighlightText } from "./highlight-text"
+import { CompanyInfoButton, ProjectDetailsCta } from "./experience-detail-actions"
+import { useTitlePreview } from "@/hooks/useTitlePreview"
 
 export function ExperienceCard({
   entry,
@@ -16,6 +18,7 @@ export function ExperienceCard({
   const period = t(`items.${entry.id}.period`)
   const typeLabel = t(entry.type)
   const highlights = t.raw(`items.${entry.id}.highlights`) as string[]
+  const titleHover = useTitlePreview(index)
 
   return (
     <div
@@ -31,23 +34,24 @@ export function ExperienceCard({
           {period}
         </span>
         <span
-          className={`inline-block w-fit md:ml-auto text-[10px] font-mono uppercase tracking-[0.2em] px-3 py-1 rounded-full border transition-colors duration-300 ${
+          className={`experience-badge inline-block w-fit md:ml-auto text-[10px] font-mono uppercase tracking-[0.2em] px-3 py-1 rounded-full border ${
             entry.type === "fulltime"
-              ? "border-white/15 text-white/50 group-hover:border-[hsl(356,96%,32%)]/40 group-hover:text-white/70"
-              : "border-white/10 text-white/35 group-hover:border-white/20 group-hover:text-white/50"
+              ? "border-white/15 text-white/50 group-hover:text-white/70"
+              : "border-white/10 text-white/35 group-hover:text-white/50"
           }`}
         >
           {typeLabel}
         </span>
       </div>
 
-      {/* Right: Content */}
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1.5">
+      {/* Right: Content. min-w-0 lets the 1fr grid column shrink so text wraps
+          instead of overflowing the viewport. */}
+      <div className="flex min-w-0 flex-col gap-4">
+        <div className="flex min-w-0 flex-col gap-1.5">
           <span className="md:hidden text-xs font-mono tracking-wide text-white/35 mb-1">
             {period}
             <span
-              className={`ml-3 text-[10px] uppercase tracking-[0.15em] px-2 py-0.5 rounded-full border ${
+              className={`experience-badge ml-3 text-[10px] uppercase tracking-[0.15em] px-2 py-0.5 rounded-full border ${
                 entry.type === "fulltime"
                   ? "border-white/15 text-white/40"
                   : "border-white/10 text-white/30"
@@ -57,18 +61,23 @@ export function ExperienceCard({
             </span>
           </span>
 
-          <div className="flex items-baseline gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             <span className="experience-number text-xs font-mono text-white/15 group-hover:text-[hsl(356,96%,32%)]/60 transition-colors duration-300 hidden md:inline">
               {String(index + 1).padStart(2, "0")}
             </span>
-            <h3 className="experience-company font-serif-display font-bold text-2xl md:text-3xl text-white tracking-tight">
-              {entry.company}
-              {entry.location && (
-                <span className="text-white/25 text-base ml-2 font-sans font-normal">
-                  {entry.location}
-                </span>
-              )}
-            </h3>
+            {/* Hover box bounded to the title content (w-fit) so the preview
+                only fires when the cursor is right over the title. */}
+            <div className="group/title inline-flex w-fit items-center gap-3 xl:cursor-pointer" {...titleHover}>
+              <h3 className="experience-company font-serif-display font-bold text-2xl md:text-3xl text-white tracking-tight">
+                {entry.company}
+                {entry.location && (
+                  <span className="text-white/25 text-base ml-2 font-sans font-normal">
+                    {entry.location}
+                  </span>
+                )}
+              </h3>
+              <CompanyInfoButton index={index} />
+            </div>
           </div>
 
           <p className="experience-role text-base md:text-lg text-white/60 font-medium md:pl-9">
@@ -87,6 +96,12 @@ export function ExperienceCard({
             </li>
           ))}
         </ul>
+
+        {entry.projectId && (
+          <div className="mt-2 md:pl-9">
+            <ProjectDetailsCta projectId={entry.projectId} />
+          </div>
+        )}
       </div>
     </div>
   )

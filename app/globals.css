@@ -92,6 +92,29 @@ body {
   font-family: var(--font-manrope), sans-serif;
 }
 
+/* Project CTA — subtle animated gradient from the tablet shader palette.
+   Static at rest; the gradient drifts fluidly while hovered. */
+@keyframes shader-cta-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.shader-cta {
+  background-image: linear-gradient(
+    110deg,
+    var(--shader-color-1),
+    var(--shader-color-2),
+    var(--shader-color-3)
+  );
+  background-size: 220% 220%;
+  background-position: 0% 50%;
+}
+
+.shader-cta:hover {
+  animation: shader-cta-shift 3.2s ease-in-out infinite;
+}
+
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *,

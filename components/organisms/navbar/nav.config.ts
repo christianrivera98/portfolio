@@ -10,7 +10,6 @@ export type NavItem = {
 export const NAV_ITEMS: NavItem[] = [
   { id: "home", link: "#home", previewImage: "/previews/home.png" },
   { id: "experience", link: "#experience", previewImage: "/previews/experience.png" },
-  { id: "projects", link: "#projects", previewImage: "/previews/projects.png" },
   { id: "technologies", link: "#technologies", previewImage: "/previews/technologies.png" },
   { id: "about", link: "#about", previewImage: "/previews/about.png" },
   { id: "contact", link: "#contact", previewImage: "/previews/contact.png" },

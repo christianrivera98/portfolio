@@ -7,7 +7,7 @@ import { useGSAP } from "@gsap/react"
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion"
 import {
   animateExperienceCards,
-  animateTimelineSvg,
+  animateTimelinePaint,
   animateTimelineDots,
 } from "./useExperienceCardAnimations"
 
@@ -59,8 +59,8 @@ export function useExperienceAnimations(
         }
       )
 
-      // Timeline + cards + dots (extracted)
-      animateTimelineSvg(containerRef)
+      // Timeline paint (line + badges + dividers, synced) + cards + dots
+      animateTimelinePaint(containerRef)
       animateExperienceCards()
       animateTimelineDots()
     },

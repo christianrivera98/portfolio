@@ -15,7 +15,8 @@
     "title": "Scrollea y conóceme",
     "subtitle": "Un vistazo de cerca a lo que construyo.",
     "idle": "Hola Mundo! Aquí vamos",
-    "stack": "stack"
+    "stack": "stack",
+    "hide": "Ocultar"
   },
   "Nav": {
     "home": "Inicio",
@@ -42,6 +43,9 @@
     "subtitle": "Donde he llevado código a producción.",
     "fulltime": "Tiempo completo",
     "freelance": "Freelance",
+    "viewCompany": "Ver información de la empresa",
+    "companyHint": "Ver empresa",
+    "viewProject": "Explora algunas interfaces de {project} aquí",
     "items": {
       "toolbooks": {
         "description": "ToolBooks es un SaaS estadounidense de bookkeeping y payroll. La plataforma centraliza contabilidad, conciliación bancaria, facturación y pagos a proveedores en un solo producto para pequeñas empresas.",
@@ -107,6 +111,9 @@
   "Projects": {
     "label": "Trabajo Seleccionado",
     "title": "Proyectos",
+    "noShots": "Capturas próximamente",
+    "expand": "Ampliar captura",
+    "collapse": "Cerrar captura ampliada",
     "subtitle": "Lo que he construido y entregado.",
     "featured": "Proyecto Destacado",
     "viewLive": "Ver en vivo",
@@ -142,15 +149,27 @@
     }
   },
   "Technologies": {
-    "label": "Stack",
-    "title": "Tecnologías",
-    "subtitle": "Herramientas con las que construyo.",
-    "layers": {
-      "frontend": "Frontend",
-      "styling": "Estilos",
-      "state-data": "Estado y Datos",
-      "integrations": "Integraciones",
-      "quality": "Calidad y DevOps"
+    "label": "Proceso & stack",
+    "title": "Entonces, cómo trabajo...",
+    "subtitle": "¿Proceso? Sí, tengo uno — y un stack afilado para ejecutarlo.",
+    "skillsLabel": "El stack que más uso",
+    "process": {
+      "understand": {
+        "title": "Entender el problema",
+        "desc": "Descompongo el requisito, no solo el ticket: alineo objetivos de negocio, necesidades del usuario y restricciones técnicas antes de escribir una línea."
+      },
+      "architecture": {
+        "title": "Arquitectura que escala",
+        "desc": "Defino una arquitectura por features (Domain-Driven / Feature-Sliced) que crece a decenas de módulos sin acoplamiento ni deuda."
+      },
+      "build": {
+        "title": "Implementación con foco",
+        "desc": "Construyo con estado de servidor real, integraciones de producción y accesibilidad desde el primer componente — no al final."
+      },
+      "quality": {
+        "title": "Calidad y entrega",
+        "desc": "Aseguro con tests (Vitest, Playwright), optimizo performance y endurezco la seguridad antes de cada handoff."
+      }
     }
   },
   "About": {

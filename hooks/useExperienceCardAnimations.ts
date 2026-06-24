@@ -47,41 +47,45 @@ export function animateExperienceCards() {
         "-=0.6"
       )
     }
-
-    const nextEl = card.parentElement?.querySelector(
-      `[data-divider="${card.getAttribute("data-index")}"]`
-    )
-    if (nextEl) {
-      tl.fromTo(
-        nextEl,
-        { scaleX: 0 },
-        {
-          scaleX: 1,
-          transformOrigin: "left center",
-          duration: 0.8,
-          ease: "power2.inOut",
-        },
-        "-=0.3"
-      )
-    }
   })
 }
 
-export function animateTimelineSvg(
+/**
+ * Scroll-scrubbed master timeline: draws the big vertical line AND paints each
+ * badge border + experience divider crimson at the exact moment the line's draw
+ * front reaches it (REQ-05). Each element is placed at its vertical fraction of
+ * the entries block, which equals the line-draw progress at that point.
+ */
+export function animateTimelinePaint(
   containerRef: React.RefObject<HTMLElement | null>
 ) {
-  const timelineSvg = containerRef.current?.querySelector(
-    ".experience-timeline-svg"
-  ) as SVGLineElement | null
-  if (timelineSvg) {
-    const lineLength = timelineSvg.getTotalLength?.() || 800
-    gsap.set(timelineSvg, { strokeDasharray: lineLength, strokeDashoffset: lineLength })
-    gsap.to(timelineSvg, {
-      strokeDashoffset: 0,
-      ease: "none",
-      scrollTrigger: { trigger: ".experience-entries", start: "top 80%", end: "bottom 20%", scrub: 1 },
-    })
+  const container = containerRef.current
+  const entries = container?.querySelector(".experience-entries") as HTMLElement | null
+  const line = container?.querySelector(".experience-timeline-svg") as SVGLineElement | null
+  if (!container || !entries || !line) return
+
+  const len = line.getTotalLength?.() || 800
+  gsap.set(line, { strokeDasharray: len, strokeDashoffset: len })
+
+  const eTop = entries.getBoundingClientRect().top + window.scrollY
+  const eH = entries.getBoundingClientRect().height || 1
+  const frac = (el: Element) => {
+    const r = el.getBoundingClientRect()
+    return gsap.utils.clamp(0, 0.95, (r.top + window.scrollY + r.height / 2 - eTop) / eH)
   }
+
+  const tl = gsap.timeline({
+    scrollTrigger: { trigger: entries, start: "top 80%", end: "bottom 20%", scrub: 1 },
+  })
+  tl.fromTo(line, { strokeDashoffset: len }, { strokeDashoffset: 0, ease: "none", duration: 1 }, 0)
+
+  container.querySelectorAll(".experience-badge").forEach((b) =>
+    tl.to(b, { borderColor: "hsl(356, 96%, 32%)", ease: "none", duration: 0.05 }, frac(b))
+  )
+  container.querySelectorAll(".experience-divider").forEach((d) => {
+    gsap.set(d, { scaleX: 0, transformOrigin: "left center" })
+    tl.to(d, { scaleX: 1, ease: "none", duration: 0.08 }, frac(d))
+  })
 }
 
 export function animateTimelineDots() {
