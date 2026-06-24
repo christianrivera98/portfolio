@@ -6,11 +6,12 @@ import { useExperienceDetail } from "@/components/organisms/experience/experienc
 /**
  * Hover handlers for an experience title: preview the company on the laptop
  * tablet, but only while that experience is beside the tablet (its bounds cross
- * the tablet's vertical center). Laptop+ only so touch taps never fire it.
+ * the tablet's vertical center). Laptop range only (xl–2xl) — touch never fires
+ * it, and desktop's sticky tablet scroll-syncs so it needs no hover preview.
  */
 export function useTitlePreview(index: number) {
   const { previewCompany, endPreview } = useExperienceDetail()
-  const isLaptop = () => window.matchMedia("(min-width: 1280px)").matches
+  const isLaptop = () => window.matchMedia("(min-width: 1280px) and (max-width: 1535px)").matches
 
   const onMouseEnter = (e: MouseEvent) => {
     if (!isLaptop()) return

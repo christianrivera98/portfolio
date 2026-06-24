@@ -7,6 +7,9 @@ import { X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { useExperienceDetail } from "../experience-detail.context"
+import { useActiveExperience } from "@/hooks/useActiveExperience"
+import { useCloseProjectOnScrollAway } from "@/hooks/useCloseProjectOnScrollAway"
+import { COMPANIES } from "@/components/organisms/transition/companies.config"
 import { TabletShell } from "./tablet-shell"
 import { DetailSlider } from "./detail-slider"
 
@@ -22,11 +25,17 @@ export function LaptopTablet() {
   const reduce = useReducedMotion()
   const open = detail !== null
   const tabletRef = useRef<HTMLDivElement>(null)
+  // Fold the tablet away once the visitor scrolls onto a different experience.
+  useCloseProjectOnScrollAway(useActiveExperience(COMPANIES.length, tabletRef))
 
-  // Click outside the tablet closes it (the page stays interactive otherwise).
+  // Click outside the tablet closes it — but ONLY on the laptop breakpoint this
+  // surface owns. The component stays mounted (CSS-hidden) on mobile/desktop, so
+  // without this guard its listener would close the OTHER surfaces' sliders when
+  // tapped (they live outside this ref). xl–2xl == [1280px, 1535px].
   useEffect(() => {
     if (!open) return
     const onDown = (e: PointerEvent) => {
+      if (!window.matchMedia("(min-width: 1280px) and (max-width: 1535px)").matches) return
       if (!tabletRef.current?.contains(e.target as Node)) close()
     }
     document.addEventListener("pointerdown", onDown)

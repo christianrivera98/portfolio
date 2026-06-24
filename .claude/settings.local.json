@@ -48,7 +48,18 @@
       "Bash(ls .pw*)",
       "Bash(grep -iE \"pw7|settings.local|\\\\.md$\")",
       "Bash(git push *)",
-      "Bash(npm ls *)"
+      "Bash(npm ls *)",
+      "Bash(grep -q \"Ready\\\\|Local:\\\\|localhost:3000\" /tmp/devserver.log)",
+      "Bash(break)",
+      "Bash(node \"C:/Users/CHRIST~1.LAM/AppData/Local/Temp/claude/C--Users-Christian-R-Lamadrid-Desktop-ESCRITORIO-Proyectos-portafolio-my-portfolio-portfolio/d4440be0-c9f4-4746-a2b7-a8f656e91298/scratchpad/slider-test.mjs\")",
+      "Bash(cp \"C:/Users/CHRIST~1.LAM/AppData/Local/Temp/claude/C--Users-Christian-R-Lamadrid-Desktop-ESCRITORIO-Proyectos-portafolio-my-portfolio-portfolio/d4440be0-c9f4-4746-a2b7-a8f656e91298/scratchpad/slider-test.mjs\" ./_slider-test.mjs)",
+      "Bash(node ./_slider-test.mjs)",
+      "Bash(cp \"C:/Users/CHRIST~1.LAM/AppData/Local/Temp/claude/C--Users-Christian-R-Lamadrid-Desktop-ESCRITORIO-Proyectos-portafolio-my-portfolio-portfolio/d4440be0-c9f4-4746-a2b7-a8f656e91298/scratchpad/wheel-test.mjs\" ./_wheel-test.mjs)",
+      "Bash(node ./_wheel-test.mjs)",
+      "Bash(cp \"C:/Users/CHRIST~1.LAM/AppData/Local/Temp/claude/C--Users-Christian-R-Lamadrid-Desktop-ESCRITORIO-Proyectos-portafolio-my-portfolio-portfolio/d4440be0-c9f4-4746-a2b7-a8f656e91298/scratchpad/scrollaway-test.mjs\" ./_scrollaway-test.mjs)",
+      "Bash(node ./_scrollaway-test.mjs)",
+      "Bash(cp \"C:/Users/CHRIST~1.LAM/AppData/Local/Temp/claude/C--Users-Christian-R-Lamadrid-Desktop-ESCRITORIO-Proyectos-portafolio-my-portfolio-portfolio/d4440be0-c9f4-4746-a2b7-a8f656e91298/scratchpad/media-test.mjs\" ./_media-test.mjs)",
+      "Bash(node ./_media-test.mjs)"
     ]
   }
 }

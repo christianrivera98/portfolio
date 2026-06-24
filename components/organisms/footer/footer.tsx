@@ -1,48 +1,52 @@
 import { useTranslations } from "next-intl"
+import { ArrowUpRight } from "lucide-react"
 import { SITE_CONFIG } from "@/lib/site.config"
+import { FooterLinks } from "./footer-links"
+import { FooterBottom } from "./footer-bottom"
 
 export function Footer() {
   const t = useTranslations("Footer")
+  const year = new Date().getFullYear()
+
   return (
-    <footer className="relative bg-[#0a0a0a] border-t border-white/[0.06]">
-      <div className="w-full max-w-6xl mx-auto px-6 md:px-16 py-12 md:py-16">
-        {/* Top row: Initials + Social links */}
-        <div className="flex items-start justify-between mb-12">
-          <div className="flex flex-col gap-1">
-            <span className="font-serif-display text-2xl text-white/80">
-              CL
+    <footer className="relative overflow-hidden bg-[#0a0a0a]">
+      {/* Crimson hairline + soft glow anchoring the section to the theme */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[hsl(356,96%,32%)]/40 to-transparent" />
+      <div className="pointer-events-none absolute -bottom-32 left-1/2 h-64 w-[80%] -translate-x-1/2 rounded-full bg-[hsl(356,96%,22%)] opacity-[0.06] blur-[120px]" />
+
+      <div className="relative mx-auto w-full max-w-6xl px-6 py-16 md:px-12 md:py-20">
+        <div className="flex flex-col gap-12 lg:flex-row lg:justify-between lg:gap-16">
+          {/* Brand block */}
+          <div className="flex max-w-md flex-col gap-5">
+            <span className="flex items-center gap-2.5">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/45">
+                {t("available")}
+              </span>
             </span>
-            <span className="text-xs font-mono text-white/30">
-              &copy; {new Date().getFullYear()}
-            </span>
+
+            <h2 className="font-serif-display text-4xl font-bold text-white md:text-5xl">
+              {SITE_CONFIG.name}
+            </h2>
+            <p className="text-sm leading-relaxed text-white/45">{t("tagline")}</p>
+
+            <a
+              href={`mailto:${SITE_CONFIG.email}`}
+              className="group/cta mt-1 inline-flex w-fit items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#0a0a0a] transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98]"
+            >
+              {t("ctaLabel")}
+              <ArrowUpRight className="size-4 transition-transform duration-300 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
+            </a>
           </div>
 
-          <div className="flex flex-col items-end gap-2 text-sm">
-            <a
-              href={SITE_CONFIG.social.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t("githubAria")}
-              className="text-white/40 hover:text-[hsl(356,96%,32%)] transition-colors duration-300"
-            >
-              GitHub
-            </a>
-            <a
-              href={SITE_CONFIG.social.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t("linkedinAria")}
-              className="text-white/40 hover:text-[hsl(356,96%,32%)] transition-colors duration-300"
-            >
-              LinkedIn
-            </a>
-          </div>
+          <FooterLinks />
         </div>
 
-        {/* Credit line */}
-        <div className="text-xs font-mono text-white/20 leading-relaxed">
-          <p>{t("designedBy", { name: SITE_CONFIG.name })}</p>
-          <p>{t("builtWith")}</p>
+        <div className="mt-16">
+          <FooterBottom year={year} />
         </div>
       </div>
     </footer>

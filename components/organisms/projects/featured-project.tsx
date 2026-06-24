@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslations } from "next-intl"
-import { ArrowRightIcon, ExternalLinkIcon } from "@/components/ui/icons"
+import { ArrowRightIcon } from "@/components/ui/icons"
 import { ProjectMarquee } from "./project-marquee"
 import { type Project } from "./projects.config"
 
@@ -42,11 +42,6 @@ export function FeaturedProject({ project }: { project: Project }) {
           ))}
         </div>
         <div className="flex gap-3 mt-3">
-          {project.liveUrl && (
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors">
-              {t("viewLive")} <ExternalLinkIcon className="w-3.5 h-3.5" />
-            </a>
-          )}
           {project.githubUrl && (
             <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors">
               {t("source")} <ArrowRightIcon className="w-3.5 h-3.5" />

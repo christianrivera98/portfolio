@@ -67,7 +67,7 @@ export function ExperienceCard({
             </span>
             {/* Hover box bounded to the title content (w-fit) so the preview
                 only fires when the cursor is right over the title. */}
-            <div className="group/title inline-flex w-fit items-center gap-3 xl:cursor-pointer" {...titleHover}>
+            <div className="group/title inline-flex w-fit items-center gap-3 xl:cursor-pointer 2xl:cursor-default" {...titleHover}>
               <h3 className="experience-company font-serif-display font-bold text-2xl md:text-3xl text-white tracking-tight">
                 {entry.company}
                 {entry.location && (
@@ -99,7 +99,7 @@ export function ExperienceCard({
 
         {entry.projectId && (
           <div className="mt-2 md:pl-9">
-            <ProjectDetailsCta projectId={entry.projectId} />
+            <ProjectDetailsCta projectId={entry.projectId} label={entry.ctaLabel ?? entry.company} />
           </div>
         )}
       </div>

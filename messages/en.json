@@ -45,7 +45,7 @@
     "freelance": "Freelance",
     "viewCompany": "View company info",
     "companyHint": "View company",
-    "viewProject": "Explore some {project} interfaces here",
+    "viewProject": "Get to know {project} a little",
     "items": {
       "toolbooks": {
         "description": "ToolBooks is a US bookkeeping and payroll SaaS. The platform unifies accounting, bank reconciliation, invoicing and vendor payments into a single product for small businesses.",
@@ -209,6 +209,15 @@
     }
   },
   "Footer": {
+    "tagline": "Frontend engineer building fast, expressive interfaces with care for the last detail.",
+    "available": "Available for new projects",
+    "ctaLabel": "Let's talk",
+    "navTitle": "Navigate",
+    "connectTitle": "Connect",
+    "email": "Email",
+    "emailAria": "Send an email",
+    "backToTop": "Back to top",
+    "rights": "All rights reserved",
     "designedBy": "Designed & built by {name}",
     "builtWith": "with Next.js, GSAP & Three.js",
     "githubAria": "GitHub profile",

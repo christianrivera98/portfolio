@@ -47,11 +47,6 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
           </span>
         )}
         <div className="flex gap-3 mt-1">
-          {project.liveUrl && (
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-colors">
-              {t("live")} <ExternalLinkIcon className="w-3 h-3" />
-            </a>
-          )}
           {project.githubUrl && (
             <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-colors">
               {t("code")} <ExternalLinkIcon className="w-3 h-3" />

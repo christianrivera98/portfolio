@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useTranslations } from "next-intl"
 import { motion, AnimatePresence, useReducedMotion } from "motion/react"
 import { X } from "lucide-react"
@@ -18,7 +18,17 @@ export function DetailTabletOverlay() {
   const { detail, close } = useExperienceDetail()
   const tt = useTranslations("Transition")
   const reduce = useReducedMotion()
-  useScrollLock(!!detail)
+  // This overlay is the modal only below xl. On laptop/desktop the tablet is
+  // inline/sticky, so the page must keep scrolling — lock only on mobile/tablet.
+  const [isOverlay, setIsOverlay] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 1279px)")
+    const apply = () => setIsOverlay(mq.matches)
+    apply()
+    mq.addEventListener("change", apply)
+    return () => mq.removeEventListener("change", apply)
+  }, [])
+  useScrollLock(!!detail && isOverlay)
 
   useEffect(() => {
     if (!detail) return
