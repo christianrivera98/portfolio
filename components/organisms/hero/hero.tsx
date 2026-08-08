@@ -52,7 +52,7 @@ export function Hero() {
             className="hero-label block text-[11px] font-mono uppercase tracking-[0.3em] text-white/35 mb-6"
             style={{ clipPath: "inset(0 100% 0 0)" }}
           >
-            {t("title")} &mdash; {t("subtitle")}
+            {t("title")} &middot; {t("subtitle")}
           </span>
 
           <h1

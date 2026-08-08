@@ -45,8 +45,8 @@ export const EDITOR_CODE: EToken[][] = [
   [{ text: "import", color: PUR }, { text: " { gsap } ", color: P }, { text: "from", color: PUR }, { text: " 'gsap'", color: STR }],
   [{ text: "", color: P }],
   [{ text: "export", color: PUR }, { text: " function ", color: KW }, { text: "Hero", color: TYP }, { text: "() {", color: P }],
-  [{ text: "  const ", color: KW }, { text: "role", color: VAR }, { text: " = ", color: P }, { text: "'Frontend Lead'", color: STR }],
-  [{ text: "  // ship production-grade UI", color: CMT }],
+  [{ text: "  const ", color: KW }, { text: "role", color: VAR }, { text: " = ", color: P }, { text: "'Full-Stack Engineer'", color: STR }],
+  [{ text: "  // system first, component second", color: CMT }],
   [{ text: "  return ", color: PUR }, { text: "<", color: P }, { text: "Section", color: TYP }, { text: " />", color: P }],
   [{ text: "}", color: P }],
 ]

@@ -1,26 +1,16 @@
 {
-  "name": "Christian Lamadrid | Frontend Engineer",
+  "name": "Christian Lamadrid | Full-Stack Engineer",
   "short_name": "CL Portfolio",
-  "description": "Frontend Engineer specializing in React, Next.js, and TypeScript.",
+  "description": "Full-Stack Engineer specializing in React, Next.js, Nest.js and TypeScript.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
   "theme_color": "#0a0a0a",
   "icons": [
     {
-      "src": "/favicon-16x16.png",
-      "sizes": "16x16",
-      "type": "image/png"
-    },
-    {
-      "src": "/favicon-32x32.png",
-      "sizes": "32x32",
-      "type": "image/png"
-    },
-    {
-      "src": "/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png"
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
     }
   ]
 }

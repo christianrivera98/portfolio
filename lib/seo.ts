@@ -16,10 +16,11 @@ export async function buildMetadata(locale: string): Promise<Metadata> {
     description: t("description"),
     alternates: { canonical: `/${locale}`, languages },
     keywords: [
+      "Full-Stack Engineer",
       "Frontend Lead",
-      "Frontend Engineer",
       "React",
       "Next.js",
+      "Nest.js",
       "TypeScript",
       "Fintech",
       "Christian Lamadrid",
@@ -33,24 +34,16 @@ export async function buildMetadata(locale: string): Promise<Metadata> {
       locale: ogLocale,
       url: `${SITE_CONFIG.url}/${locale}`,
       siteName: SITE_CONFIG.name,
-      images: [
-        { url: "/og-image.png", width: 1200, height: 630, alt: SITE_CONFIG.name },
-      ],
     },
     twitter: {
-      card: "summary_large_image",
+      // `summary_large_image` without an image renders an empty card; upgrade it
+      // the day an og-image exists.
+      card: "summary",
       title: t("title"),
       description: t("description"),
-      images: ["/og-image.png"],
     },
-    icons: {
-      icon: [
-        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-        { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      ],
-      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
-      shortcut: "/favicon.ico",
-    },
+    // No `icons` key on purpose: setting it makes Next skip the file-based
+    // convention, and app/favicon.ico is the only icon that actually exists.
     manifest: "/manifest.json",
   }
 }

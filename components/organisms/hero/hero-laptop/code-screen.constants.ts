@@ -26,8 +26,8 @@ const MUT = "#5a5a63" // comments / punctuation
 
 export const CODE_LINES: CodeToken[][] = [
   [{ text: "const ", color: KW }, { text: "dev", color: FN }, { text: " = {", color: MUT }],
-  [{ text: "  role: ", color: FN }, { text: "'Frontend'", color: STR }, { text: ",", color: MUT }],
-  [{ text: "  stack: ", color: FN }, { text: "['react']", color: STR }, { text: ",", color: MUT }],
+  [{ text: "  role: ", color: FN }, { text: "'Full-Stack'", color: STR }, { text: ",", color: MUT }],
+  [{ text: "  stack: ", color: FN }, { text: "['next', 'nest']", color: STR }, { text: ",", color: MUT }],
   [{ text: "  ship: ", color: KW }, { text: "() => ", color: MUT }, { text: "true", color: KW }, { text: ",", color: MUT }],
   [{ text: "}", color: MUT }],
 ]

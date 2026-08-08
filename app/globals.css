@@ -115,6 +115,82 @@ body {
   animation: shader-cta-shift 3.2s ease-in-out infinite;
 }
 
+/* Menu links — the crimson wipes across the glyphs left→right on hover while the
+   whole row scales up slightly from its left edge. Two hard gradient stops over a
+   200% track make the fill read as a sweep instead of a fade. */
+.menu-link {
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.menu-link:hover,
+.menu-link:focus-visible {
+  transform: scale(1.045);
+}
+
+.menu-link-label {
+  background-image: linear-gradient(
+    90deg,
+    hsl(var(--accent)) 0%,
+    hsl(var(--accent)) 50%,
+    rgb(255 255 255 / 0.9) 50%,
+    rgb(255 255 255 / 0.9) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-link:hover .menu-link-label,
+.menu-link:focus-visible .menu-link-label {
+  background-position: 0 0;
+}
+
+.menu-link-index {
+  transition: color 0.45s ease;
+}
+
+.menu-link:hover .menu-link-index,
+.menu-link:focus-visible .menu-link-index {
+  color: hsl(var(--accent));
+}
+
+/* Menu toggle — same crimson sweep as the links, applied to the two bars. The
+   scale lives on the button because GSAP owns the bars' rotate/y for the X. */
+.menu-toggle {
+  cursor: pointer;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+  transform: scale(1.12);
+}
+
+.menu-toggle-line {
+  background-image: linear-gradient(
+    90deg,
+    hsl(var(--accent)) 0%,
+    hsl(var(--accent)) 50%,
+    rgb(255 255 255 / 0.8) 50%,
+    rgb(255 255 255 / 0.8) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-toggle:hover .menu-toggle-line,
+.menu-toggle:focus-visible .menu-toggle-line {
+  background-position: 0 0;
+}
+
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *,

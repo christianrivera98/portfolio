@@ -89,7 +89,10 @@ export function CompanyCard({ index }: { index: number | null }) {
                 key={logo}
                 className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 ring-1 ring-white/10"
               >
-                <Image src={logo} alt="" width={18} height={18} className="h-4 w-4 object-contain" />
+                {/* These marks are SVG: the optimizer rejects that MIME type
+                    (400) unless dangerouslyAllowSVG is on, and vectors gain
+                    nothing from it anyway. */}
+                <Image src={logo} alt="" width={18} height={18} unoptimized className="h-4 w-4 object-contain" />
               </span>
             ))}
           </div>

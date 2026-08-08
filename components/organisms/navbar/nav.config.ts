@@ -1,18 +1,17 @@
 import { SITE_CONFIG } from "@/lib/site.config"
 
-// `id` maps to label + aria text in messages (Nav.*); link + preview are neutral
+// `id` maps to label + aria text in messages (Nav.*); link is neutral
 export type NavItem = {
   id: string
   link: string
-  previewImage: string
 }
 
 export const NAV_ITEMS: NavItem[] = [
-  { id: "home", link: "#home", previewImage: "/previews/home.png" },
-  { id: "experience", link: "#experience", previewImage: "/previews/experience.png" },
-  { id: "technologies", link: "#technologies", previewImage: "/previews/technologies.png" },
-  { id: "about", link: "#about", previewImage: "/previews/about.png" },
-  { id: "contact", link: "#contact", previewImage: "/previews/contact.png" },
+  { id: "home", link: "#home" },
+  { id: "experience", link: "#experience" },
+  { id: "technologies", link: "#technologies" },
+  { id: "about", link: "#about" },
+  { id: "contact", link: "#contact" },
 ]
 
 // Brand labels — not translated

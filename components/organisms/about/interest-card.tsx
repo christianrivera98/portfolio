@@ -12,7 +12,8 @@ export function InterestCard({ interest, label }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const handleMouseEnter = () => {
-    videoRef.current?.play()
+    // preload="none" means this is also what triggers the download.
+    videoRef.current?.play().catch(() => {})
   }
 
   const handleMouseLeave = () => {
@@ -36,7 +37,7 @@ export function InterestCard({ interest, label }: Props) {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-40 transition-opacity duration-500"
       />
       <div className="absolute inset-0 flex items-center justify-center">

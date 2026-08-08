@@ -58,20 +58,10 @@ export function Navbar({ menuOpen, onToggleMenu }: NavbarProps) {
           onClick={onToggleMenu}
           aria-expanded={menuOpen}
           aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
-          className="relative flex flex-col items-center justify-center w-10 h-10 gap-[7px] group"
+          className="menu-toggle relative flex flex-col items-center justify-center w-10 h-10 gap-[7px]"
         >
-          <span
-            ref={topLineRef}
-            className={`block w-6 h-[1.5px] transition-colors duration-200 ${
-              menuOpen ? "bg-white" : "bg-white/70 group-hover:bg-white"
-            }`}
-          />
-          <span
-            ref={bottomLineRef}
-            className={`block w-6 h-[1.5px] transition-colors duration-200 ${
-              menuOpen ? "bg-white" : "bg-white/70 group-hover:bg-white"
-            }`}
-          />
+          <span ref={topLineRef} className="menu-toggle-line block w-6 h-[1.5px]" />
+          <span ref={bottomLineRef} className="menu-toggle-line block w-6 h-[1.5px]" />
           </button>
         </div>
       </div>
