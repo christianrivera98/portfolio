@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "analyze": "next experimental-analyze",
+    "analyze:webpack": "next build --webpack"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -30,6 +32,7 @@
     "three": "^0.182.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^16.3.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
