@@ -35,7 +35,7 @@ export function StaggeredMenu({ open, onClose }: StaggeredMenuProps) {
   )
 
   return (
-    <div ref={overlayRef} className={`fixed inset-0 z-40 ${open ? "pointer-events-auto" : "pointer-events-none"}`} aria-hidden={!open}>
+    <div ref={overlayRef} className={`fixed inset-0 z-40 ${open ? "pointer-events-auto" : "pointer-events-none"}`} inert={!open}>
       <div className={`absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-500 ${open ? "opacity-100" : "opacity-0"}`} onClick={onClose} />
       <aside className={`absolute inset-y-0 right-0 w-full md:w-[42vw] lg:w-[27vw] bg-[#0a0a0a] border-l border-white/[0.06] transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${open ? "translate-x-0" : "translate-x-full"}`}>
         <div className="flex h-full w-full flex-col justify-center px-8 md:px-10 lg:px-12">
