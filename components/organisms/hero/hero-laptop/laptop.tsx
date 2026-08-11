@@ -1,11 +1,12 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import { useFrame, useThree } from "@react-three/fiber"
-import { RoundedBox, useTexture } from "@react-three/drei"
+import { useRef } from "react"
+import { useFrame } from "@react-three/fiber"
+import { RoundedBox } from "@react-three/drei"
 import * as THREE from "three"
 import { useCodeScreenTexture } from "@/hooks/useCodeScreenTexture"
-import { SOCIAL_PREVIEWS, type SocialKey } from "../hero.config"
+import { useSocialPreviews } from "@/hooks/useSocialPreviews"
+import { type SocialKey } from "../hero.config"
 import { Keyboard } from "./keyboard"
 
 const BODY = "#16161a"
@@ -23,20 +24,7 @@ export function Laptop({ reduced, social, interactive = true }: LaptopProps) {
   const group = useRef<THREE.Group>(null)
   const overlay = useRef<THREE.Mesh>(null)
   const { texture, draw } = useCodeScreenTexture()
-  const previews = useTexture(SOCIAL_PREVIEWS)
-  const { gl } = useThree()
-
-  // Correct color + sharpen previews (sRGB decode + anisotropic filtering at grazing angle).
-  useEffect(() => {
-    const maxAniso = gl.capabilities.getMaxAnisotropy()
-    for (const tex of Object.values(previews)) {
-      tex.colorSpace = THREE.SRGBColorSpace
-      tex.anisotropy = maxAniso
-      tex.minFilter = THREE.LinearMipmapLinearFilter
-      tex.generateMipmaps = true
-      tex.needsUpdate = true
-    }
-  }, [previews, gl])
+  const previews = useSocialPreviews(social)
 
   useFrame((state, delta) => {
     draw(reduced ? 1200 : state.clock.elapsedTime * 1000)
@@ -50,11 +38,13 @@ export function Laptop({ reduced, social, interactive = true }: LaptopProps) {
     const o = overlay.current
     if (o) {
       const mat = o.material as THREE.MeshBasicMaterial
-      if (social && mat.map !== previews[social]) {
-        mat.map = previews[social]
+      // Stays hidden until its texture lands, so a lazy load never flashes a blank plane.
+      const preview = social ? previews[social] : undefined
+      if (preview && mat.map !== preview) {
+        mat.map = preview
         mat.needsUpdate = true
       }
-      mat.opacity = THREE.MathUtils.damp(mat.opacity, social ? 1 : 0, 9, delta)
+      mat.opacity = THREE.MathUtils.damp(mat.opacity, preview ? 1 : 0, 9, delta)
     }
   })
 

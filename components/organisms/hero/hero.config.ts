@@ -9,8 +9,8 @@ export const HERO_PROFILE = {
 export type SocialKey = "github" | "linkedin"
 
 export const SOCIAL_PREVIEWS: Record<SocialKey, string> = {
-  github: "/social/github.png",
-  linkedin: "/social/linkedin.png",
+  github: "/social/github.webp",
+  linkedin: "/social/linkedin.webp",
 }
 
 // Brand names — not translated. The five tools a full-stack hiring filter
