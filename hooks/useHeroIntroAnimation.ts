@@ -1,12 +1,15 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useLayoutEffect } from "react"
 import gsap from "gsap"
 import { SplitText } from "gsap/SplitText"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
 import { useHeroScrollParallax } from "@/hooks/useHeroScrollParallax"
 
 gsap.registerPlugin(SplitText)
+
+const HIDDEN_UNTIL_INTRO =
+  ".hero-name-1, .hero-name-2, .hero-title, .hero-bio, .hero-credentials, .hero-cta, .hero-tag, .hero-photo, .hero-scroll-indicator, .hero-scroll-invite"
 
 /**
  * GSAP-based hero intro animation with SplitText.
@@ -23,6 +26,18 @@ export function useHeroIntroAnimation(
 
   // Call scroll parallax hook (separated concern)
   useHeroScrollParallax(scope, prefersReduced)
+
+  // The intro's start state lives here, not in the markup: hero copy that ships as
+  // opacity-0 HTML is not an LCP candidate, so the LCP waited for hydration. Applied
+  // in a layout effect (before paint) and only when the intro will actually play, so
+  // reduced-motion users get the text straight from the server HTML.
+  useLayoutEffect(() => {
+    if (prefersReduced || isReady || !scope.current) return
+    const q = (sel: string) => scope.current!.querySelectorAll(sel)
+    gsap.set(q(HIDDEN_UNTIL_INTRO), { opacity: 0 })
+    gsap.set(q(".hero-label"), { clipPath: "inset(0 100% 0 0)" })
+    gsap.set(q(".hero-accent-line"), { scaleX: 0 })
+  }, [prefersReduced, isReady, scope])
 
   useEffect(() => {
     if (!isReady || !scope.current) return

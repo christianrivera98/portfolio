@@ -92,6 +92,21 @@ body {
   font-family: var(--font-manrope), sans-serif;
 }
 
+/* Hero 3D scene — mounts after idle over its static poster, so the swap reads as a
+   dissolve instead of a pop. No layout involved, so it cannot shift anything. */
+@keyframes hero-room-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.hero-room-fade {
+  animation: hero-room-in 900ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-room-fade { animation: none; }
+}
+
 /* Project CTA — subtle animated gradient from the tablet shader palette.
    Static at rest; the gradient drifts fluidly while hovered. */
 @keyframes shader-cta-shift {

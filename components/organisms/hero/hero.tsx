@@ -5,9 +5,12 @@ import dynamic from "next/dynamic"
 import { useTranslations } from "next-intl"
 import { useHeroIntroAnimation } from "@/hooks/useHeroIntroAnimation"
 import { usePreloader } from "@/hooks/usePreloader"
+import { useDeferredMount } from "@/hooks/useDeferredMount"
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
 import { ScrollIndicator } from "./scroll-indicator"
 import { HeroScrollInvite } from "./hero-scroll-invite"
 import { HeroCTAs, TechStackTags } from "./hero-actions"
+import { RoomPoster } from "./hero-room/room-poster"
 import { HERO_PROFILE, type SocialKey } from "./hero.config"
 
 const HeroRoom = dynamic(
@@ -20,6 +23,9 @@ export function Hero() {
   const { isComplete } = usePreloader()
   const [social, setSocial] = useState<SocialKey | null>(null)
   const t = useTranslations("Hero")
+  const prefersReduced = usePrefersReducedMotion()
+  // The 3D chunk is ~870 KB: it waits for idle, and never mounts under reduced motion.
+  const show3D = useDeferredMount(!prefersReduced)
 
   useHeroIntroAnimation(isComplete, sectionRef)
 
@@ -38,7 +44,12 @@ export function Hero() {
         role="img"
         aria-label={`Escena 3D: ${HERO_PROFILE.name} en su escritorio con monitor y laptop`}
       >
-        <HeroRoom social={social} />
+        <RoomPoster />
+        {show3D && (
+          <div className="absolute inset-0 hero-room-fade">
+            <HeroRoom social={social} />
+          </div>
+        )}
       </div>
       {/* legibility scrim behind the left-aligned copy */}
       <div className="absolute inset-0 z-[5] pointer-events-none bg-gradient-to-r from-[#0a0a0a] from-5% via-[#0a0a0a]/60 via-35% to-transparent to-60%" />
@@ -48,10 +59,7 @@ export function Hero() {
 
       <div className="hero-content relative z-10 flex-1 flex items-center py-24 md:py-20 pointer-events-none">
         <div className="w-full px-6 md:px-12 lg:pl-28 lg:pr-0">
-          <span
-            className="hero-label block text-[11px] font-mono uppercase tracking-[0.3em] text-white/35 mb-6"
-            style={{ clipPath: "inset(0 100% 0 0)" }}
-          >
+          <span className="hero-label block text-[11px] font-mono uppercase tracking-[0.3em] text-white/35 mb-6">
             {t("title")} &middot; {t("subtitle")}
           </span>
 
@@ -59,28 +67,28 @@ export function Hero() {
             className="font-serif-display font-extrabold tracking-tight text-white mb-4 md:mb-6"
             style={{ perspective: "600px" }}
           >
-            <span className="hero-name-1 block text-[clamp(3rem,10vw,9rem)] leading-[0.9] opacity-0">
+            <span className="hero-name-1 block text-[clamp(3rem,10vw,9rem)] leading-[0.9]">
               {firstName}
             </span>
-            <span className="hero-name-2 block text-[clamp(3rem,10vw,9rem)] leading-[0.9] opacity-0">
+            <span className="hero-name-2 block text-[clamp(3rem,10vw,9rem)] leading-[0.9]">
               {lastName}
             </span>
           </h1>
 
-          <div className="hero-accent-line h-0.5 w-24 bg-[hsl(356,96%,32%)] mb-10 md:mb-14 scale-x-0 origin-left" />
+          <div className="hero-accent-line h-0.5 w-24 bg-[hsl(356,96%,32%)] mb-10 md:mb-14 origin-left" />
 
           <div className="flex flex-col gap-5 max-w-xl pointer-events-auto">
-            <div className="hero-title flex flex-col gap-1 opacity-0">
+            <div className="hero-title flex flex-col gap-1">
               <h2 className="text-lg md:text-xl font-semibold text-white/90">
                 {t("title")}
               </h2>
               <p className="text-base text-white/60">{t("subtitle")}</p>
             </div>
 
-            <p className="hero-bio text-base md:text-lg leading-relaxed text-white/60 opacity-0">
+            <p className="hero-bio text-base md:text-lg leading-relaxed text-white/60">
               {t("bio")}
             </p>
-            <p className="hero-credentials text-sm text-white/35 font-mono opacity-0">
+            <p className="hero-credentials text-sm text-white/35 font-mono">
               {t("credentials")}
             </p>
 
