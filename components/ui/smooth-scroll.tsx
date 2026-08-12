@@ -10,33 +10,24 @@ import { usePreloader } from "@/hooks/usePreloader"
 gsap.registerPlugin(ScrollTrigger)
 
 /**
- * Locks scroll while the preloader is on screen. lenis.stop() freezes the
- * scroll position; overflow:hidden hides the native scrollbar. On completion
- * Lenis resumes and ScrollTrigger refreshes against the settled layout so
- * reveals fire at the correct scroll offsets.
+ * Locks scroll while the preloader is on screen. The DOM lock itself is CSS
+ * keyed off `data-preloader="run"`, which the gate script stamps before first
+ * paint — React only releases it, so a skipped visit is never locked for even
+ * one frame. lenis.stop() freezes the scroll position; on completion Lenis
+ * resumes and ScrollTrigger refreshes against the settled layout so reveals
+ * fire at the correct scroll offsets.
  */
 function PreloaderScrollLock() {
   const lenis = useLenis()
   const { isComplete } = usePreloader()
 
-  // DOM lock applies immediately (before lenis is ready) so there is no
-  // unlocked gap while the preloader is on screen; lenis.stop()/start()
-  // run once the instance exists.
   useEffect(() => {
     const root = document.documentElement
-    const { body } = document
     if (isComplete) {
-      root.style.removeProperty("overflow")
-      body.style.removeProperty("overflow")
-      body.style.removeProperty("position")
-      body.style.removeProperty("width")
+      if (root.dataset.preloader === "run") root.dataset.preloader = "done"
       lenis?.start()
       ScrollTrigger.refresh()
     } else {
-      root.style.overflow = "hidden"
-      body.style.overflow = "hidden"
-      body.style.position = "fixed"
-      body.style.width = "100%"
       lenis?.stop()
     }
   }, [lenis, isComplete])

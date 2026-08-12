@@ -5,6 +5,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl"
 import { setRequestLocale } from "next-intl/server"
 import "../globals.css"
 import { Providers } from "@/app/providers"
+import { PreloaderGateScript } from "@/components/organisms/preloader/preloader-gate-script"
 import { MainLayout } from "@/components/templates/main-layout"
 import { routing } from "@/i18n/routing"
 import { buildMetadata } from "@/lib/seo"
@@ -41,6 +42,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`${manrope.variable} antialiased`}>
+        <PreloaderGateScript />
         <NextIntlClientProvider>
           <Providers>
             <MainLayout>{children}</MainLayout>

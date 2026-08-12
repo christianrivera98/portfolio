@@ -72,6 +72,23 @@ html {
   scroll-behavior: auto;
 }
 
+/* Preloader gate — see components/organisms/preloader/preloader-gate-script.tsx.
+   The lock lives in CSS so it is already applied (or already absent) on the very
+   first paint, before React hydrates. */
+html[data-preloader="run"],
+html[data-preloader="run"] body {
+  overflow: hidden;
+}
+
+html[data-preloader="run"] body {
+  position: fixed;
+  width: 100%;
+}
+
+html[data-preloader="seen"] .preloader-overlay {
+  display: none;
+}
+
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));

@@ -2,18 +2,23 @@
 
 import { useState, useCallback } from "react"
 import { PreloaderContext } from "@/hooks/usePreloader"
+import { usePreloaderSkipped } from "@/hooks/usePreloaderGate"
 import { Preloader } from "./preloader"
 
 export function PreloaderProvider({ children }: { children: React.ReactNode }) {
-  const [isComplete, setIsComplete] = useState(false)
+  const skipped = usePreloaderSkipped()
+  const [played, setPlayed] = useState(false)
 
   const handleComplete = useCallback(() => {
-    setIsComplete(true)
+    setPlayed(true)
   }, [])
+
+  // A skipped visit is complete from the start: nothing locks the scroll.
+  const isComplete = skipped || played
 
   return (
     <PreloaderContext.Provider value={{ isComplete, setComplete: handleComplete }}>
-      <Preloader onComplete={handleComplete} />
+      {!skipped && <Preloader onComplete={handleComplete} />}
       {children}
     </PreloaderContext.Provider>
   )
