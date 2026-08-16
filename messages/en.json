@@ -184,9 +184,9 @@
   "About": {
     "label": "About",
     "title": "Beyond the Code",
-    "quote": "System first, component second.",
+    "quote": "The system decides; the component obeys.",
     "bio": [
-      "I trained in electronics, robotics and mechatronics engineering, with a diploma in IoT, before moving into the web. That background shaped how I approach problems: system first, component second.",
+      "I trained in electronics, robotics and mechatronics engineering, with a diploma in IoT, before moving into the web. That background shaped how I approach problems: I map the whole machine first, then drop down to the part.",
       "These days I work with product teams on what usually hurts once a SaaS scales: complex business logic, multi-role systems, real-time data. I like being handed ownership of the whole problem, whatever the domain.",
       "I also use AI inside my own workflow, for testing and for UI, always under my own review, because speed only matters if what comes out actually works. What I care about most is staying sharp."
     ],

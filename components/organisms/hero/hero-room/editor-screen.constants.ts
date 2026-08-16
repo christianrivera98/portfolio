@@ -46,7 +46,7 @@ export const EDITOR_CODE: EToken[][] = [
   [{ text: "", color: P }],
   [{ text: "export", color: PUR }, { text: " function ", color: KW }, { text: "Hero", color: TYP }, { text: "() {", color: P }],
   [{ text: "  const ", color: KW }, { text: "role", color: VAR }, { text: " = ", color: P }, { text: "'Full-Stack Engineer'", color: STR }],
-  [{ text: "  // system first, component second", color: CMT }],
+  [{ text: "  // shape the system, then the parts", color: CMT }],
   [{ text: "  return ", color: PUR }, { text: "<", color: P }, { text: "Section", color: TYP }, { text: " />", color: P }],
   [{ text: "}", color: P }],
 ]

@@ -184,9 +184,9 @@
   "About": {
     "label": "Sobre mí",
     "title": "Más allá del código",
-    "quote": "Primero el sistema, después el componente.",
+    "quote": "El sistema decide; el componente obedece.",
     "bio": [
-      "Me formé en ingeniería electrónica, robótica y mecatrónica, con un diplomado en IoT, antes de pasarme a la web. Ese bagaje moldeó cómo abordo los problemas: primero el sistema, después el componente.",
+      "Me formé en ingeniería electrónica, robótica y mecatrónica, con un diplomado en IoT, antes de pasarme a la web. Ese bagaje moldeó cómo abordo los problemas: primero entiendo la máquina completa, después bajo a la pieza.",
       "Hoy trabajo con equipos de producto en lo que suele doler cuando un SaaS escala: lógica de negocio compleja, sistemas multi-rol, datos en tiempo real. Me gusta que me den la propiedad del problema completo, sea cual sea el dominio.",
       "También uso IA dentro de mi propio flujo de trabajo, para pruebas y para UI, siempre bajo mi propia revisión, porque la velocidad solo importa si lo que sale funciona de verdad. Lo que más me importa es seguir afilado."
     ],
