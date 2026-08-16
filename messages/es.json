@@ -153,25 +153,31 @@
   },
   "Technologies": {
     "label": "Proceso & stack",
-    "title": "Entonces, cómo trabajo...",
-    "subtitle": "¿Proceso? Sí, tengo uno — y un stack afilado para ejecutarlo.",
-    "skillsLabel": "El stack que más uso",
+    "title": "Cómo llevo un problema a producción",
+    "subtitle": "Cuatro decisiones que tomo en todo proyecto, siempre en este orden.",
+    "skillsLabel": "Con qué lo construyo",
+    "whyLabel": "Por qué te importa",
+    "backLabel": "Volver",
     "process": {
       "understand": {
-        "title": "Entender el problema",
-        "desc": "Descompongo el requisito, no solo el ticket: alineo objetivos de negocio, necesidades del usuario y restricciones técnicas antes de escribir una línea."
+        "title": "Encuadrar el problema",
+        "desc": "Empiezo por el porqué, no por el ticket: qué está decidiendo el negocio, qué necesita de verdad quien lo usa y qué restringe el sistema. Si el requisito no se sostiene, lo discuto antes de escribirlo, no después.",
+        "why": "Lo que más presupuesto quema no es el bug: es construir bien lo que no era. Por eso prefiero incomodarte con preguntas al principio y no entregarte algo impecable para el problema equivocado."
       },
       "architecture": {
-        "title": "Arquitectura que escala",
-        "desc": "Primero el sistema, después el componente: defino una arquitectura por features que crece a decenas de módulos sin acoplamiento ni deuda."
+        "title": "Arquitectura que aguanta",
+        "desc": "Trazo los límites antes que las piezas: una arquitectura por features donde cualquier módulo se mueve, se borra o se reemplaza sin arrastrar al resto. Prefiero acoplar por contrato que por conveniencia.",
+        "why": "Es lo que decide si tu funcionalidad número cincuenta cuesta como la primera o como cinco. Un sistema con límites claros se puede cambiar; uno acoplado solo se puede reescribir."
       },
       "build": {
-        "title": "Implementación con foco",
-        "desc": "Construyo con estado de servidor real, integraciones de producción y accesibilidad desde el primer componente. Uso IA en mi flujo, siempre bajo mi propia revisión."
+        "title": "Implementación con criterio",
+        "desc": "Estado de servidor real, integraciones de producción y accesibilidad desde el primer componente, no como una pasada al final. Uso IA para acelerar lo mecánico; lo que entra al repo pasa por mi revisión.",
+        "why": "Lo que se deja para después no se hace. La accesibilidad y los estados de error añadidos al final siempre salen más caros que hechos desde el primer día. Prefiero avanzar algo más lento y que cada entrega sea usable de verdad."
       },
       "quality": {
         "title": "Calidad y entrega",
-        "desc": "Aseguro las zonas críticas con pruebas automatizadas, optimizo performance y endurezco la seguridad antes de cada handoff."
+        "desc": "Pruebo donde fallar sale caro, no donde es fácil llegar al 100%. Mido antes de optimizar, y dejo el contexto escrito para quien reciba el código.",
+        "why": "Puedes cambiar de proveedor, de equipo o de rumbo sin que el proyecto se detenga. Las pruebas están donde un fallo te costaría dinero, y el contexto queda escrito: el código no depende de que yo siga aquí."
       }
     }
   },
