@@ -18,6 +18,7 @@ export function useTechnologiesAnimations(
     () => {
       if (prefersReduced) return
       // Section label clip-path reveal
+      gsap.set(".tech-accent-line", { scaleX: 0 })
       gsap.fromTo(
         ".tech-label",
         { clipPath: "inset(0 100% 0 0)" },
@@ -35,7 +36,8 @@ export function useTechnologiesAnimations(
 
       // Title SplitText reveal
       if (titleRef.current) {
-        const split = SplitText.create(titleRef.current, { type: "chars" })
+        // words,chars — splitting into bare chars lets the browser break mid-word
+        const split = SplitText.create(titleRef.current, { type: "words,chars" })
         gsap.from(split.chars, {
           y: 80,
           opacity: 0,
@@ -53,16 +55,13 @@ export function useTechnologiesAnimations(
       }
 
       // Subtitle reveal
-      gsap.from(".tech-subtitle", {
-        y: 25,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".tech-subtitle",
-          start: "top 88%",
-          toggleActions: "play none none reverse",
-        },
+      gsap.set(".tech-subtitle", { opacity: 0, y: 25 })
+      ScrollTrigger.create({
+        trigger: ".tech-subtitle",
+        start: "top bottom-=40",
+        once: true,
+        onEnter: () =>
+          gsap.to(".tech-subtitle", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }),
       })
 
       // Accent line draw
@@ -114,6 +113,17 @@ export function useTechnologiesAnimations(
             duration: 0.5,
             ease: "back.out(1.6)",
           }),
+      })
+
+      // Same onEnter shape as the cards: a from-tween would sit at opacity 0
+      // until its trigger fires, which leaves the CTA invisible if it never does.
+      gsap.set(".tech-cta", { opacity: 0, y: 20 })
+      ScrollTrigger.create({
+        trigger: ".tech-cta",
+        start: "top bottom-=40",
+        once: true,
+        onEnter: () =>
+          gsap.to(".tech-cta", { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }),
       })
 
       ScrollTrigger.refresh()

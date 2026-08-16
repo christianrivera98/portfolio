@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from "react"
+import type { CSSProperties, ReactElement, ReactNode } from "react"
 
 /** Order in which the pixels of the grid resolve during a swap. */
 export type PixelSwapPattern =
@@ -50,6 +50,6 @@ export type PixelSwapProps = {
   style?: CSSProperties
 }
 
-declare function PixelSwap(props: PixelSwapProps): React.JSX.Element
+declare function PixelSwap(props: PixelSwapProps): ReactElement
 
 export default PixelSwap
