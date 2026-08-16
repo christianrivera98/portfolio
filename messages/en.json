@@ -156,29 +156,27 @@
     "title": "How I take a problem to production",
     "subtitle": "Four decisions I make on every project, always in this order.",
     "skillsLabel": "What I build it with",
-    "whyLabel": "Why it matters to you",
-    "backLabel": "Back",
     "cta": "Let's talk about your project",
     "process": {
       "understand": {
         "title": "Frame the problem",
         "desc": "I start with the why, not the ticket: what the business is actually deciding, what the user really needs, what the system constrains. If the requirement doesn't hold up, I push back before writing it, not after.",
-        "why": "What burns the most budget isn't the bug — it's building the wrong thing well. That's why I'd rather bother you with questions up front than hand you something flawless for the wrong problem."
+        "why": "Building the wrong thing well is what burns the most budget. Awkward questions are far cheaper at the start."
       },
       "architecture": {
         "title": "Architecture that holds",
         "desc": "I draw the boundaries before the pieces: a feature-based architecture where any module can move, die or be replaced without dragging the rest with it. I'd rather couple by contract than by convenience.",
-        "why": "This is what decides whether your fiftieth feature costs like the first or like five. A system with clear boundaries can be changed; a coupled one can only be rewritten."
+        "why": "The fiftieth feature should cost what the first one did. A coupled system does not get changed: it gets rewritten."
       },
       "build": {
         "title": "Implementation with judgment",
         "desc": "Real server state, production integrations and accessibility from the first component — not as a pass at the end. I use AI to speed up the mechanical parts; what lands in the repo goes through my review.",
-        "why": "Whatever gets left for later doesn't get done. Accessibility and error states bolted on at the end always cost more than built in from day one. I'd rather move a bit slower and have every delivery actually be usable."
+        "why": "Whatever gets left for later never happens. Accessibility and error states bolted on at the end always cost more."
       },
       "quality": {
         "title": "Quality & handoff",
         "desc": "I test where failure is expensive, not where coverage is easy. I measure before optimizing, and leave the context written down for whoever inherits the code.",
-        "why": "You can change vendor, team or direction without the project stalling. The tests sit where a failure would cost you money, and the context is written down: the code doesn't depend on me still being around."
+        "why": "The project does not stall when the team or the direction changes. The tests sit where failure costs money and the context stays written down."
       }
     }
   },

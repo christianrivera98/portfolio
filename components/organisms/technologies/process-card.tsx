@@ -31,7 +31,7 @@ export function ProcessCard({ id, index }: { id: string; index: number }) {
       onFocus={() => setActive(true)}
       onBlur={() => setActive(false)}
       onClick={() => setActive((current) => !current)}
-      className="process-card group relative overflow-hidden rounded-2xl border border-foreground/[0.08] bg-foreground/[0.02] text-left transition-colors duration-500 ease-out hover:border-[hsl(var(--primary))]/40 hover:bg-foreground/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a] aria-expanded:border-[hsl(var(--primary))]/40"
+      className="process-card group relative overflow-hidden rounded-2xl border border-foreground/[0.08] bg-foreground/[0.02] text-left transition-colors duration-500 ease-out hover:border-[hsl(var(--primary))]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a] aria-expanded:border-[hsl(var(--primary))]/40"
     >
       {/* crimson glow that blooms from the top-left on hover */}
       <div className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_20%_0%,hsl(var(--primary)/0.18),transparent_55%)]" />
@@ -41,30 +41,21 @@ export function ProcessCard({ id, index }: { id: string; index: number }) {
         trigger="none"
         aspectRatio="auto"
         className="h-[19.5rem] sm:h-[17.5rem] md:h-[19rem] lg:h-[17rem]"
-        pixelSize={104}
+        pixelSize={48}
         gap={2}
+        pixelScale={0.62}
         pattern="left-to-right"
-        randomness={0.35}
-        duration={760}
-        pixelDuration={320}
+        randomness={0.45}
+        duration={900}
+        pixelDuration={380}
         firstContent={
           <ProcessCardFace
-            variant="front"
             step={step}
-            heading={t(`process.${id}.title`)}
+            title={t(`process.${id}.title`)}
             body={t(`process.${id}.desc`)}
-            hint={t("whyLabel")}
           />
         }
-        secondContent={
-          <ProcessCardFace
-            variant="back"
-            step={step}
-            heading={t("whyLabel")}
-            body={t(`process.${id}.why`)}
-            hint={t("backLabel")}
-          />
-        }
+        secondContent={<ProcessCardFace step={step} body={t(`process.${id}.why`)} />}
       />
     </button>
   )
