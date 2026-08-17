@@ -178,7 +178,8 @@
         "desc": "Pruebo donde fallar sale caro, no donde es fácil llegar al 100%. Mido antes de optimizar, y dejo el contexto escrito para quien reciba el código.",
         "why": "El proyecto no se detiene si cambia el equipo o el rumbo. Las pruebas están donde fallar cuesta dinero y el contexto queda escrito."
       }
-    }
+    },
+    "tapHint": "Toca para leer"
   },
   "About": {
     "label": "Sobre mí",

@@ -178,7 +178,8 @@
         "desc": "I test where failure is expensive, not where coverage is easy. I measure before optimizing, and leave the context written down for whoever inherits the code.",
         "why": "The project does not stall when the team or the direction changes. The tests sit where failure costs money and the context stays written down."
       }
-    }
+    },
+    "tapHint": "Tap to read"
   },
   "About": {
     "label": "About",
