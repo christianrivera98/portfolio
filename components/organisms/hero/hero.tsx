@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl"
 import { useHeroIntroAnimation } from "@/hooks/useHeroIntroAnimation"
 import { usePreloader } from "@/hooks/usePreloader"
 import { useDeferredMount } from "@/hooks/useDeferredMount"
+import { useInViewport } from "@/hooks/useInViewport"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
 import { ScrollIndicator } from "./scroll-indicator"
 import { HeroScrollInvite } from "./hero-scroll-invite"
@@ -26,6 +27,8 @@ export function Hero() {
   const prefersReduced = usePrefersReducedMotion()
   // The 3D chunk is ~870 KB: it waits for idle, and never mounts under reduced motion.
   const show3D = useDeferredMount(!prefersReduced)
+  // ...and once mounted it only draws while the hero is actually on screen.
+  const roomActive = useInViewport(sectionRef)
 
   useHeroIntroAnimation(isComplete, sectionRef)
 
@@ -47,7 +50,7 @@ export function Hero() {
         <RoomPoster />
         {show3D && (
           <div className="absolute inset-0 hero-room-fade">
-            <HeroRoom social={social} />
+            <HeroRoom social={social} active={roomActive} />
           </div>
         )}
       </div>

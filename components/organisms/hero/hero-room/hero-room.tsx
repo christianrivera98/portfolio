@@ -1,7 +1,7 @@
 "use client"
 
-import { Suspense, useRef } from "react"
-import { Canvas, useFrame } from "@react-three/fiber"
+import { Suspense, useEffect, useRef } from "react"
+import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { useTheme } from "next-themes"
 import * as THREE from "three"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
@@ -18,6 +18,10 @@ import { Decor } from "./decor"
 // Pan the view left so the scene sits on the right half (text stays legible left).
 const PAN = -1.05
 
+// The scene only has to advance fast enough for the editor to look like it is
+// typing; pointer moves request extra frames on top of this for a smooth rig.
+const IDLE_FPS = 15
+
 function CameraRig({ reduced }: { reduced: boolean }) {
   const target = useRef(new THREE.Vector3(PAN, 1.6, -0.5))
   useFrame((state, delta) => {
@@ -32,7 +36,29 @@ function CameraRig({ reduced }: { reduced: boolean }) {
   return null
 }
 
-export function HeroRoom({ social }: { social: SocialKey | null }) {
+/**
+ * Drives a `frameloop="demand"` canvas: a slow heartbeat so the editor keeps
+ * typing, plus a frame per pointer move so the camera rig stays fluid. Both
+ * stop dead when the hero is off screen.
+ */
+function FrameDriver({ active }: { active: boolean }) {
+  const invalidate = useThree((state) => state.invalidate)
+
+  useEffect(() => {
+    if (!active) return
+    const beat = window.setInterval(invalidate, 1000 / IDLE_FPS)
+    const onPointerMove = () => invalidate()
+    window.addEventListener("pointermove", onPointerMove, { passive: true })
+    return () => {
+      window.clearInterval(beat)
+      window.removeEventListener("pointermove", onPointerMove)
+    }
+  }, [active, invalidate])
+
+  return null
+}
+
+export function HeroRoom({ social, active }: { social: SocialKey | null; active: boolean }) {
   const reduced = usePrefersReducedMotion()
   const { resolvedTheme } = useTheme()
   const theme = resolvedTheme === "light" ? ROOM_LIGHT : ROOM_DARK
@@ -40,10 +66,15 @@ export function HeroRoom({ social }: { social: SocialKey | null }) {
   return (
     <Canvas
       shadows
-      dpr={[1, 2]}
+      // Off screen the loop is stopped outright; on screen every frame has to be
+      // asked for. Before this the room kept drawing while the visitor read the
+      // sections below it — 6072 draw calls during a 4s scroll past Technologies.
+      frameloop={active ? "demand" : "never"}
+      dpr={[1, 1.5]}
       camera={{ position: [-1.05, 2.0, 5.2], fov: 40 }}
       gl={{ antialias: true, toneMappingExposure: 1.35 }}
     >
+      <FrameDriver active={active} />
       <color attach="background" args={[theme.fog]} />
       <fog attach="fog" args={[theme.fog, 8, 18]} />
       <ambientLight intensity={theme.ambient + 0.12} color={theme.fill} />
