@@ -1,10 +1,21 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { useTranslations } from "next-intl"
 import PixelSwap from "@/components/ui/pixel-swap"
 import { useMediaQuery } from "@/hooks/useMediaQuery"
+import { usePointerSpotlight } from "@/hooks/usePointerSpotlight"
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
 import { ProcessCardFace } from "./process-card-face"
+
+/** WIDE cells span the column; STD cells sit two-up, so each gets its own ratio. */
+export type CardVariant = "wide" | "std"
+
+const ASPECT: Record<CardVariant, string> = {
+  // One fixed ratio per variant per breakpoint — never derived from the copy.
+  wide: "[--card-aspect:29/26] sm:[--card-aspect:16/7] lg:[--card-aspect:21/8]",
+  std: "[--card-aspect:29/26] sm:[--card-aspect:16/9] lg:[--card-aspect:10/9]",
+}
 
 /**
  * One bento card: the step title swaps into its description.
@@ -13,23 +24,33 @@ import { ProcessCardFace } from "./process-card-face"
  * it already exposes role="button", tabIndex and Enter/Space, and in `hover`
  * mode it wires focus/blur, so wrapping it would nest two focusable controls.
  */
-export function ProcessCard({ id, index }: { id: string; index: number }) {
+export function ProcessCard({
+  id,
+  index,
+  variant,
+}: {
+  id: string
+  index: number
+  variant: CardVariant
+}) {
   const t = useTranslations("Technologies")
+  const cardRef = useRef<HTMLDivElement>(null)
   const coarse = useMediaQuery("(pointer: coarse)")
+  const reduced = usePrefersReducedMotion()
   const [active, setActive] = useState(false)
+
+  usePointerSpotlight(cardRef, !coarse && !reduced)
 
   const step = String(index + 1).padStart(2, "0")
 
   return (
     <div
+      ref={cardRef}
       data-active={active}
-      // One fixed ratio per breakpoint, identical for all four cards: the swap
-      // crops to its box, and the column goes from ~312px to ~518px wide, so a
-      // single global ratio would either clip on mobile or tower on desktop.
-      className="process-card group relative overflow-hidden rounded-2xl border border-foreground/[0.08] transition-colors duration-500 ease-out [--card-aspect:29/26] hover:border-[hsl(var(--primary))]/40 focus-within:border-[hsl(var(--primary))]/40 data-[active=true]:border-[hsl(var(--primary))]/40 sm:[--card-aspect:16/9] md:[--card-aspect:29/26] lg:[--card-aspect:12/5]"
+      className={`process-card group relative overflow-hidden rounded-2xl border border-foreground/[0.08] transition-colors duration-500 ease-out hover:border-[hsl(var(--primary))]/40 focus-within:border-[hsl(var(--primary))]/40 data-[active=true]:border-[hsl(var(--primary))]/40 ${ASPECT[variant]}`}
     >
-      {/* crimson glow that blooms from the top-left on hover */}
-      <div className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_20%_0%,hsl(var(--primary)/0.18),transparent_55%)]" />
+      {/* spotlight tracking the pointer, parked centre-top until it moves */}
+      <div className="process-card-spotlight pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
       <PixelSwap
         trigger={coarse ? "click" : "hover"}
@@ -47,7 +68,7 @@ export function ProcessCard({ id, index }: { id: string; index: number }) {
           <ProcessCardFace
             step={step}
             title={t(`process.${id}.title`)}
-            hint={coarse ? t("tapHint") : undefined}
+            hint={coarse ? t("tapHint") : t("hoverHint")}
           />
         }
         secondContent={<ProcessCardFace step={step} body={t(`process.${id}.desc`)} />}

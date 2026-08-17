@@ -160,26 +160,23 @@
     "process": {
       "understand": {
         "title": "Encuadrar el problema",
-        "desc": "Empiezo por el porqué, no por el ticket: qué está decidiendo el negocio, qué necesita de verdad quien lo usa y qué restringe el sistema. Si el requisito no se sostiene, lo discuto antes de escribirlo, no después.",
-        "why": "Construir bien lo que no era es lo que más presupuesto quema. Las preguntas incómodas salen mucho más baratas al principio."
+        "desc": "Empiezo por el porqué, no por el ticket: qué está decidiendo el negocio, qué necesita de verdad quien lo usa y qué restringe el sistema. Si el requisito no se sostiene, lo discuto antes de escribirlo, no después."
       },
       "architecture": {
         "title": "Arquitectura que aguanta",
-        "desc": "Trazo los límites antes que las piezas: una arquitectura por features donde cualquier módulo se mueve, se borra o se reemplaza sin arrastrar al resto. Prefiero acoplar por contrato que por conveniencia.",
-        "why": "La funcionalidad número cincuenta debería costar lo que costó la primera. Un sistema acoplado no se cambia: se reescribe."
+        "desc": "Trazo los límites antes que las piezas: una arquitectura por features donde cualquier módulo se mueve, se borra o se reemplaza sin arrastrar al resto. Prefiero acoplar por contrato que por conveniencia."
       },
       "build": {
         "title": "Implementación con criterio",
-        "desc": "Estado de servidor real, integraciones de producción y accesibilidad desde el primer componente, no como una pasada al final. Uso IA para acelerar lo mecánico; lo que entra al repo pasa por mi revisión.",
-        "why": "Lo que se deja para después no se hace. La accesibilidad y los estados de error puestos al final siempre salen más caros."
+        "desc": "Estado de servidor real, integraciones de producción y accesibilidad desde el primer componente, no como una pasada al final. Uso IA para acelerar lo mecánico; lo que entra al repo pasa por mi revisión."
       },
       "quality": {
         "title": "Calidad y entrega",
-        "desc": "Pruebo donde fallar sale caro, no donde es fácil llegar al 100%. Mido antes de optimizar, y dejo el contexto escrito para quien reciba el código.",
-        "why": "El proyecto no se detiene si cambia el equipo o el rumbo. Las pruebas están donde fallar cuesta dinero y el contexto queda escrito."
+        "desc": "Pruebo donde fallar sale caro, no donde es fácil llegar al 100%. Mido antes de optimizar, y dejo el contexto escrito para quien reciba el código."
       }
     },
-    "tapHint": "Toca para leer"
+    "tapHint": "Toca para leer",
+    "hoverHint": "Pasa el cursor"
   },
   "About": {
     "label": "Sobre mí",

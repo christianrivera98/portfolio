@@ -223,6 +223,40 @@ body {
   background-position: 0 0;
 }
 
+/* Process cards: pointer spotlight + tilt.
+   The gradient is painted once into a fixed-size layer and then moved with a
+   transform, rather than re-painting a gradient whose centre changes. */
+.process-card-spotlight::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle closest-side,
+    hsl(var(--primary) / 0.35),
+    transparent 100%
+  );
+  transform: translate3d(calc(var(--mx, 50%) - 190px), calc(var(--my, 0px) - 190px), 0);
+  will-change: transform;
+}
+
+.process-card {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.5s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process-card {
+    transform: none;
+  }
+  .process-card-spotlight::before {
+    display: none;
+  }
+}
+
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *,

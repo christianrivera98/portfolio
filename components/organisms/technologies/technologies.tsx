@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowRightIcon } from "@/components/ui/icons"
 import { useTechnologiesAnimations } from "@/hooks/useTechnologiesAnimations"
 import { ProcessCard } from "./process-card"
-import { SkillsGrid } from "./skills-grid"
+import { StackSignature } from "./stack-signature"
 import { PROCESS_CARDS } from "./technologies.config"
 
 export function Technologies() {
@@ -25,7 +25,6 @@ export function Technologies() {
     >
       <div className="absolute bottom-1/4 left-0 size-[500px] rounded-full bg-[hsl(var(--primary))] opacity-[0.02] blur-[120px] pointer-events-none" />
 
-      {/* Header and content share one axis and one max width */}
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 md:px-12">
         <div className="mb-16">
           {/* Hidden states live in the hook, not here: with reduced motion the
@@ -46,16 +45,24 @@ export function Technologies() {
           </p>
         </div>
 
-        <div className="tech-bento grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
-          {PROCESS_CARDS.map((card, index) => (
-            <ProcessCard key={card.id} id={card.id} index={index} />
-          ))}
-        </div>
+        {/* Asymmetric bento: the four steps read as a column of uneven cells,
+            with the stack constellation as the tall protagonist beside them. */}
+        <div className="tech-bento grid grid-cols-1 gap-4 lg:grid-cols-12 lg:gap-5">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-7 lg:gap-5">
+            {PROCESS_CARDS.map((card, index) => {
+              const variant = index === 0 || index === 3 ? "wide" : "std"
+              return (
+                <div key={card.id} className={variant === "wide" ? "sm:col-span-2" : undefined}>
+                  <ProcessCard id={card.id} index={index} variant={variant} />
+                </div>
+              )
+            })}
+          </div>
 
-        <p className="tech-skills-label mt-24 mb-8 font-mono text-[11px] uppercase tracking-[0.3em] text-foreground/60">
-          {t("skillsLabel")}
-        </p>
-        <SkillsGrid />
+          <div className="tech-stack-cell lg:col-span-5">
+            <StackSignature />
+          </div>
+        </div>
 
         <div className="tech-cta mt-24 flex justify-center">
           <Button
