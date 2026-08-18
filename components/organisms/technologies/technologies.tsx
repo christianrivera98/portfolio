@@ -8,7 +8,20 @@ import { ArrowRightIcon } from "@/components/ui/icons"
 import { useTechnologiesAnimations } from "@/hooks/useTechnologiesAnimations"
 import { ProcessCard } from "./process-card"
 import { StackSignature } from "./stack-signature"
+import type { CardVariant } from "./process-card"
 import { PROCESS_CARDS } from "./technologies.config"
+
+/**
+ * Explicit placement, in PROCESS_CARDS order (01 · 02 · 03 · 04). From sm up the
+ * steps split into two sub-columns: 01 over 03 on the left, 02 tall beside them
+ * spanning both rows, and 04 across the full width underneath.
+ */
+const CELLS: { variant: CardVariant; place: string }[] = [
+  { variant: "std", place: "sm:col-start-1 sm:row-start-1" },
+  { variant: "tall", place: "sm:col-start-2 sm:row-start-1 sm:row-span-2" },
+  { variant: "std", place: "sm:col-start-1 sm:row-start-2" },
+  { variant: "wide", place: "sm:col-start-1 sm:col-span-2 sm:row-start-3" },
+]
 
 export function Technologies() {
   const containerRef = useRef<HTMLElement>(null)
@@ -49,14 +62,11 @@ export function Technologies() {
             with the stack constellation as the tall protagonist beside them. */}
         <div className="tech-bento grid grid-cols-1 gap-4 lg:grid-cols-12 lg:gap-5">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-7 lg:gap-5">
-            {PROCESS_CARDS.map((card, index) => {
-              const variant = index === 0 || index === 3 ? "wide" : "std"
-              return (
-                <div key={card.id} className={variant === "wide" ? "sm:col-span-2" : undefined}>
-                  <ProcessCard id={card.id} index={index} variant={variant} />
-                </div>
-              )
-            })}
+            {PROCESS_CARDS.map((card, index) => (
+              <div key={card.id} className={CELLS[index].place}>
+                <ProcessCard id={card.id} index={index} variant={CELLS[index].variant} />
+              </div>
+            ))}
           </div>
 
           <div className="tech-stack-cell lg:col-span-5">

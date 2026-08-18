@@ -8,13 +8,19 @@ import { usePointerSpotlight } from "@/hooks/usePointerSpotlight"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
 import { ProcessCardFace } from "./process-card-face"
 
-/** WIDE cells span the column; STD cells sit two-up, so each gets its own ratio. */
-export type CardVariant = "wide" | "std"
+/**
+ * WIDE cells span both sub-columns, STD cells sit one-up in the left column and
+ * TALL spans two rows beside them, so each gets its own ratio.
+ */
+export type CardVariant = "wide" | "std" | "tall"
 
 const ASPECT: Record<CardVariant, string> = {
   // One fixed ratio per variant per breakpoint — never derived from the copy.
-  wide: "[--card-aspect:29/26] sm:[--card-aspect:16/7] lg:[--card-aspect:21/8]",
-  std: "[--card-aspect:29/26] sm:[--card-aspect:16/9] lg:[--card-aspect:10/9]",
+  wide: "[--card-aspect:29/26] sm:[--card-aspect:24/7]",
+  std: "[--card-aspect:29/26] sm:[--card-aspect:11/9]",
+  // The tall cell has no ratio of its own: it stretches to 01 + 03 + the gap.
+  // Below sm the grid is a single column, so it falls back to the shared ratio.
+  tall: "[--card-aspect:29/26] sm:h-full sm:[--card-aspect:auto]",
 }
 
 /**
@@ -56,7 +62,7 @@ export function ProcessCard({
         trigger={coarse ? "click" : "hover"}
         onActiveChange={setActive}
         style={{ aspectRatio: "var(--card-aspect)" }}
-        className="focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))]"
+        className="h-full focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))]"
         pixelSize={24}
         gap={2}
         pixelScale={0.35}
