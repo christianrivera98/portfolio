@@ -1,0 +1,27 @@
+"use client"
+
+import { useTranslations } from "next-intl"
+import { useCardVisual } from "@/hooks/useCardVisual"
+import { buildTerminalTimeline } from "./visual-timelines"
+import { TERMINAL_KEYS } from "./visuals.config"
+
+/** 01 — discovery questions typed into a mini terminal. */
+export function TerminalVisual() {
+  const t = useTranslations("Technologies.visuals.terminal")
+  const ref = useCardVisual(buildTerminalTimeline)
+
+  return (
+    <div
+      ref={ref}
+      className="visual-mono absolute inset-0 flex flex-col gap-[6px] px-7 pt-14 text-[10px] leading-relaxed text-foreground/50 md:px-9 md:text-[11px]"
+    >
+      {TERMINAL_KEYS.map((key) => (
+        <p key={key} className="visual-line overflow-hidden whitespace-nowrap">
+          <span className="text-[hsl(var(--accent))]">$ </span>
+          {t(key)}
+        </p>
+      ))}
+      <span className="visual-caret mt-1 h-[11px] w-[6px] bg-[hsl(var(--accent))]" />
+    </div>
+  )
+}

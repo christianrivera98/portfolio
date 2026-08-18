@@ -175,6 +175,28 @@
         "desc": "I test where failure is expensive, not where coverage is easy. I measure before optimizing, and leave the context written down for whoever inherits the code."
       }
     },
+    "visuals": {
+      "terminal": {
+        "q1": "who actually uses this?",
+        "q2": "what is the business deciding?",
+        "q3": "what constrains the system?",
+        "q4": "what happens when it fails?"
+      },
+      "tree": {
+        "app": "routes",
+        "domain": "rules",
+        "application": "use cases",
+        "infrastructure": "adapters",
+        "ui": "screens",
+        "shared": "design system"
+      },
+      "pipeline": {
+        "lint": "0 errors",
+        "typecheck": "0 errors",
+        "build": "ok",
+        "tests": "28 passed"
+      }
+    },
     "tapHint": "Tap to read",
     "hoverHint": "Hover to read"
   },

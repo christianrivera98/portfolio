@@ -15,12 +15,14 @@ interface ProcessCardFaceProps {
  * One side of a process card. Both faces share padding, surface and step
  * number, so the pixel grid resolves onto identical geometry.
  *
- * The surface is opaque on purpose: the outgoing face stays on screen under
- * the grid, so a transparent face would show both texts at once.
+ * The surface is a scrim over the card visual rather than a flat fill, and it
+ * goes fully opaque while the pixel grid runs (see `.process-card-face` in
+ * globals.css): the outgoing face stays on screen under the grid, so a
+ * translucent one would show both texts at once mid-swap.
  */
 export function ProcessCardFace({ step, title, body, hint }: ProcessCardFaceProps) {
   return (
-    <div className="flex h-full flex-col bg-[hsl(var(--card-surface))] p-7 text-left md:p-9">
+    <div className="process-card-face flex h-full flex-col p-7 text-left md:p-9">
       <span className="font-mono text-[11px] tracking-[0.3em] text-foreground/60">{step}</span>
 
       {title ? (

@@ -264,6 +264,38 @@ body {
     0 18px 44px -12px hsl(var(--primary) / 0.3), 0 0 28px hsl(var(--accent) / 0.12);
 }
 
+/* Card faces are a scrim over the ambient visual, weighted towards the bottom
+   where the title sits, so the copy keeps its contrast. While the pixel grid
+   runs they go fully opaque: the incoming face is cloned into every pixel, and
+   a translucent clone would let the outgoing text read through it. */
+.process-card-face {
+  background: linear-gradient(
+    180deg,
+    hsl(var(--card-surface) / 0.74) 0%,
+    hsl(var(--card-surface) / 0.9) 55%,
+    hsl(var(--card-surface) / 0.97) 100%
+  );
+}
+
+[data-transitioning="true"] .process-card-face {
+  background: hsl(var(--card-surface));
+}
+
+/* Ambient card visuals: dimmed and faded out before they reach the copy at the
+   bottom of the card, so the text stays the hero and keeps its contrast. */
+.card-visual {
+  opacity: 0.8;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 42%, transparent 78%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 42%, transparent 78%);
+}
+
+/* The section's .font-mono maps to the display sans; the card visuals need a
+   real mono, both to look like a terminal and because the typing effect is a
+   stepped clip-path wipe over fixed-width glyphs. */
+.visual-mono {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
 /* Top highlight rides above the opaque swap faces, which would otherwise cover
    an inset shadow painted on the card itself. */
 .process-card::after {

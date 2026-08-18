@@ -7,6 +7,7 @@ import { useMediaQuery } from "@/hooks/useMediaQuery"
 import { usePointerSpotlight } from "@/hooks/usePointerSpotlight"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
 import { ProcessCardFace } from "./process-card-face"
+import { CardVisual } from "./visuals/card-visual"
 
 /**
  * WIDE cells span both sub-columns, STD cells sit one-up in the left column and
@@ -55,6 +56,8 @@ export function ProcessCard({
       data-active={active}
       className={`process-card group relative overflow-hidden rounded-2xl ${ASPECT[variant]}`}
     >
+      <CardVisual id={id} />
+
       {/* spotlight tracking the pointer, parked centre-top until it moves */}
       <div className="process-card-spotlight pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 

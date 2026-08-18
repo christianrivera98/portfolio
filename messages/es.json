@@ -175,6 +175,28 @@
         "desc": "Pruebo donde fallar sale caro, no donde es fácil llegar al 100%. Mido antes de optimizar, y dejo el contexto escrito para quien reciba el código."
       }
     },
+    "visuals": {
+      "terminal": {
+        "q1": "¿quién lo usa de verdad?",
+        "q2": "¿qué decide el negocio aquí?",
+        "q3": "¿qué restringe el sistema?",
+        "q4": "¿qué pasa cuando falla?"
+      },
+      "tree": {
+        "app": "rutas",
+        "domain": "reglas",
+        "application": "casos de uso",
+        "infrastructure": "adaptadores",
+        "ui": "pantallas",
+        "shared": "design system"
+      },
+      "pipeline": {
+        "lint": "0 errores",
+        "typecheck": "0 errores",
+        "build": "ok",
+        "tests": "28 passed"
+      }
+    },
     "tapHint": "Toca para leer",
     "hoverHint": "Pasa el cursor"
   },
