@@ -20,7 +20,7 @@ interface ProcessCardFaceProps {
  */
 export function ProcessCardFace({ step, title, body, hint }: ProcessCardFaceProps) {
   return (
-    <div className="flex h-full flex-col bg-[#0d0d0d] p-7 text-left md:p-9">
+    <div className="flex h-full flex-col bg-[hsl(var(--card-surface))] p-7 text-left md:p-9">
       <span className="font-mono text-[11px] tracking-[0.3em] text-foreground/60">{step}</span>
 
       {title ? (

@@ -53,7 +53,7 @@ export function ProcessCard({
     <div
       ref={cardRef}
       data-active={active}
-      className={`process-card group relative overflow-hidden rounded-2xl border border-foreground/[0.08] transition-colors duration-500 ease-out hover:border-[hsl(var(--primary))]/40 focus-within:border-[hsl(var(--primary))]/40 data-[active=true]:border-[hsl(var(--primary))]/40 ${ASPECT[variant]}`}
+      className={`process-card group relative overflow-hidden rounded-2xl ${ASPECT[variant]}`}
     >
       {/* spotlight tracking the pointer, parked centre-top until it moves */}
       <div className="process-card-spotlight pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
