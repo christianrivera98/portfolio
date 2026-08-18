@@ -163,8 +163,8 @@
         "desc": "I start with the why, not the ticket: what the business is actually deciding, what the user really needs, what the system constrains. If the requirement doesn't hold up, I push back before writing it, not after."
       },
       "architecture": {
-        "title": "Architecture that holds",
-        "desc": "I draw the boundaries before the pieces: a feature-based architecture where any module can move, die or be replaced without dragging the rest with it. I'd rather couple by contract than by convenience."
+        "title": "Architecture that scales",
+        "desc": "The fiftieth feature should cost what the first one did. A coupled system does not get changed: it gets rewritten."
       },
       "build": {
         "title": "Implementation with judgment",

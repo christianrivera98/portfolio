@@ -163,8 +163,8 @@
         "desc": "Empiezo por el porqué, no por el ticket: qué está decidiendo el negocio, qué necesita de verdad quien lo usa y qué restringe el sistema. Si el requisito no se sostiene, lo discuto antes de escribirlo, no después."
       },
       "architecture": {
-        "title": "Arquitectura que aguanta",
-        "desc": "Trazo los límites antes que las piezas: una arquitectura por features donde cualquier módulo se mueve, se borra o se reemplaza sin arrastrar al resto. Prefiero acoplar por contrato que por conveniencia."
+        "title": "Arquitectura que escala",
+        "desc": "La funcionalidad número cincuenta debería costar lo que costó la primera. Un sistema acoplado no se cambia: se reescribe."
       },
       "build": {
         "title": "Implementación con criterio",
