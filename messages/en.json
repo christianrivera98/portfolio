@@ -184,10 +184,13 @@
       },
       "tree": {
         "app": "routes",
+        "core": "core",
+        "features": "one per domain",
         "domain": "rules",
         "application": "use cases",
         "infrastructure": "adapters",
         "ui": "screens",
+        "layers": "domain · application · infrastructure · ui",
         "shared": "design system"
       },
       "pipeline": {

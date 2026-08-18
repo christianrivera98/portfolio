@@ -13,7 +13,7 @@ export function TreeVisual() {
   return (
     <div
       ref={ref}
-      className="visual-mono visual-sheet flex flex-col justify-center gap-[7px] px-7 py-14 text-[10px] leading-none text-foreground/70 md:px-9"
+      className="visual-mono visual-sheet flex flex-col justify-start gap-[7px] px-7 pt-14 text-[10px] leading-none text-foreground/70 md:px-9"
     >
       {TREE_ROWS.map((row) => (
         <p key={row.text} className="visual-row flex items-baseline gap-2 whitespace-nowrap">

@@ -35,20 +35,26 @@ export const EDITOR_LINES: CodeToken[][] = [
   [{ text: "}", color: MUT }],
 ]
 
-/** 02 — a feature/hexagonal layout unfolding row by row. `note` is an i18n key. */
+/**
+ * 02 — Domain Driven Feature Architecture: every feature owns its four layers,
+ * with `shared/`, `core/` and `app/` around them. `note` is an i18n key; the
+ * layer list on the collapsed features is language-neutral on purpose.
+ */
 export type TreeRow = { text: string; note?: string }
 
 export const TREE_ROWS: TreeRow[] = [
   { text: "src/" },
   { text: "├─ app/", note: "app" },
-  { text: "├─ modules/" },
-  { text: "│  └─ payments/" },
-  { text: "│     ├─ domain/", note: "domain" },
-  { text: "│     ├─ application/", note: "application" },
-  { text: "│     ├─ infrastructure/", note: "infrastructure" },
-  { text: "│     └─ ui/", note: "ui" },
-  { text: "├─ shared/", note: "shared" },
-  { text: "└─ tests/" },
+  { text: "├─ core/", note: "core" },
+  { text: "├─ features/", note: "features" },
+  { text: "│  ├─ payments/" },
+  { text: "│  │  ├─ domain/", note: "domain" },
+  { text: "│  │  ├─ application/", note: "application" },
+  { text: "│  │  ├─ infrastructure/", note: "infrastructure" },
+  { text: "│  │  └─ ui/", note: "ui" },
+  { text: "│  ├─ orders/", note: "layers" },
+  { text: "│  └─ auth/", note: "layers" },
+  { text: "└─ shared/", note: "shared" },
 ]
 
 /** 01 — discovery questions typed into the mini terminal. */

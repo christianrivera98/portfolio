@@ -184,10 +184,13 @@
       },
       "tree": {
         "app": "rutas",
+        "core": "nucleo",
+        "features": "por dominio",
         "domain": "reglas",
         "application": "casos de uso",
         "infrastructure": "adaptadores",
         "ui": "pantallas",
+        "layers": "domain · application · infrastructure · ui",
         "shared": "design system"
       },
       "pipeline": {
