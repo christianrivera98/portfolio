@@ -59,6 +59,8 @@ interface Transition {
 // Every pixel is a window onto its own copy of the incoming content, so the
 // grid stays bounded no matter how small the requested pixel size is.
 const MAX_PIXELS = 220;
+/** How long an interrupted swap takes to dissolve its grid. */
+const ABORT_MS = 160;
 const KEYFRAME_STEPS = 14;
 
 const PATTERNS: Record<PixelSwapPattern, (x: number, y: number) => number | null> = {
@@ -248,6 +250,7 @@ function PixelSwap({
   const [box, setBox] = useState({ width: 0, height: 0 });
 
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const gridLayerRef = useRef<HTMLDivElement | null>(null);
   const layerRefs = useRef<(HTMLDivElement | null)[]>([]);
   const pixelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const animationsRef = useRef<Animation[]>([]);
@@ -311,10 +314,38 @@ function PixelSwap({
 
   useEffect(() => stopAnimations, [stopAnimations]);
 
+  // A swap already running towards the state that is on screen again — the
+  // pointer left before it finished — is dropped rather than queued: it fades
+  // its grid out over ABORT_MS. Waiting it out and then playing the return trip
+  // is what makes a quick hover feel like it lags behind the cursor.
+  const abortTransition = useCallback(() => {
+    const layer = gridLayerRef.current;
+    if (timerRef.current) window.clearTimeout(timerRef.current);
+    timerRef.current = 0;
+    if (!layer) {
+      stopAnimations();
+      setTransition(null);
+      return;
+    }
+    const fade = layer.animate([{ opacity: 1 }, { opacity: 0 }], {
+      duration: ABORT_MS,
+      easing: 'linear',
+      fill: 'forwards'
+    });
+    fade.onfinish = () => {
+      stopAnimations();
+      setTransition(null);
+    };
+  }, [stopAnimations]);
+
   useEffect(() => {
-    if (transition || desiredActive === shownActive) return;
-    setTransition({ to: desiredActive, grid: gridRef.current });
-  }, [desiredActive, shownActive, transition]);
+    if (!transition) {
+      if (desiredActive !== shownActive) setTransition({ to: desiredActive, grid: gridRef.current });
+      return;
+    }
+    // Two states only, so a mismatch here always means "back where we started".
+    if (transition.to !== desiredActive) abortTransition();
+  }, [abortTransition, desiredActive, shownActive, transition]);
 
   useEffect(() => {
     if (!transition) return;
@@ -454,7 +485,7 @@ function PixelSwap({
       {renderLayer(secondContent, 1)}
 
       {transition && (
-        <div className="pointer-events-none absolute inset-0 z-[3]" aria-hidden="true">
+        <div ref={gridLayerRef} className="pointer-events-none absolute inset-0 z-[3]" aria-hidden="true">
           {transition.grid.pixels.map((pixel, index) => (
             <div
               key={pixel.id}

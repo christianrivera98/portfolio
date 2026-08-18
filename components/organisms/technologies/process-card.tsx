@@ -66,13 +66,15 @@ export function ProcessCard({
         onActiveChange={setActive}
         style={{ aspectRatio: "var(--card-aspect)" }}
         className="h-full focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))]"
-        pixelSize={24}
+        // Snappier and cheaper than the defaults: a bigger pixel means fewer
+        // windows, and every window clones the incoming face once.
+        pixelSize={56}
         gap={2}
         pixelScale={0.35}
         pattern="random"
         randomness={0.35}
-        duration={1200}
-        pixelDuration={450}
+        duration={520}
+        pixelDuration={240}
         firstContent={
           <ProcessCardFace
             step={step}
