@@ -1,10 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import Link from "next/link"
 import { useTranslations } from "next-intl"
-import { Button } from "@/components/ui/button"
-import { ArrowRightIcon } from "@/components/ui/icons"
 import { useTechnologiesAnimations } from "@/hooks/useTechnologiesAnimations"
 import { ProcessCard } from "./process-card"
 import { StackSignature } from "./stack-signature"
@@ -72,19 +69,6 @@ export function Technologies() {
           <div className="tech-stack-cell lg:col-span-5">
             <StackSignature />
           </div>
-        </div>
-
-        <div className="tech-cta mt-24 flex justify-center">
-          <Button
-            asChild
-            size="lg"
-            className="h-12 rounded-full bg-white px-7 font-medium text-black transition-transform duration-200 hover:bg-white/90 hover:scale-[1.02] active:scale-[0.98]"
-          >
-            <Link href="#contact" className="inline-flex items-center gap-2">
-              {t("cta")}
-              <ArrowRightIcon className="size-4" />
-            </Link>
-          </Button>
         </div>
       </div>
     </section>

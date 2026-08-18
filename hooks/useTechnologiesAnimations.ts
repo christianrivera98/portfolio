@@ -115,17 +115,6 @@ export function useTechnologiesAnimations(
           }),
       })
 
-      // Same onEnter shape as the cards: a from-tween would sit at opacity 0
-      // until its trigger fires, which leaves the CTA invisible if it never does.
-      gsap.set(".tech-cta", { opacity: 0, y: 20 })
-      ScrollTrigger.create({
-        trigger: ".tech-cta",
-        start: "top bottom-=40",
-        once: true,
-        onEnter: () =>
-          gsap.to(".tech-cta", { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }),
-      })
-
       ScrollTrigger.refresh()
     },
     { scope: containerRef, dependencies: [prefersReduced] }
