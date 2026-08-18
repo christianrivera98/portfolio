@@ -44,18 +44,3 @@ export function buildEditorTimeline(tl: gsap.core.Timeline) {
     .to(".visual-code-line", { opacity: 0, duration: 0.5, stagger: 0.05 }, "+=2.4")
   blinkCaret(tl, 14)
 }
-
-export function buildPipelineTimeline(tl: gsap.core.Timeline) {
-  tl.set(".visual-check", { scale: 0, opacity: 0 })
-    .set(".visual-step", { opacity: 0.3 })
-    .set(".visual-bar", { scaleX: 0 })
-    .to(".visual-bar", { scaleX: 1, duration: 3.2, ease: "none" }, 0)
-    .to(".visual-step", { opacity: 1, duration: 0.25, stagger: 0.8 }, 0)
-    .to(
-      ".visual-check",
-      { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2.2)", stagger: 0.8 },
-      0.45
-    )
-    .addLabel("settled")
-    .to([".visual-step", ".visual-check", ".visual-bar"], { opacity: 0, duration: 0.5 }, "+=2.6")
-}

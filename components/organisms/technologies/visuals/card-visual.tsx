@@ -1,7 +1,7 @@
 "use client"
 
+import { ConsoleVisual } from "./console-visual"
 import { EditorVisual } from "./editor-visual"
-import { PipelineVisual } from "./pipeline-visual"
 import { TerminalVisual } from "./terminal-visual"
 import { TreeVisual } from "./tree-visual"
 
@@ -10,7 +10,7 @@ const VISUALS: Record<string, () => React.ReactElement> = {
   understand: TerminalVisual,
   architecture: TreeVisual,
   build: EditorVisual,
-  quality: PipelineVisual,
+  quality: ConsoleVisual,
 }
 
 /**

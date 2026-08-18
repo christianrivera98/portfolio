@@ -60,5 +60,24 @@ export const TREE_ROWS: TreeRow[] = [
 /** 01 — discovery questions typed into the mini terminal. */
 export const TERMINAL_KEYS = ["q1", "q2", "q3", "q4"] as const
 
-/** 04 — CI checks turning green one after another. `id` is also the i18n key. */
-export const PIPELINE_STEPS = ["lint", "typecheck", "build", "tests"] as const
+/** 04 — the production build as VS Code's integrated terminal prints it. Console
+ *  output is language-neutral, so it stays here instead of in the messages. */
+export const BUILD_COMMAND = "npm run build"
+
+export const BUILD_OUTPUT: string[] = [
+  "",
+  "   ▲ Next.js 16.1.1",
+  "",
+  "   Creating an optimized production build ...",
+  " ✓ Compiled successfully in 7.1s",
+  " ✓ Running TypeScript ...",
+  " ✓ Generating static pages (7/7)",
+  "",
+  "Route (app)                    Size",
+  "┌ ● /[locale]                 1.2 kB",
+  "│   ├ /es",
+  "│   └ /en",
+  "└ ○ /sitemap.xml                 0 B",
+  "",
+  "Done in 7.1s",
+]

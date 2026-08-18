@@ -192,12 +192,6 @@
         "ui": "pantallas",
         "layers": "domain · application · infrastructure · ui",
         "shared": "design system"
-      },
-      "pipeline": {
-        "lint": "0 errores",
-        "typecheck": "0 errores",
-        "build": "ok",
-        "tests": "28 passed"
       }
     },
     "tapHint": "Toca para leer",

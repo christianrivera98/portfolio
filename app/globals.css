@@ -269,11 +269,13 @@ body {
    runs they go fully opaque: the incoming face is cloned into every pixel, and
    a translucent clone would let the outgoing text read through it. */
 .process-card-face {
+  /* Diagonal, matching the visuals' own fade: nearly clear over the top-right
+     corner where the simulation lives, solid over the copy at bottom-left. */
   background: linear-gradient(
-    180deg,
-    hsl(var(--card-surface) / 0.74) 0%,
-    hsl(var(--card-surface) / 0.9) 55%,
-    hsl(var(--card-surface) / 0.97) 100%
+    205deg,
+    hsl(var(--card-surface) / 0.3) 0%,
+    hsl(var(--card-surface) / 0.78) 42%,
+    hsl(var(--card-surface) / 0.97) 72%
   );
 }
 
@@ -298,6 +300,13 @@ body {
   /* Fades towards the bottom-left, which is where the title and the hint live. */
   -webkit-mask-image: linear-gradient(205deg, #000 0%, #000 54%, transparent 88%);
   mask-image: linear-gradient(205deg, #000 0%, #000 54%, transparent 88%);
+}
+
+/* The wide card is short: a diagonal fade would swallow the console body, so it
+   fades sideways instead, away from the copy on the left. */
+.visual-corner-wide {
+  -webkit-mask-image: linear-gradient(270deg, #000 0%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(270deg, #000 0%, #000 78%, transparent 100%);
 }
 
 .visual-tilt-a {

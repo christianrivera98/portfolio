@@ -280,6 +280,10 @@ export interface TerminalProps {
   outputs?: Record<number, string[]>;
   username?: string;
   className?: string;
+  /** Extra classes for the scrolling output pane — its height lives there. */
+  contentClassName?: string;
+  /** "none" drops the macOS title bar, for embedding as an editor-style panel. */
+  chrome?: "mac" | "none";
   typingSpeed?: number;
   delayBetweenCommands?: number;
   initialDelay?: number;
@@ -295,6 +299,8 @@ export function Terminal({
   outputs = {},
   username = "Manus-Macbook",
   className,
+  contentClassName,
+  chrome = "mac",
   typingSpeed = 50,
   delayBetweenCommands = 800,
   initialDelay = 500,
@@ -445,7 +451,12 @@ export function Terminal({
     >
       <div className="overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 shadow-2xl">
         {/* Title Bar */}
-        <div className="flex items-center gap-2 bg-neutral-800 px-4 py-3">
+        <div
+          className={cn(
+            "flex items-center gap-2 bg-neutral-800 px-4 py-3",
+            chrome === "none" && "hidden",
+          )}
+        >
           <div className="flex items-center gap-1.5">
             <div className="h-3 w-3 rounded-full bg-red-500 transition-colors hover:bg-red-600" />
             <div className="h-3 w-3 rounded-full bg-yellow-500 transition-colors hover:bg-yellow-600" />
@@ -462,7 +473,7 @@ export function Terminal({
         {/* Terminal Content */}
         <div
           ref={contentRef}
-          className="no-visible-scrollbar h-80 overflow-y-auto p-4 font-mono"
+          className={cn("no-visible-scrollbar h-80 overflow-y-auto p-4 font-mono", contentClassName)}
         >
           {lines.map((line, i) => (
             <div key={i} className="leading-relaxed whitespace-pre-wrap">
