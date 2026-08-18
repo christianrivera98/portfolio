@@ -227,6 +227,53 @@ body {
   background-position: 0 0;
 }
 
+/* Stack journey — the twelve logos that travel from the hero to the bento.
+   Fixed, so it spans every section (each one is its own overflow-hidden island),
+   and at z-6: over the section backgrounds and the hero scrims, under every
+   section's content (z-10). That ordering is what keeps it behind the bento. */
+.stack-journey {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  perspective: 900px;
+  --logo-size: 18px;
+}
+
+@media (min-width: 768px) {
+  .stack-journey {
+    --logo-size: 30px;
+  }
+}
+
+/* Hidden until the entry tween places them, so nothing flashes at 0,0. */
+.stack-journey[data-ready="false"] .stack-logo {
+  opacity: 0;
+}
+
+.stack-logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--logo-size);
+  height: var(--logo-size);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* One slice of the slab. The mask lives here rather than on the parent: masking
+   the parent would flatten the 3D subtree and the thickness would vanish. */
+.stack-logo-layer {
+  position: absolute;
+  inset: 0;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
 /* Process cards: pointer spotlight + tilt.
    The gradient is painted once into a fixed-size layer and then moved with a
    transform, rather than re-painting a gradient whose centre changes. */

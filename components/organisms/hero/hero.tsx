@@ -10,7 +10,7 @@ import { useInViewport } from "@/hooks/useInViewport"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
 import { ScrollIndicator } from "./scroll-indicator"
 import { HeroScrollInvite } from "./hero-scroll-invite"
-import { HeroCTAs, TechStackTags } from "./hero-actions"
+import { HeroCTAs } from "./hero-actions"
 import { RoomPoster } from "./hero-room/room-poster"
 import { HERO_PROFILE, type SocialKey } from "./hero.config"
 
@@ -96,7 +96,6 @@ export function Hero() {
             </p>
 
             <HeroCTAs onSocialHover={setSocial} />
-            <TechStackTags />
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ import { useHeroScrollParallax } from "@/hooks/useHeroScrollParallax"
 gsap.registerPlugin(SplitText)
 
 const HIDDEN_UNTIL_INTRO =
-  ".hero-name-1, .hero-name-2, .hero-title, .hero-bio, .hero-credentials, .hero-cta, .hero-tag, .hero-photo, .hero-scroll-indicator, .hero-scroll-invite"
+  ".hero-name-1, .hero-name-2, .hero-title, .hero-bio, .hero-credentials, .hero-cta, .hero-photo, .hero-scroll-indicator, .hero-scroll-invite"
 
 /**
  * GSAP-based hero intro animation with SplitText.
@@ -45,7 +45,7 @@ export function useHeroIntroAnimation(
     // Reduced motion: show everything immediately
     if (prefersReduced) {
       const all = scope.current.querySelectorAll(
-        ".hero-label, .hero-name-1, .hero-name-2, .hero-title, .hero-bio, .hero-credentials, .hero-cta, .hero-photo, .hero-tag, .hero-scroll-indicator, .hero-scroll-invite, .hero-accent-line"
+        ".hero-label, .hero-name-1, .hero-name-2, .hero-title, .hero-bio, .hero-credentials, .hero-cta, .hero-photo, .hero-scroll-indicator, .hero-scroll-invite, .hero-accent-line"
       )
       gsap.set(all, { opacity: 1, y: 0, clipPath: "none" })
       return
@@ -92,10 +92,7 @@ export function useHeroIntroAnimation(
       // 9. Laptop — fade + scale in
       tl.fromTo(".hero-photo", { opacity: 0, scale: 0.9, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 1.1, ease: "power2.out" }, 0.6)
 
-      // 10. Tech tags — stagger fade
-      tl.fromTo(".hero-tag", { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.06 }, 1.3)
-
-      // 11. Scroll indicator + invite — fade in
+      // 10. Scroll indicator + invite — fade in
       tl.fromTo(".hero-scroll-indicator, .hero-scroll-invite", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 1.6)
     }, scope)
 

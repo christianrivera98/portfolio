@@ -13,16 +13,6 @@ export const SOCIAL_PREVIEWS: Record<SocialKey, string> = {
   linkedin: "/social/linkedin.webp",
 }
 
-// Brand names — not translated. The five tools a full-stack hiring filter
-// actually screens for: language, frontend framework, backend framework, DB.
-export const TECH_STACK_TAGS = [
-  { id: "typescript", label: "TypeScript" },
-  { id: "react", label: "React" },
-  { id: "nextjs", label: "Next.js" },
-  { id: "nestjs", label: "NestJS" },
-  { id: "postgresql", label: "PostgreSQL" },
-] as const
-
 export type HeroCta = {
   id: string
   href: string
