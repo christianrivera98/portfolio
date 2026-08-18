@@ -11,12 +11,12 @@ export function EditorVisual() {
   return (
     <div
       ref={ref}
-      className="visual-mono absolute inset-0 flex flex-col gap-[5px] px-7 pt-14 text-[10px] leading-none md:px-9 md:text-[11px]"
+      className="visual-mono visual-corner visual-tilt-b flex w-[96%] flex-col gap-[5px] px-4 pt-8 text-[10px] leading-none"
     >
       {EDITOR_LINES.map((line, row) => (
         <p
           key={row}
-          className="visual-code-line flex overflow-hidden whitespace-pre text-foreground/50"
+          className="visual-code-line flex overflow-hidden whitespace-pre text-foreground/70"
         >
           <span className="mr-3 w-3 shrink-0 text-right text-foreground/25">{row + 1}</span>
           {line.map((token, i) => (

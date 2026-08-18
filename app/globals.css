@@ -281,12 +281,39 @@ body {
   background: hsl(var(--card-surface));
 }
 
-/* Ambient card visuals: dimmed and faded out before they reach the copy at the
-   bottom of the card, so the text stays the hero and keeps its contrast. */
+/* Ambient card visuals. The card is the viewport of a shallow 3D scene: each
+   simulation sits in a corner, tilted like a UI mock caught at an angle, and
+   fades out diagonally before it reaches the copy. */
 .card-visual {
-  opacity: 0.8;
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 42%, transparent 78%);
-  mask-image: linear-gradient(180deg, #000 0%, #000 42%, transparent 78%);
+  opacity: 1;
+  perspective: 900px;
+  perspective-origin: 100% 0%;
+}
+
+.visual-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform-origin: top right;
+  /* Fades towards the bottom-left, which is where the title and the hint live. */
+  -webkit-mask-image: linear-gradient(205deg, #000 0%, #000 54%, transparent 88%);
+  mask-image: linear-gradient(205deg, #000 0%, #000 54%, transparent 88%);
+}
+
+.visual-tilt-a {
+  transform: rotateX(7deg) rotateY(-17deg) rotate(-1.2deg);
+}
+
+.visual-tilt-b {
+  transform: rotateX(-6deg) rotateY(-14deg) rotate(1deg);
+}
+
+/* The tall card keeps its full-height sheet; only the bottom needs to clear. */
+.visual-sheet {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 46%, transparent 82%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 46%, transparent 82%);
 }
 
 /* The section's .font-mono maps to the display sans; the card visuals need a

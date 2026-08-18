@@ -14,7 +14,7 @@ export function PipelineVisual() {
   return (
     <div
       ref={ref}
-      className="visual-mono absolute inset-0 flex flex-col justify-start gap-[6px] px-7 pt-14 text-[10px] leading-none text-foreground/50 md:px-9 md:text-[11px]"
+      className="visual-mono visual-corner visual-tilt-a flex w-[56%] flex-col justify-start gap-[6px] px-5 pt-7 text-[10px] leading-none text-foreground/75 md:w-[46%]"
     >
       <div className="mb-2 h-px w-full max-w-[220px] bg-foreground/10">
         <div className="visual-bar h-px w-full origin-left bg-[hsl(var(--accent))]/60" />

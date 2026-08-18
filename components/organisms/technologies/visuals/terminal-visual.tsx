@@ -13,7 +13,7 @@ export function TerminalVisual() {
   return (
     <div
       ref={ref}
-      className="visual-mono absolute inset-0 flex flex-col gap-[6px] px-7 pt-14 text-[10px] leading-relaxed text-foreground/50 md:px-9 md:text-[11px]"
+      className="visual-mono visual-corner visual-tilt-a flex w-[92%] flex-col gap-[6px] px-5 pt-8 text-[10px] leading-relaxed text-foreground/75"
     >
       {TERMINAL_KEYS.map((key) => (
         <p key={key} className="visual-line overflow-hidden whitespace-nowrap">
