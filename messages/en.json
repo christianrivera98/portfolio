@@ -112,17 +112,8 @@
     }
   },
   "Projects": {
-    "label": "Selected Work",
-    "title": "Projects",
     "noShots": "Screenshots coming soon",
-    "expand": "Expand screenshot",
-    "collapse": "Close expanded screenshot",
-    "subtitle": "What I've built and shipped.",
-    "featured": "Featured Project",
     "viewLive": "View Live",
-    "live": "Live",
-    "source": "Source",
-    "code": "Code",
     "items": {
       "toolbooks": {
         "name": "ToolBooks",
@@ -155,8 +146,6 @@
     "label": "Process & stack",
     "title": "How I take a problem to production",
     "subtitle": "Four decisions I make on every project, always in this order.",
-    "skillsLabel": "What I build it with",
-    "cta": "Let's talk about your project",
     "process": {
       "understand": {
         "title": "Frame the problem",

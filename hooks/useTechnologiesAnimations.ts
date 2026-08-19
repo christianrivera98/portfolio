@@ -99,22 +99,6 @@ export function useTechnologiesAnimations(
           }),
       })
 
-      gsap.set(".skill-logo", { opacity: 0, y: 24, scale: 0.85 })
-      ScrollTrigger.create({
-        trigger: ".tech-skills",
-        start: "top bottom-=40",
-        once: true,
-        onEnter: () =>
-          gsap.to(".skill-logo", {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            stagger: 0.04,
-            duration: 0.5,
-            ease: "back.out(1.6)",
-          }),
-      })
-
       ScrollTrigger.refresh()
     },
     { scope: containerRef, dependencies: [prefersReduced] }

@@ -112,17 +112,8 @@
     }
   },
   "Projects": {
-    "label": "Trabajo Seleccionado",
-    "title": "Proyectos",
     "noShots": "Capturas próximamente",
-    "expand": "Ampliar captura",
-    "collapse": "Cerrar captura ampliada",
-    "subtitle": "Lo que he construido y entregado.",
-    "featured": "Proyecto Destacado",
     "viewLive": "Ver en vivo",
-    "live": "En vivo",
-    "source": "Código",
-    "code": "Código",
     "items": {
       "toolbooks": {
         "name": "ToolBooks",
@@ -155,8 +146,6 @@
     "label": "Proceso & stack",
     "title": "Cómo llevo un problema a producción",
     "subtitle": "Cuatro decisiones que tomo en todo proyecto, siempre en este orden.",
-    "skillsLabel": "Con qué lo construyo",
-    "cta": "Hablemos de tu proyecto",
     "process": {
       "understand": {
         "title": "Encuadrar el problema",
