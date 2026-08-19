@@ -83,10 +83,9 @@ export function useLogoMagnet(
     return () => {
       window.removeEventListener("pointermove", onMove)
       document.removeEventListener("pointerleave", onLeave)
-      setters.forEach(({ logo }) => {
-        gsap.killTweensOf(logo.position)
-        gsap.killTweensOf(logo.rotation)
-      })
+      // The quickTo tweens are left to expire on their own: killing everything
+      // on these objects would also take out the scrubbed journey phases that
+      // own the same meshes once the hero is gone.
     }
   }, [enabled, invalidate, meshesRef])
 }

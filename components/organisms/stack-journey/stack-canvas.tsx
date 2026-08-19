@@ -16,7 +16,10 @@ export function StackCanvas() {
     <Canvas
       frameloop="demand"
       orthographic
-      dpr={[1, 1.5]}
+      // 1x everywhere: the buffer is the expensive part of a full-screen canvas
+      // and these are flat white shapes, so the extra pixels bought nothing but
+      // long frames. Antialiasing keeps the edges clean.
+      dpr={1}
       camera={{ position: [0, 0, 600], zoom: 1, near: 1, far: 2000 }}
       gl={{ antialias: true, alpha: true }}
       style={{ pointerEvents: "none" }}

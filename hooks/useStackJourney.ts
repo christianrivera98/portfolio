@@ -5,31 +5,26 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
 import type * as THREE from "three"
+import type { Viewport } from "@/components/organisms/stack-journey/stack-journey.config"
+import { createEntry, placeRow } from "@/components/organisms/stack-journey/stack-phases"
 import {
-  heroEntryPose,
-  heroLogoSize,
-  heroRowPose,
-  toWorld,
-  type Viewport,
-} from "@/components/organisms/stack-journey/stack-journey.config"
+  createDriftPhase,
+  createExitPhase,
+  createScatterPhase,
+} from "@/components/organisms/stack-journey/stack-scroll-phases"
+import { readViewport } from "@/components/organisms/stack-journey/stack-viewport"
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
-/** Resting pose: a slight lean plus an alternating quarter turn, so the slabs
- *  read as solids even while nothing is moving. */
-const REST_TILT = -0.16
-const REST_TURN = 0.46
-
 /**
- * Choreography of the stack logos across the page. Phase 0: they fly in from
- * the left edge, land in the block at the foot of the hero and keep turning
- * slowly on their own axis.
+ * Orchestrates the stack logos across the page: they land in a row in the hero,
+ * the row breaks as it leaves, and the field drifts up behind Experience.
  *
- * The scene renders on demand, so every tween pokes `invalidate` — nothing is
- * drawn while nothing moves. Turning stops once the hero leaves the screen.
+ * The row hangs off the live layout rather than off magic numbers — it centres
+ * in the band under the lowest CTA and stops short of the scroll invite — so a
+ * resize or a copy change re-places it on the next ScrollTrigger refresh.
  */
 export function useStackJourney(
-  stageRef: React.RefObject<THREE.Group | null>,
   meshesRef: React.RefObject<(THREE.Mesh | null)[]>,
   invalidate: () => void,
   ready: boolean,
@@ -39,9 +34,8 @@ export function useStackJourney(
 
   useGSAP(
     () => {
-      const stage = stageRef.current
       const logos = (meshesRef.current ?? []).filter(Boolean) as THREE.Mesh[]
-      if (!ready || !stage || !logos.length) return
+      if (!ready || !logos.length) return
 
       const mm = gsap.matchMedia()
 
@@ -51,120 +45,44 @@ export function useStackJourney(
         { isMobile: "(max-width: 767px)", isDesktop: "(min-width: 768px)" },
         (context) => {
           const mobile = !!context.conditions?.isMobile
-          // The row hangs off the live layout rather than off magic numbers: it
-          // centres in the band under the CTAs and stops short of the scroll
-          // invite, whatever the copy does at this width.
-          const viewport = (): Viewport => {
-            // The lowest CTA, not the first: on narrow screens they wrap and the
-            // row has to clear the last line, not the top one.
-            const ctaBottom = [...document.querySelectorAll(".hero-cta")].reduce(
-              (lowest, el) => Math.max(lowest, el.getBoundingClientRect().bottom),
-              0
-            )
-            const invite = document
-              .querySelector(".hero-scroll-invite")
-              ?.getBoundingClientRect()
-            return {
-              width: window.innerWidth,
-              height: window.innerHeight,
-              mobile,
-              ctaBottom: ctaBottom || undefined,
-              rightLimit: invite?.width ? invite.left - 24 : undefined,
-            }
-          }
+          const viewport = (): Viewport => readViewport(mobile)
 
-          const place = () => {
-            const vp = viewport()
-            const size = heroLogoSize(vp)
-            logos.forEach((logo, i) => {
-              const pose = heroRowPose(i, vp)
-              const { x, y } = toWorld(pose, vp)
-              logo.position.set(x, y, 0)
-              logo.scale.setScalar(size)
-              anchor(logo, i, pose.x, pose.y, x, y)
-            })
-            invalidate()
-          }
+          const phase = { logos, viewport, invalidate }
 
-          // Where the magnet pulls from and back to: the landing spot in screen
-          // pixels, the same point in world units, and the resting rotation.
-          const anchor = (
-            logo: THREE.Mesh,
-            index: number,
-            screenX: number,
-            screenY: number,
-            worldX: number,
-            worldY: number
-          ) => {
-            logo.userData.screenX = screenX
-            logo.userData.screenY = screenY
-            logo.userData.worldX = worldX
-            logo.userData.worldY = worldY
-            logo.userData.size = logo.scale.x
-            logo.userData.tilt = REST_TILT
-            logo.userData.turn = index % 2 ? REST_TURN : -REST_TURN
-            logo.rotation.set(REST_TILT, logo.userData.turn, 0)
-          }
-
-          // The magnet only listens while the hero is on screen. A toggle and
-          // not an onLeave/onEnterBack pair on purpose: the layer mounts after
-          // the preloader, so on a page that is already scrolled down those two
-          // never fire and the scene would keep working for nothing.
+          // The magnet only listens while the hero is parked at the top. It ends
+          // where the scatter begins so the two never fight over the same
+          // meshes. A toggle and not an onLeave/onEnterBack pair on purpose: the
+          // layer mounts after the preloader, so on a page that is already
+          // scrolled down those two never fire and the scene would keep working
+          // for nothing.
           const gate = ScrollTrigger.create({
             trigger: "#home",
             start: "top bottom",
-            end: "bottom top",
+            end: "top top",
             onToggle: (self) => setLive(self.isActive && landed.current),
           })
 
-          // Flying in is only worth it while the hero is on screen; mounting
-          // with the page already scrolled past it just places the block.
-          let entry: gsap.core.Tween | null = null
-          if (gate.isActive) {
-            const start = viewport()
-            logos.forEach((logo, i) => {
-              const from = toWorld(heroEntryPose(i, start), start)
-              logo.position.set(from.x, from.y, 0)
-            })
-            entry = gsap.to(
-              logos.map((logo) => logo.position),
-              {
-                x: (i: number) => toWorld(heroRowPose(i, viewport()), viewport()).x,
-                y: (i: number) => toWorld(heroRowPose(i, viewport()), viewport()).y,
-                duration: 1.2,
-                ease: "power3.out",
-                stagger: 0.08,
-                onUpdate: invalidate,
-                onComplete: () => {
-                  landed.current = true
-                  place()
-                  setLive(gate.isActive)
-                },
-              }
-            )
-          } else {
+          const land = () => {
             landed.current = true
-            place()
+            placeRow(phase)
             setLive(gate.isActive)
           }
 
-          // Placeholder until the drift phase lands: the block rides up and off
-          // with the hero.
-          const trigger = ScrollTrigger.create({
-            trigger: "#home",
-            start: "top top",
-            end: "bottom top",
-            scrub: 1,
-            invalidateOnRefresh: true,
-            animation: gsap.to(stage.position, {
-              y: () => window.innerHeight * 0.6,
-              ease: "none",
-              onUpdate: invalidate,
-            }),
-          })
+          // Flying in is only worth it with the hero on screen; mounting with
+          // the page already scrolled past it just places the row.
+          let entry: gsap.core.Tween | null = null
+          if (gate.isActive) entry = createEntry(phase, land)
+          else land()
+
+          // Phones keep the landing but not the journey: the scrubbed phases
+          // doubled the long frames on the 360/CPU-4x profile, and that device
+          // is already the tightest one on the page.
+          const phases = mobile
+            ? [createExitPhase(phase)]
+            : [createScatterPhase(phase), createDriftPhase(phase)]
 
           const reposition = () => {
-            if (landed.current) place()
+            if (landed.current) placeRow(phase)
           }
           ScrollTrigger.addEventListener("refreshInit", reposition)
 
@@ -172,14 +90,17 @@ export function useStackJourney(
             ScrollTrigger.removeEventListener("refreshInit", reposition)
             setLive(false)
             gate.kill()
-            trigger.kill()
             entry?.kill()
+            phases.forEach((tween) => {
+              tween.scrollTrigger?.kill()
+              tween.kill()
+            })
           }
         }
       )
 
       return () => mm.revert()
     },
-    { dependencies: [ready, invalidate, setLive, stageRef, meshesRef] }
+    { dependencies: [ready, invalidate, setLive, meshesRef] }
   )
 }

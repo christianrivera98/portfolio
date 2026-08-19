@@ -28,15 +28,20 @@ export function StackLogos() {
   const [live, setLive] = useState(false)
   const setLiveStable = useCallback((next: boolean) => setLive(next), [])
 
-  const materials = useMemo(
-    () => [
-      new THREE.MeshStandardMaterial({ color: MATERIAL.face, roughness: 0.55, metalness: 0.1 }),
-      new THREE.MeshStandardMaterial({ color: MATERIAL.edge, roughness: 0.35, metalness: 0.4 }),
-    ],
+  // One material for caps and rim alike: two would double the draw calls for a
+  // difference the lighting already makes on its own.
+  const material = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: MATERIAL.face,
+        roughness: 0.48,
+        metalness: 0.12,
+        transparent: true,
+      }),
     []
   )
 
-  useStackJourney(stage, meshes, invalidate, !!geometries, setLiveStable)
+  useStackJourney(meshes, invalidate, !!geometries, setLiveStable)
   useLogoMagnet(meshes, invalidate, live && finePointer)
 
   if (!geometries) return null
@@ -50,7 +55,7 @@ export function StackLogos() {
             meshes.current[index] = mesh
           }}
           geometry={geometry}
-          material={materials}
+          material={material}
         />
       ))}
     </group>
