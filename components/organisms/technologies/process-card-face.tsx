@@ -30,7 +30,12 @@ export function ProcessCardFace({ step, title, body, hint }: ProcessCardFaceProp
           {title}
         </h3>
       ) : (
-        <p className="mt-5 text-[13px] leading-relaxed text-foreground/75">{body}</p>
+        // Anchored at the bottom like the title, and for the same reason: the
+        // face scrim is a diagonal that only turns solid towards the bottom
+        // left, and the simulation runs at full strength up top. Pinned under
+        // the step number the description landed straight on the terminal, the
+        // file tree and the editor, which is where it stopped being readable.
+        <p className="mt-auto text-[13px] leading-relaxed text-foreground/75">{body}</p>
       )}
 
       {hint ? (
