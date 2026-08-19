@@ -2,12 +2,13 @@ import { setRequestLocale } from "next-intl/server"
 import { Hero } from "@/components/organisms/hero/hero"
 import { Experience } from "@/components/organisms/experience/experience"
 import { ExperienceDetailProvider } from "@/components/organisms/experience/experience-detail.context"
-import { DetailTabletOverlay } from "@/components/organisms/experience/detail/detail-tablet-overlay"
-import { LaptopTablet } from "@/components/organisms/experience/detail/laptop-tablet"
+import {
+  ExperienceDetailOverlay,
+  ExperienceStickySurfaces,
+} from "@/components/organisms/experience/deferred-surfaces"
 import { Technologies } from "@/components/organisms/technologies/technologies"
 import { About } from "@/components/organisms/about/about"
 import { Contact } from "@/components/organisms/contact/contact"
-import { ScrollInvite } from "@/components/organisms/transition/scroll-invite"
 
 export default async function Home({
   params,
@@ -23,10 +24,9 @@ export default async function Home({
       <ExperienceDetailProvider>
         <div className="relative">
           <Experience />
-          <ScrollInvite />
-          <LaptopTablet />
+          <ExperienceStickySurfaces />
         </div>
-        <DetailTabletOverlay />
+        <ExperienceDetailOverlay />
       </ExperienceDetailProvider>
       <Technologies />
       <About />

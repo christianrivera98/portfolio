@@ -49,3 +49,8 @@ next-env.d.ts
 
 # local playwright scratch
 .pw7*
+
+# Scripts de medición locales (Playwright + CDP): miden draw calls, frames
+# largos y trazas de pintado. Herramienta de trabajo, no parte del sitio.
+.*-probe.mjs
+.perf-profile.mjs

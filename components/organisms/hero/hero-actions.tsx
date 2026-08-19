@@ -2,7 +2,7 @@ import Link from "next/link"
 import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { ArrowRightIcon, ExternalLinkIcon } from "@/components/ui/icons"
-import { HERO_CTAS, SOCIAL_PREVIEWS, TECH_STACK_TAGS, type SocialKey } from "./hero.config"
+import { HERO_CTAS, SOCIAL_PREVIEWS, type SocialKey } from "./hero.config"
 
 interface HeroCTAsProps {
   onSocialHover?: (social: SocialKey | null) => void
@@ -24,7 +24,7 @@ export function HeroCTAs({ onSocialHover }: HeroCTAsProps) {
             }
           : {}
         return (
-        <div key={cta.id} className="hero-cta opacity-0" {...hoverProps}>
+        <div key={cta.id} className="hero-cta" {...hoverProps}>
           <Button
             asChild
             variant={cta.variant === "primary" ? "default" : "outline"}
@@ -55,21 +55,6 @@ export function HeroCTAs({ onSocialHover }: HeroCTAsProps) {
         </div>
         )
       })}
-    </div>
-  )
-}
-
-export function TechStackTags() {
-  return (
-    <div className="flex flex-wrap gap-2 mt-5">
-      {TECH_STACK_TAGS.map((tech) => (
-        <span
-          key={tech.id}
-          className="hero-tag px-4 py-1.5 text-xs font-mono text-white/60 bg-white/[0.04] border border-white/[0.08] rounded-full hover:bg-white/[0.08] hover:text-white/90 transition-colors duration-200 opacity-0"
-        >
-          {tech.label}
-        </span>
-      ))}
     </div>
   )
 }

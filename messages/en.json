@@ -112,17 +112,8 @@
     }
   },
   "Projects": {
-    "label": "Selected Work",
-    "title": "Projects",
     "noShots": "Screenshots coming soon",
-    "expand": "Expand screenshot",
-    "collapse": "Close expanded screenshot",
-    "subtitle": "What I've built and shipped.",
-    "featured": "Featured Project",
     "viewLive": "View Live",
-    "live": "Live",
-    "source": "Source",
-    "code": "Code",
     "items": {
       "toolbooks": {
         "name": "ToolBooks",
@@ -153,34 +144,54 @@
   },
   "Technologies": {
     "label": "Process & stack",
-    "title": "So, how I work...",
-    "subtitle": "Process? Yeah, I have one — and a sharp stack to run it.",
-    "skillsLabel": "The stack I use most",
+    "title": "How I take a problem to production",
+    "subtitle": "Four decisions I make on every project, always in this order.",
     "process": {
       "understand": {
-        "title": "Understand the problem",
-        "desc": "I break down the requirement, not just the ticket: aligning business goals, user needs and technical constraints before writing a line."
+        "title": "Frame the problem",
+        "desc": "I start with the why, not the ticket: what the business is actually deciding, what the user really needs, what the system constrains. If the requirement doesn't hold up, I push back before writing it, not after."
       },
       "architecture": {
         "title": "Architecture that scales",
-        "desc": "System first, component second: I define a feature-based architecture that grows to dozens of modules with no coupling or debt."
+        "desc": "The fiftieth feature should cost what the first one did. A coupled system does not get changed: it gets rewritten."
       },
       "build": {
-        "title": "Focused implementation",
-        "desc": "I build with real server state, production integrations and accessibility from the first component. I use AI in my flow, always under my own review."
+        "title": "Implementation with judgment",
+        "desc": "Real server state, production integrations and accessibility from the first component — not as a pass at the end. I use AI to speed up the mechanical parts; what lands in the repo goes through my review."
       },
       "quality": {
         "title": "Quality & handoff",
-        "desc": "I lock down the critical areas with automated tests, optimize performance and harden security before every handoff."
+        "desc": "I test where failure is expensive, not where coverage is easy. I measure before optimizing, and leave the context written down for whoever inherits the code."
       }
-    }
+    },
+    "visuals": {
+      "terminal": {
+        "q1": "who actually uses this?",
+        "q2": "what is the business deciding?",
+        "q3": "what constrains the system?",
+        "q4": "what happens when it fails?"
+      },
+      "tree": {
+        "app": "routes",
+        "core": "core",
+        "features": "one per domain",
+        "domain": "rules",
+        "application": "use cases",
+        "infrastructure": "adapters",
+        "ui": "screens",
+        "layers": "domain · application · infrastructure · ui",
+        "shared": "design system"
+      }
+    },
+    "tapHint": "Tap to read",
+    "hoverHint": "Hover to read"
   },
   "About": {
     "label": "About",
     "title": "Beyond the Code",
-    "quote": "System first, component second.",
+    "quote": "The system decides; the component obeys.",
     "bio": [
-      "I trained in electronics, robotics and mechatronics engineering, with a diploma in IoT, before moving into the web. That background shaped how I approach problems: system first, component second.",
+      "I trained in electronics, robotics and mechatronics engineering, with a diploma in IoT, before moving into the web. That background shaped how I approach problems: I map the whole machine first, then drop down to the part.",
       "These days I work with product teams on what usually hurts once a SaaS scales: complex business logic, multi-role systems, real-time data. I like being handed ownership of the whole problem, whatever the domain.",
       "I also use AI inside my own workflow, for testing and for UI, always under my own review, because speed only matters if what comes out actually works. What I care about most is staying sharp."
     ],

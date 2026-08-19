@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl"
 import { ImageOff, ArrowUpRight } from "lucide-react"
-import { PROJECTS } from "@/components/organisms/projects/projects.config"
+import { PROJECTS } from "./projects.config"
 import { useTrackScroll } from "@/hooks/useTrackScroll"
 import { SlideMedia } from "./slide-media"
 

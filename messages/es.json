@@ -112,17 +112,8 @@
     }
   },
   "Projects": {
-    "label": "Trabajo Seleccionado",
-    "title": "Proyectos",
     "noShots": "Capturas próximamente",
-    "expand": "Ampliar captura",
-    "collapse": "Cerrar captura ampliada",
-    "subtitle": "Lo que he construido y entregado.",
-    "featured": "Proyecto Destacado",
     "viewLive": "Ver en vivo",
-    "live": "En vivo",
-    "source": "Código",
-    "code": "Código",
     "items": {
       "toolbooks": {
         "name": "ToolBooks",
@@ -153,34 +144,54 @@
   },
   "Technologies": {
     "label": "Proceso & stack",
-    "title": "Entonces, cómo trabajo...",
-    "subtitle": "¿Proceso? Sí, tengo uno — y un stack afilado para ejecutarlo.",
-    "skillsLabel": "El stack que más uso",
+    "title": "Cómo llevo un problema a producción",
+    "subtitle": "Cuatro decisiones que tomo en todo proyecto, siempre en este orden.",
     "process": {
       "understand": {
-        "title": "Entender el problema",
-        "desc": "Descompongo el requisito, no solo el ticket: alineo objetivos de negocio, necesidades del usuario y restricciones técnicas antes de escribir una línea."
+        "title": "Encuadrar el problema",
+        "desc": "Empiezo por el porqué, no por el ticket: qué está decidiendo el negocio, qué necesita de verdad quien lo usa y qué restringe el sistema. Si el requisito no se sostiene, lo discuto antes de escribirlo, no después."
       },
       "architecture": {
         "title": "Arquitectura que escala",
-        "desc": "Primero el sistema, después el componente: defino una arquitectura por features que crece a decenas de módulos sin acoplamiento ni deuda."
+        "desc": "La funcionalidad número cincuenta debería costar lo que costó la primera. Un sistema acoplado no se cambia: se reescribe."
       },
       "build": {
-        "title": "Implementación con foco",
-        "desc": "Construyo con estado de servidor real, integraciones de producción y accesibilidad desde el primer componente. Uso IA en mi flujo, siempre bajo mi propia revisión."
+        "title": "Implementación con criterio",
+        "desc": "Estado de servidor real, integraciones de producción y accesibilidad desde el primer componente, no como una pasada al final. Uso IA para acelerar lo mecánico; lo que entra al repo pasa por mi revisión."
       },
       "quality": {
         "title": "Calidad y entrega",
-        "desc": "Aseguro las zonas críticas con pruebas automatizadas, optimizo performance y endurezco la seguridad antes de cada handoff."
+        "desc": "Pruebo donde fallar sale caro, no donde es fácil llegar al 100%. Mido antes de optimizar, y dejo el contexto escrito para quien reciba el código."
       }
-    }
+    },
+    "visuals": {
+      "terminal": {
+        "q1": "¿quién lo usa de verdad?",
+        "q2": "¿qué decide el negocio aquí?",
+        "q3": "¿qué restringe el sistema?",
+        "q4": "¿qué pasa cuando falla?"
+      },
+      "tree": {
+        "app": "rutas",
+        "core": "nucleo",
+        "features": "por dominio",
+        "domain": "reglas",
+        "application": "casos de uso",
+        "infrastructure": "adaptadores",
+        "ui": "pantallas",
+        "layers": "domain · application · infrastructure · ui",
+        "shared": "design system"
+      }
+    },
+    "tapHint": "Toca para leer",
+    "hoverHint": "Pasa el cursor"
   },
   "About": {
     "label": "Sobre mí",
     "title": "Más allá del código",
-    "quote": "Primero el sistema, después el componente.",
+    "quote": "El sistema decide; el componente obedece.",
     "bio": [
-      "Me formé en ingeniería electrónica, robótica y mecatrónica, con un diplomado en IoT, antes de pasarme a la web. Ese bagaje moldeó cómo abordo los problemas: primero el sistema, después el componente.",
+      "Me formé en ingeniería electrónica, robótica y mecatrónica, con un diplomado en IoT, antes de pasarme a la web. Ese bagaje moldeó cómo abordo los problemas: primero entiendo la máquina completa, después bajo a la pieza.",
       "Hoy trabajo con equipos de producto en lo que suele doler cuando un SaaS escala: lógica de negocio compleja, sistemas multi-rol, datos en tiempo real. Me gusta que me den la propiedad del problema completo, sea cual sea el dominio.",
       "También uso IA dentro de mi propio flujo de trabajo, para pruebas y para UI, siempre bajo mi propia revisión, porque la velocidad solo importa si lo que sale funciona de verdad. Lo que más me importa es seguir afilado."
     ],

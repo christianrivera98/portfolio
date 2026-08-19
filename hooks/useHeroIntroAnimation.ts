@@ -1,12 +1,15 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useLayoutEffect } from "react"
 import gsap from "gsap"
 import { SplitText } from "gsap/SplitText"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
 import { useHeroScrollParallax } from "@/hooks/useHeroScrollParallax"
 
 gsap.registerPlugin(SplitText)
+
+const HIDDEN_UNTIL_INTRO =
+  ".hero-name-1, .hero-name-2, .hero-title, .hero-bio, .hero-credentials, .hero-cta, .hero-photo, .hero-scroll-indicator, .hero-scroll-invite"
 
 /**
  * GSAP-based hero intro animation with SplitText.
@@ -24,13 +27,25 @@ export function useHeroIntroAnimation(
   // Call scroll parallax hook (separated concern)
   useHeroScrollParallax(scope, prefersReduced)
 
+  // The intro's start state lives here, not in the markup: hero copy that ships as
+  // opacity-0 HTML is not an LCP candidate, so the LCP waited for hydration. Applied
+  // in a layout effect (before paint) and only when the intro will actually play, so
+  // reduced-motion users get the text straight from the server HTML.
+  useLayoutEffect(() => {
+    if (prefersReduced || isReady || !scope.current) return
+    const q = (sel: string) => scope.current!.querySelectorAll(sel)
+    gsap.set(q(HIDDEN_UNTIL_INTRO), { opacity: 0 })
+    gsap.set(q(".hero-label"), { clipPath: "inset(0 100% 0 0)" })
+    gsap.set(q(".hero-accent-line"), { scaleX: 0 })
+  }, [prefersReduced, isReady, scope])
+
   useEffect(() => {
     if (!isReady || !scope.current) return
 
     // Reduced motion: show everything immediately
     if (prefersReduced) {
       const all = scope.current.querySelectorAll(
-        ".hero-label, .hero-name-1, .hero-name-2, .hero-title, .hero-bio, .hero-credentials, .hero-cta, .hero-photo, .hero-tag, .hero-scroll-indicator, .hero-scroll-invite, .hero-accent-line"
+        ".hero-label, .hero-name-1, .hero-name-2, .hero-title, .hero-bio, .hero-credentials, .hero-cta, .hero-photo, .hero-scroll-indicator, .hero-scroll-invite, .hero-accent-line"
       )
       gsap.set(all, { opacity: 1, y: 0, clipPath: "none" })
       return
@@ -77,10 +92,7 @@ export function useHeroIntroAnimation(
       // 9. Laptop — fade + scale in
       tl.fromTo(".hero-photo", { opacity: 0, scale: 0.9, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 1.1, ease: "power2.out" }, 0.6)
 
-      // 10. Tech tags — stagger fade
-      tl.fromTo(".hero-tag", { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.06 }, 1.3)
-
-      // 11. Scroll indicator + invite — fade in
+      // 10. Scroll indicator + invite — fade in
       tl.fromTo(".hero-scroll-indicator, .hero-scroll-invite", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 1.6)
     }, scope)
 

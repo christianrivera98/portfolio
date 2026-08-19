@@ -11,8 +11,7 @@ export function SkillsGrid() {
       {SKILL_LOGOS.map((skill) => (
         <div
           key={skill.label}
-          title={skill.label}
-          className="skill-logo group flex items-center justify-center"
+          className="skill-logo group flex min-h-11 items-center justify-center"
         >
           <Image
             src={skill.file}
@@ -20,7 +19,7 @@ export function SkillsGrid() {
             width={96}
             height={96}
             unoptimized
-            className="size-14 opacity-50 [filter:brightness(0)_invert(1)] transition-all duration-300 ease-out group-hover:scale-110 group-hover:opacity-100 sm:size-16 md:size-20"
+            className="size-14 opacity-70 [filter:brightness(0)_invert(1)] transition-all duration-300 ease-out group-hover:scale-110 group-hover:opacity-100 sm:size-16 md:size-20"
           />
         </div>
       ))}

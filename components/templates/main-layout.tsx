@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl"
 import { Footer } from "../organisms/footer/footer"
+import { StackJourney } from "../organisms/stack-journey/stack-journey"
 import { Navigation } from "../organisms/navbar/navigation"
 import { SmoothScrollProvider } from "../ui/smooth-scroll"
 
@@ -14,6 +15,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
         >
           {t("skipToContent")}
         </a>
+        <StackJourney />
         <Navigation />
         <main id="main-content" className="flex-1">{children}</main>
         <Footer />

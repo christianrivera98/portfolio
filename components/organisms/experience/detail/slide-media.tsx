@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { useReducedMotion } from "motion/react"
-import { type MediaItem } from "@/components/organisms/projects/projects.config"
+import { type MediaItem } from "./projects.config"
 import { useVideoInView } from "@/hooks/useVideoInView"
 
 /**

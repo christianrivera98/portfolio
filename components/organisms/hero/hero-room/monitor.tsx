@@ -1,5 +1,6 @@
 "use client"
 
+import { useRef } from "react"
 import { useFrame } from "@react-three/fiber"
 import { RoundedBox } from "@react-three/drei"
 import * as THREE from "three"
@@ -9,10 +10,23 @@ const Z = -0.85
 const CY = 1.9 // screen center height
 const SCREEN_TINT = new THREE.Color(1.4, 1.4, 1.4) // overbright so the editor glows
 
+// Redrawing the editor means repainting a 2D canvas and re-uploading it to the
+// GPU. Typing reads fine well below 60fps, so it runs on its own clock: pointer
+// moves can drive the camera at full rate without dragging the texture along.
+const TEXTURE_FPS = 15
+const TEXTURE_INTERVAL_MS = 1000 / TEXTURE_FPS
+
 /** Desktop monitor behind the person; screen simulates a VS Code session. */
 export function Monitor() {
   const { texture, draw } = useEditorScreenTexture()
-  useFrame((state) => draw(state.clock.elapsedTime * 1000))
+  const lastDrawMs = useRef(-Infinity)
+
+  useFrame((state) => {
+    const elapsedMs = state.clock.elapsedTime * 1000
+    if (elapsedMs - lastDrawMs.current < TEXTURE_INTERVAL_MS) return
+    lastDrawMs.current = elapsedMs
+    draw(elapsedMs)
+  })
 
   return (
     <group position={[0, 0, Z]}>

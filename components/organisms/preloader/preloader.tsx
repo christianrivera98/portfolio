@@ -27,7 +27,7 @@ export function Preloader({ onComplete }: PreloaderProps) {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-black"
+      className="preloader-overlay fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-black"
       aria-hidden="true"
     >
       <h2 className="animate-pulse font-mono text-sm tracking-widest text-neutral-400 uppercase">
