@@ -23,6 +23,9 @@ export const LOGO_SIZE = { min: 20, max: 66 } as const
 
 export const ROW_LENGTH = 12
 
+/** Breathing room the row keeps from the CTAs above and the hero's bottom edge. */
+const ROW_MARGIN = 10
+
 /** SVG viewBox of every simple-icons file, used to normalise the shapes. */
 export const ICON_VIEWBOX = 24
 
@@ -56,28 +59,35 @@ function rowMetrics(vp: Viewport) {
   // logo hangs half off the screen.
   const available = (vp.rightLimit ?? vp.width - inset) - inset
   const gap = vp.mobile ? 6 : 14
+  // The band under the CTAs is the tighter limit on a short viewport such as
+  // 1024x768: sized off the width alone, the row lands on the buttons.
+  const band = vp.height - (vp.ctaBottom ?? vp.height - 100)
   const size = Math.max(
     LOGO_SIZE.min,
-    Math.min(LOGO_SIZE.max, (available - (ROW_LENGTH - 1) * gap) / ROW_LENGTH)
+    Math.min(
+      LOGO_SIZE.max,
+      (available - (ROW_LENGTH - 1) * gap) / ROW_LENGTH,
+      band - ROW_MARGIN * 2
+    )
   )
   return { inset, gap, size }
 }
 
-/**
- * Where the logos settle in the hero: one row of twelve under the CTAs, sitting
- * in the middle of the band left between them and the bottom of the hero.
- */
+/** Where the logos settle: a row of twelve in the band under the CTAs. */
 export function heroRowPose(index: number, vp: Viewport): Pose {
   const { inset, gap, size } = rowMetrics(vp)
-  const band = vp.ctaBottom ?? vp.height - 100
+  const top = vp.ctaBottom ?? vp.height - 100
+  const band = vp.height - top
 
-  // Centred in the band under the CTAs, nudged up so it reads as sitting
-  // between them and the scroll invite rather than at the very bottom.
+  // Centred in the band under the CTAs and nudged up, but never far enough to
+  // touch the buttons or to run off the bottom of the hero.
   const lift = vp.mobile ? 4 : 30
+  const half = size / 2
+  const room = Math.max(ROW_MARGIN + half, band - ROW_MARGIN - half)
 
   return {
     x: inset + index * (size + gap) + size / 2,
-    y: band + (vp.height - band) / 2 - lift,
+    y: top + Math.min(room, Math.max(ROW_MARGIN + half, band / 2 - lift)),
   }
 }
 

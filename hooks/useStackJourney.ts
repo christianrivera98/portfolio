@@ -21,7 +21,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger)
  */
 export function useStackJourney(
   meshesRef: React.RefObject<(THREE.Mesh | null)[]>,
-  invalidate: () => void,
+  render: () => void,
   ready: boolean,
   setLive: (live: boolean) => void,
   rendererRef: React.RefObject<Renderer | null>
@@ -43,7 +43,7 @@ export function useStackJourney(
         const { renderer, destroy } = createDriver({
           logos,
           material,
-          invalidate,
+          render,
           mobile: !!context.conditions?.isMobile,
           setLive,
           hasLanded: () => landed.current,
@@ -64,6 +64,6 @@ export function useStackJourney(
 
       return () => mm.revert()
     },
-    { dependencies: [ready, invalidate, setLive, meshesRef, rendererRef] }
+    { dependencies: [ready, render, setLive, meshesRef, rendererRef] }
   )
 }

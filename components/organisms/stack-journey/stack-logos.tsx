@@ -23,7 +23,11 @@ export function StackLogos() {
   const meshes = useRef<(THREE.Mesh | null)[]>([])
   // The single writer, shared with the magnet so both speak through it.
   const renderer = useRef<Renderer | null>(null)
-  const invalidate = useThree((state) => state.invalidate)
+  const gl = useThree((state) => state.gl)
+  const scene = useThree((state) => state.scene)
+  const camera = useThree((state) => state.camera)
+  // The layer owns its own frame scheduling, so it draws the scene itself.
+  const render = useCallback(() => gl.render(scene, camera), [gl, scene, camera])
   const geometries = useExtrudedLogos(FILES)
   // Hover has no meaning on a touch screen, and the listener would fire on every
   // drag: the magnet is for fine pointers only.
@@ -44,7 +48,7 @@ export function StackLogos() {
     []
   )
 
-  useStackJourney(meshes, invalidate, !!geometries, setLiveStable, renderer)
+  useStackJourney(meshes, render, !!geometries, setLiveStable, renderer)
   useLogoMagnet(renderer, live && finePointer)
 
   if (!geometries) return null

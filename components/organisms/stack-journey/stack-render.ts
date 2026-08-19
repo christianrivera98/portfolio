@@ -36,7 +36,7 @@ const clamp01 = (t: number) => (t < 0 ? 0 : t > 1 ? 1 : t)
 export function createRenderer(
   logos: THREE.Mesh[],
   material: THREE.Material,
-  invalidate: () => void,
+  render: () => void,
   layout: () => Layout
 ) {
   const offsets: Offset[] = logos.map(() => ({ dx: 0, dy: 0, rx: 0, ry: 0, lift: 0 }))
@@ -74,7 +74,7 @@ export function createRenderer(
     // written twelve times onto a shared material.
     const { opacity } = logoPose(0, state.scroll, state.spin, stops, vp, state.anchor)
     material.opacity = opacity * (state.entry < 1 ? easeOut(state.entry) : 1)
-    invalidate()
+    render()
   }
 
   /** Coalesces every source of change into one pass per frame. */
@@ -83,12 +83,20 @@ export function createRenderer(
     queued = requestAnimationFrame(draw)
   }
 
+  /** For callers already inside a frame: asking for the *next* one would draw
+   *  the ring every other frame, which is what made it look like it stuttered. */
+  const drawNow = () => {
+    if (queued) cancelAnimationFrame(queued)
+    queued = 0
+    draw()
+  }
+
   const dispose = () => {
     if (queued) cancelAnimationFrame(queued)
     queued = 0
   }
 
-  return { logos, state, offsets, request, draw, dispose }
+  return { logos, state, offsets, request, drawNow, draw, dispose }
 }
 
 export type Renderer = ReturnType<typeof createRenderer>

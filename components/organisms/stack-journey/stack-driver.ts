@@ -12,7 +12,7 @@ const SCRUB = 0.55
 type DriverArgs = {
   logos: THREE.Mesh[]
   material: THREE.Material
-  invalidate: () => void
+  render: () => void
   mobile: boolean
   setLive: (live: boolean) => void
   onLanded: () => void
@@ -26,7 +26,7 @@ type DriverArgs = {
 export function createDriver({
   logos,
   material,
-  invalidate,
+  render,
   mobile,
   setLive,
   onLanded,
@@ -34,7 +34,7 @@ export function createDriver({
 }: DriverArgs): { renderer: Renderer; destroy: () => void } {
   let vp = readViewport(mobile)
   let stops = readStops(vp)
-  const renderer = createRenderer(logos, material, invalidate, () => ({ vp, stops }))
+  const renderer = createRenderer(logos, material, render, () => ({ vp, stops }))
 
   // Layout is read on refresh and cached: measuring live DOM inside a scrubbed
   // update reflows on every frame of the scroll.
