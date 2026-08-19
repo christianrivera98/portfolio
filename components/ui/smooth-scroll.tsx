@@ -1,8 +1,7 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 import { ReactLenis, useLenis } from "lenis/react"
-import type { LenisRef } from "lenis/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { usePreloader } from "@/hooks/usePreloader"
@@ -35,31 +34,51 @@ function PreloaderScrollLock() {
   return null
 }
 
-export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
-  const lenisRef = useRef<LenisRef>(null)
+/**
+ * One loop for the page. Lenis ran its own requestAnimationFrame while GSAP ran
+ * the ticker, so the scroll position and everything animating against it
+ * advanced on two different clocks. Driving `raf` from the ticker puts them on
+ * the same one — the integration Lenis documents for GSAP.
+ *
+ * It hangs off `useLenis` and not off the provider's ref: the ref is still
+ * empty when the provider's own effect runs, so with `autoRaf: false` nothing
+ * would ever drive Lenis and the wheel would stop scrolling the page outright.
+ */
+function GsapTicker() {
+  const lenis = useLenis()
 
   useEffect(() => {
-    const lenis = lenisRef.current?.lenis
     if (!lenis) return
 
     lenis.on("scroll", ScrollTrigger.update)
+    const update = (time: number) => lenis.raf(time * 1000)
+    gsap.ticker.add(update)
+    // Lag smoothing would let GSAP fake elapsed time after a stall, which with
+    // the scroll on this same ticker reads as the page jumping.
     gsap.ticker.lagSmoothing(0)
 
     return () => {
       lenis.off("scroll", ScrollTrigger.update)
+      gsap.ticker.remove(update)
     }
-  }, [])
+  }, [lenis])
 
+  return null
+}
+
+export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   return (
     <ReactLenis
       root
-      ref={lenisRef}
       options={{
         duration: 1.2,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         touchMultiplier: 1.5,
+        // The GSAP ticker drives `raf`; a second loop here would double-step it.
+        autoRaf: false,
       }}
     >
+      <GsapTicker />
       <PreloaderScrollLock />
       {children}
     </ReactLenis>
