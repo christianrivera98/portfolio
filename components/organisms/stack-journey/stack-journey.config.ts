@@ -39,7 +39,9 @@ export const EXTRUDE = {
   bevelThickness: 0.14,
   bevelSize: 0.1,
   bevelSegments: 2,
-  curveSegments: 8,
+  // Eight per curve drew the round marks as polygons at the size the hero row
+  // uses. Built once at load, so the extra triangles are paid on the way in.
+  curveSegments: 24,
 } as const
 
 /**

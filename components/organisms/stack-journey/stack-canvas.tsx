@@ -26,9 +26,11 @@ export function StackCanvas() {
       // fill, not geometry.
       dpr={[1, 2]}
       camera={{ position: [0, 0, 600], zoom: 1, near: 1, far: 2000 }}
-      // No MSAA: a full-screen buffer with multisampling is the single most
-      // expensive thing about this scene, and these are flat white silhouettes.
-      gl={{ antialias: false, alpha: true, powerPreference: "low-power" }}
+      // MSAA back on: white silhouettes on a near-black page are the worst case
+      // for aliasing, and at rest in the hero row the staircase on every curve
+      // was plain to see. The layer only draws when something moves, so this is
+      // paid per drawn frame rather than sixty times a second.
+      gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
       style={{ pointerEvents: "none" }}
     >
       <ambientLight intensity={1.2} />
