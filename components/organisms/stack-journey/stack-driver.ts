@@ -1,4 +1,5 @@
 import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import type * as THREE from "three"
 import { createArrival } from "./stack-arrival"
 import { createRenderer, type Renderer } from "./stack-render"
@@ -67,6 +68,20 @@ export function createDriver({
     },
   })
 
+  // ScrollTrigger parks the page at 0 while it measures, and our onUpdate
+  // caches that 0. If the progress lands back on the value it already had —
+  // scrolled past the end, say — no further update fires to correct it, and the
+  // layer redraws the hero row in the middle of another section. The global
+  // refresh event runs once everything is measured and the scroll restored.
+  const resync = () => {
+    const y = window.scrollY
+    renderer.state.anchor = y
+    renderer.state.scroll = Math.min(y, stops.ringEnd)
+    drive.progress = stops.ringEnd ? renderer.state.scroll / stops.ringEnd : 0
+    renderer.request()
+  }
+  ScrollTrigger.addEventListener("refresh", resync)
+
   const stopSpin = mobile ? null : createSpin(renderer)
 
   renderer.state.anchor = window.scrollY
@@ -78,6 +93,7 @@ export function createDriver({
   return {
     renderer,
     destroy: () => {
+      ScrollTrigger.removeEventListener("refresh", resync)
       stopArrival()
       stopSpin?.()
       journey.scrollTrigger?.kill()
