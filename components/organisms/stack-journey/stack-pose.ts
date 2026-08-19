@@ -28,7 +28,7 @@ export type LogoPose = { x: number; y: number; scale: number; opacity: number; t
 
 const lerp = (from: number, to: number, t: number) => from + (to - from) * t
 const clamp01 = (t: number) => (t < 0 ? 0 : t > 1 ? 1 : t)
-/** Smoothstep: leaves and arrives at zero speed, so no handover reads as a corner. */
+/** Smoothstep: zero speed at both ends, so no handover reads as a corner. */
 const smooth = (t: number) => t * t * (3 - 2 * t)
 
 /** The scattered field at drift progress `t`, which is also its own start at 0. */
@@ -40,6 +40,11 @@ function fieldPose(index: number, vp: Viewport, t: number): Pose {
     x: base.x + ((index % 3) - 1) * DRIFT_SPREAD * t,
     y: base.y + spot.parallax * vp.height * t,
   }
+}
+
+/** Whether a pose puts any part of the logo inside the viewport. */
+export function onScreen({ x, y, scale }: LogoPose, vp: Viewport) {
+  return x > -scale && x < vp.width + scale && y > -scale && y < vp.height + scale
 }
 
 export function logoPose(

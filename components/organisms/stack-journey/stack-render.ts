@@ -1,16 +1,13 @@
 import type * as THREE from "three"
 import { heroEntryPose, toWorld, type Viewport } from "./stack-journey.config"
-import { logoPose } from "./stack-pose"
+import { logoPose, onScreen } from "./stack-pose"
 import type { Stops } from "./stack-stops"
 
 /**
- * The single writer. Nothing else in the journey touches a mesh: scroll, the
- * ring's own clock, the pointer magnet and the arrival all feed values into
- * `state`, and one pass turns those into positions on the next frame.
- *
- * One writer is the point. With a tween per stretch the meshes belonged to
- * whichever ScrollTrigger settled last, and a logo could sit in the hero row
- * while its neighbours were already scattered.
+ * The single writer. Scroll, the ring's clock, the magnet and the arrival feed
+ * values into `state`, and one pass turns those into poses. With a tween per
+ * stretch the meshes belonged to whichever ScrollTrigger settled last, and a
+ * logo could sit in the hero row while its neighbours were already scattered.
  */
 
 /** The pointer magnet's contribution, in screen pixels and radians. */
@@ -28,7 +25,7 @@ export type JourneyState = {
 
 export type Layout = { vp: Viewport; stops: Stops }
 
-/** Per-logo delay of the arrival, as a fraction of the whole tween. */
+/** Per-logo delay of the arrival, as a fraction of the tween. */
 const ENTRY_STAGGER = 0.05
 const easeOut = (t: number) => 1 - (1 - t) ** 3
 const clamp01 = (t: number) => (t < 0 ? 0 : t > 1 ? 1 : t)
@@ -43,13 +40,18 @@ export function createRenderer(
   const state: JourneyState = { scroll: 0, anchor: 0, spin: 0, entry: 1 }
   const span = 1 - (logos.length - 1) * ENTRY_STAGGER
   let queued = 0
+  // Whether the last pass put anything on the buffer, so an empty one clears
+  // it once and is then skipped.
+  let painted = false
 
   const draw = () => {
     queued = 0
     const { vp, stops } = layout()
 
+    let visible = false
     logos.forEach((logo, index) => {
       const pose = logoPose(index, state.scroll, state.spin, stops, vp, state.anchor)
+      if (onScreen(pose, vp)) visible = true
       const offset = offsets[index]
       let { x, y } = pose
 
@@ -69,6 +71,12 @@ export function createRenderer(
       // the magnet's own contribution.
       Object.assign(logo.userData, { screenX: pose.x, screenY: pose.y, size: pose.scale })
     })
+
+    // The ring turns on after the bento has left while the section is still on
+    // screen: without this the layer cleared a full-screen buffer sixty times a
+    // second to draw nothing.
+    if (!visible && !painted) return
+    painted = visible
 
     // Opacity is the same for every logo, so it is read once rather than
     // written twelve times onto a shared material.

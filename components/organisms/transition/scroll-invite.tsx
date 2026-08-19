@@ -8,6 +8,7 @@ import { X } from "lucide-react"
 import { ScrollTablet } from "@/components/ui/scroll-tablet"
 import { Button } from "@/components/ui/button"
 import { useActiveExperience } from "@/hooks/useActiveExperience"
+import { useMediaQuery } from "@/hooks/useMediaQuery"
 import { useCloseProjectOnScrollAway } from "@/hooks/useCloseProjectOnScrollAway"
 import { useExperienceDetail } from "@/components/organisms/experience/experience-detail.context"
 import { ProjectSlides } from "@/components/organisms/experience/detail/project-slides"
@@ -32,9 +33,15 @@ export function ScrollInvite() {
   const tt = useTranslations("Transition")
   const reduce = useReducedMotion()
   const project = detail?.kind === "project" ? detail.projectId : null
+  // `hidden 2xl:block` only hides this: the subtree still mounted, and its
+  // Grainient backdrop still took a WebGL context — one of four on the page —
+  // to shade a 1x1 canvas nobody can see.
+  const wide = useMediaQuery("(min-width: 1536px)")
   const fade = reduce
     ? {}
     : { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }
+
+  if (!wide) return null
 
   return (
     <div className="pointer-events-none absolute inset-0 z-20 hidden 2xl:block">
