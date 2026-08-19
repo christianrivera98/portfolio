@@ -1,0 +1,264 @@
+{
+  "Meta": {
+    "title": "Christian Lamadrid | Full-Stack Engineer",
+    "description": "Full-Stack Engineer y Frontend Lead en SaaS de fintech y logística. React, Next.js, Nest.js y TypeScript estricto para frontends que siguen escalando sin acumular deuda técnica."
+  },
+  "Hero": {
+    "title": "Full-Stack Engineer",
+    "subtitle": "Fintech · Logística · SaaS en Producción",
+    "bio": "Cuando un SaaS crece más rápido que su código, ahí entro yo. Me hago cargo de la arquitectura de punta a punta, de la interfaz a la API, y la dejo en un punto donde el equipo pueda seguir construyendo con confianza.",
+    "credentials": "Ex-Bancolombia · React + Next.js · Nest.js · TypeScript estricto",
+    "ctaWork": "Ver proyectos"
+  },
+  "Transition": {
+    "label": "Antes de seguir",
+    "title": "Scrollea y conóceme",
+    "subtitle": "Un vistazo de cerca a lo que construyo.",
+    "idle": "Hola Mundo! Aquí vamos",
+    "stack": "stack",
+    "hide": "Ocultar"
+  },
+  "Nav": {
+    "home": "Inicio",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "technologies": "Tecnologías",
+    "about": "Sobre mí",
+    "contact": "Contacto",
+    "homeAria": "Ir a la sección de inicio",
+    "experienceAria": "Ir a la sección de experiencia",
+    "projectsAria": "Ir a la sección de proyectos",
+    "technologiesAria": "Ir a la sección de tecnologías",
+    "aboutAria": "Ir a la sección sobre mí",
+    "contactAria": "Ir a la sección de contacto",
+    "goToTop": "Ir arriba",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "switchLanguage": "Cambiar idioma"
+  },
+  "Experience": {
+    "label": "Trayectoria",
+    "title": "Experiencia",
+    "subtitle": "Donde he llevado código a producción.",
+    "fulltime": "Tiempo completo",
+    "freelance": "Freelance",
+    "viewCompany": "Ver información de la empresa",
+    "companyHint": "Ver empresa",
+    "viewProject": "Conoce un poco a {project}",
+    "items": {
+      "toolbooks": {
+        "description": "ToolBooks es un SaaS estadounidense de bookkeeping y payroll. La plataforma centraliza contabilidad, conciliación bancaria, facturación y pagos a proveedores en un solo producto para pequeñas empresas.",
+        "role": "Frontend Lead · Full-Stack (Contractor)",
+        "period": "Ene 2025 — Jul 2026",
+        "highlights": [
+          "Responsable principal del frontend de la plataforma: diseñé y definí la arquitectura del producto priorizando escalabilidad, mantenibilidad y consistencia entre equipos.",
+          "Construí e integré los flujos de negocio críticos —pagos, banca y autenticación— con proveedores externos como Plaid, Stripe y AWS Cognito.",
+          "Refactoricé módulos del backend (Nest.js, TypeORM, PostgreSQL) para reforzar la seguridad de los datos de usuario, optimicé repositorios y endpoints, y construí webhooks de Stripe, conexiones WebSocket con Socket.io y endpoints REST.",
+          "Lideré las revisiones de código del equipo e incorporé herramientas de IA al flujo de desarrollo, siempre bajo revisión propia, para acelerar pruebas y la implementación de UI."
+        ]
+      },
+      "precision-logistica": {
+        "description": "Precisión Logística es una empresa colombiana de transporte de carga y soluciones logísticas que integra transporte, talento logístico y tecnología para garantizar continuidad operativa a empresas generadoras de carga.",
+        "role": "Frontend Lead",
+        "period": "Feb 2026 — Jun 2026",
+        "highlights": [
+          "Fui el único frontend developer del proyecto: construí en solitario el frontend de los 4 portales (interno, cliente, RR. HH. y punto de venta) de un SaaS de logística multi-rol.",
+          "Diseñé interfaces de alta complejidad sobre una arquitectura escalable y de alto rendimiento, y construí los módulos completos de cotización, órdenes de servicio, RR. HH. y portales de cliente.",
+          "Integré la plataforma de punta a punta con el RNDC, el sistema gubernamental de despacho de carga de Colombia.",
+          "Coordiné con backend la seguridad de autenticación y el control de acceso basado en roles; definí la estrategia de pruebas automatizadas (80% de cobertura en auth y cliente de API) y documenté las decisiones de arquitectura como ADRs."
+        ]
+      },
+      "geeks5g": {
+        "description": "Geeks5G es una agencia de Austin (EE. UU.) que ofrece servicios de marketing digital, diseño web y desarrollo de software a medida para pequeñas y medianas empresas.",
+        "role": "Web Developer Full-Stack",
+        "period": "May 2025 — Ene 2026",
+        "highlights": [
+          "Construí todo el frontend de Emergency Service (getservice.ai): la lógica de despacho que diseñé asigna y reescala automáticamente al profesional más cercano.",
+          "La plataforma opera hoy en producción en Estados Unidos, con más de 30 cerrajeros activos y más de 300 trabajos completados.",
+          "Resolví reglas de negocio no triviales, como tarifas con impuestos que cambian de un estado de EE. UU. a otro, e integré Google Maps, geocoding y webhooks de Twilio y Payarc.",
+          "Definí la arquitectura de estado con TanStack Query y Redux, y traduje los requerimientos de negocio de cada cliente en soluciones técnicas."
+        ]
+      },
+      "bancolombia": {
+        "description": "Bancolombia es uno de los bancos más grandes de Colombia y un grupo financiero con presencia en varios países de Latinoamérica. Ofrece servicios de banca personal, empresarial y de inversión.",
+        "role": "Ingeniero de Software Júnior",
+        "period": "Feb 2024 — Ago 2024",
+        "highlights": [
+          "Desarrollé interfaces internas de monitoreo que mejoraron la trazabilidad y la resolución de incidencias del equipo en un entorno bancario de alta criticidad.",
+          "Escribí pruebas unitarias para asegurar la fiabilidad y la calidad de los despliegues, y participé en migraciones de código entre repositorios.",
+          "Colaboré en revisiones de código, aportando a la consistencia y a las buenas prácticas del equipo."
+        ]
+      },
+      "dicosoft": {
+        "description": "DicoSoft Digital es una agencia de marketing digital especializada en clínicas y consultorios médicos, con servicios complementarios de desarrollo web. Sus clientes son principalmente del sector salud (odontología, dermatología, estética).",
+        "role": "Desarrollador Web",
+        "period": "Ago 2024 — May 2025",
+        "highlights": [
+          "Creé plataformas en React y WordPress que elevaron la tasa de conversión de los clientes en un 25%.",
+          "Optimicé flujos de trabajo en GoHighLevel, mejorando la eficiencia operativa de los clientes en un 35%.",
+          "Administré hosting, DNS y protocolos de seguridad para garantizar plataformas estables."
+        ]
+      },
+      "radkiddo": {
+        "description": "Rad Kiddo es una marca de streetwear para niños con base en Estados Unidos. Vende camisetas, hoodies, pantalones y shorts a través de una tienda online sobre Shopify, con envíos en todo EE. UU.",
+        "role": "Desarrollador E-commerce",
+        "period": "Jul 2023 — Feb 2024",
+        "highlights": [
+          "Diseñé y desarrollé una plataforma de e-commerce híbrida: React para los componentes de alta interactividad y WordPress/WooCommerce para la gestión del catálogo, elevando la conversión en un 25%.",
+          "Implementé la pasarela de pagos MercadoPago y geolocalización dinámica, mejorando la experiencia de usuario y el rendimiento del sitio en un 30%.",
+          "Integré Cloudinary para el manejo optimizado de media y JavaScript avanzado para el carrito y los filtros personalizados."
+        ]
+      }
+    }
+  },
+  "Projects": {
+    "noShots": "Capturas próximamente",
+    "viewLive": "Ver en vivo",
+    "items": {
+      "toolbooks": {
+        "name": "ToolBooks",
+        "description": "SaaS de bookkeeping y nómina (EE. UU.). Lideré el frontend e integré los flujos de pagos, banca y autenticación con Plaid, Stripe y AWS Cognito.",
+        "longDescription": "Fui el responsable principal del frontend de una plataforma estadounidense de bookkeeping y nómina: definí la arquitectura del producto, integré Plaid, Stripe y AWS Cognito, y refactoricé módulos del backend en Nest.js, TypeORM y PostgreSQL, construyendo webhooks, WebSockets y endpoints REST.",
+        "metrics": "19 meses · Frontend Lead"
+      },
+      "geeks5g": {
+        "name": "Emergency Service",
+        "description": "Plataforma de despacho para cerrajeros (getservice.ai), en producción en EE. UU. Asigna y reescala automáticamente al profesional más cercano, con Google Maps y webhooks de Twilio/Payarc.",
+        "metrics": "+300 trabajos · +30 cerrajeros"
+      },
+      "qper": {
+        "name": "QPER — SaaS Logístico",
+        "description": "SaaS logístico multi-rol para empresas de transporte en Colombia: 4 portales construidos en solitario (interno, cliente, RR. HH. y punto de venta) e integración completa con el RNDC.",
+        "metrics": "4 portales · 80% cobertura"
+      },
+      "radkiddo": {
+        "name": "Rad Kiddo",
+        "description": "E-commerce híbrido: React para los componentes de alta interactividad, catálogo en WordPress/WooCommerce, pagos con MercadoPago y media optimizada con Cloudinary.",
+        "metrics": "+25% conversión"
+      },
+      "portfolio": {
+        "name": "Este Portafolio",
+        "description": "Portafolio inmersivo con cinemáticas en GSAP, shaders en Three.js y animaciones guiadas por scroll."
+      }
+    }
+  },
+  "Technologies": {
+    "label": "Proceso & stack",
+    "title": "Cómo llevo un problema a producción",
+    "subtitle": "Cuatro decisiones que tomo en todo proyecto, siempre en este orden.",
+    "process": {
+      "understand": {
+        "title": "Encuadrar el problema",
+        "desc": "Empiezo por el porqué, no por el ticket: qué está decidiendo el negocio, qué necesita de verdad quien lo usa y qué restringe el sistema. Si el requisito no se sostiene, lo discuto antes de escribirlo, no después."
+      },
+      "architecture": {
+        "title": "Arquitectura que escala",
+        "desc": "La funcionalidad número cincuenta debería costar lo que costó la primera. Un sistema acoplado no se cambia: se reescribe."
+      },
+      "build": {
+        "title": "Implementación con criterio",
+        "desc": "Estado de servidor real, integraciones de producción y accesibilidad desde el primer componente, no como una pasada al final. Uso IA para acelerar lo mecánico; lo que entra al repo pasa por mi revisión."
+      },
+      "quality": {
+        "title": "Calidad y entrega",
+        "desc": "Pruebo donde fallar sale caro, no donde es fácil llegar al 100%. Mido antes de optimizar, y dejo el contexto escrito para quien reciba el código."
+      }
+    },
+    "visuals": {
+      "terminal": {
+        "q1": "¿quién lo usa de verdad?",
+        "q2": "¿qué decide el negocio aquí?",
+        "q3": "¿qué restringe el sistema?",
+        "q4": "¿qué pasa cuando falla?"
+      },
+      "tree": {
+        "app": "rutas",
+        "core": "nucleo",
+        "features": "por dominio",
+        "domain": "reglas",
+        "application": "casos de uso",
+        "infrastructure": "adaptadores",
+        "ui": "pantallas",
+        "layers": "domain · application · infrastructure · ui",
+        "shared": "design system"
+      }
+    },
+    "tapHint": "Toca para leer",
+    "hoverHint": "Pasa el cursor"
+  },
+  "About": {
+    "label": "Sobre mí",
+    "title": "Más allá del código",
+    "quote": "El sistema decide; el componente obedece.",
+    "bio": [
+      "Me formé en ingeniería electrónica, robótica y mecatrónica, con un diplomado en IoT, antes de pasarme a la web. Ese bagaje moldeó cómo abordo los problemas: primero entiendo la máquina completa, después bajo a la pieza.",
+      "Hoy trabajo con equipos de producto en lo que suele doler cuando un SaaS escala: lógica de negocio compleja, sistemas multi-rol, datos en tiempo real. Me gusta que me den la propiedad del problema completo, sea cual sea el dominio.",
+      "También uso IA dentro de mi propio flujo de trabajo, para pruebas y para UI, siempre bajo mi propia revisión, porque la velocidad solo importa si lo que sale funciona de verdad. Lo que más me importa es seguir afilado."
+    ],
+    "facts": {
+      "location": "Ubicación",
+      "locationValue": "Medellín, Colombia",
+      "languages": "Idiomas",
+      "languagesValue": "ES (nativo) / EN (profesional)",
+      "current": "Actual",
+      "currentValue": "Full-Stack Engineer",
+      "education": "Formación",
+      "educationValue": "Ing. Mecatrónica · IoT"
+    },
+    "interests": {
+      "travel": "Viajar",
+      "hiphop": "Hip Hop",
+      "kungfu": "Kung Fu",
+      "animals": "Animales",
+      "mechatronics": "Mecatrónica"
+    }
+  },
+  "Contact": {
+    "title": "Construyamos\nalgo.",
+    "status": "Abierto a nuevas oportunidades.",
+    "links": {
+      "email": "Correo",
+      "linkedin": "LinkedIn",
+      "github": "GitHub"
+    }
+  },
+  "Footer": {
+    "tagline": "Full-Stack Engineer construyendo frontends que siguen escalando sin acumular deuda técnica.",
+    "available": "Disponible para nuevos proyectos",
+    "ctaLabel": "¿Hablamos?",
+    "navTitle": "Navega",
+    "connectTitle": "Conecta",
+    "email": "Correo",
+    "emailAria": "Enviar un correo",
+    "backToTop": "Volver arriba",
+    "rights": "Todos los derechos reservados",
+    "designedBy": "Diseñado y construido por {name}",
+    "builtWith": "con Next.js, GSAP y Three.js",
+    "githubAria": "Perfil de GitHub",
+    "linkedinAria": "Perfil de LinkedIn"
+  },
+  "Preloader": {
+    "title": "Cargando portafolio...",
+    "username": "christian@portfolio",
+    "commands": [
+      "git clone christianlamadrid/portfolio",
+      "pnpm install && pnpm build",
+      "./launch"
+    ],
+    "outputs": {
+      "0": [
+        "✔ Clonados 1337 objetos, hecho."
+      ],
+      "1": [
+        "✔ 428 paquetes · compilado en 3.4s"
+      ],
+      "2": [
+        "✔ Bienvenido a bordo — disfruta el viaje"
+      ]
+    }
+  },
+  "Common": {
+    "scroll": "Scroll",
+    "skipToContent": "Saltar al contenido"
+  }
+}

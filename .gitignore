@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude 
+.claude
+
+# .md files
+*.md
+!README.md
+
+# local playwright scratch
+.pw7*
+
+# Scripts de medición locales (Playwright + CDP): miden draw calls, frames
+# largos y trazas de pintado. Herramienta de trabajo, no parte del sitio.
+.*-probe.mjs
+.perf-profile.mjs

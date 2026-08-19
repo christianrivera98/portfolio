@@ -1,0 +1,16 @@
+{
+  "name": "Christian Lamadrid | Full-Stack Engineer",
+  "short_name": "CL Portfolio",
+  "description": "Full-Stack Engineer specializing in React, Next.js, Nest.js and TypeScript.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

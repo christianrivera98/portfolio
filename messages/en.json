@@ -1,0 +1,264 @@
+{
+  "Meta": {
+    "title": "Christian Lamadrid | Full-Stack Engineer",
+    "description": "Full-Stack Engineer and Frontend Lead on fintech and logistics SaaS. React, Next.js, Nest.js and strict TypeScript for frontends that keep scaling without piling up technical debt."
+  },
+  "Hero": {
+    "title": "Full-Stack Engineer",
+    "subtitle": "Fintech · Logistics · Production SaaS",
+    "bio": "When a SaaS starts growing faster than its codebase, that's where I come in. I take the architecture end to end, from the interface to the API, and leave it somewhere the team can keep building with confidence.",
+    "credentials": "Ex-Bancolombia · React + Next.js · Nest.js · strict TypeScript",
+    "ctaWork": "View Work"
+  },
+  "Transition": {
+    "label": "Before you go further",
+    "title": "Scroll on, get to know me",
+    "subtitle": "A closer look at what I build.",
+    "idle": "Hello World! Here we go",
+    "stack": "stack",
+    "hide": "Hide"
+  },
+  "Nav": {
+    "home": "Home",
+    "experience": "Experience",
+    "projects": "Projects",
+    "technologies": "Technologies",
+    "about": "About",
+    "contact": "Contact",
+    "homeAria": "Go to home section",
+    "experienceAria": "Go to experience section",
+    "projectsAria": "Go to projects section",
+    "technologiesAria": "Go to technologies section",
+    "aboutAria": "Go to about section",
+    "contactAria": "Go to contact section",
+    "goToTop": "Go to top",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "switchLanguage": "Switch language"
+  },
+  "Experience": {
+    "label": "Work",
+    "title": "Experience",
+    "subtitle": "Where I've shipped production code.",
+    "fulltime": "Full-time",
+    "freelance": "Freelance",
+    "viewCompany": "View company info",
+    "companyHint": "View company",
+    "viewProject": "Get to know {project} a little",
+    "items": {
+      "toolbooks": {
+        "description": "ToolBooks is a US bookkeeping and payroll SaaS. The platform unifies accounting, bank reconciliation, invoicing and vendor payments into a single product for small businesses.",
+        "role": "Frontend Lead · Full-Stack (Contractor)",
+        "period": "Jan 2025 — Jul 2026",
+        "highlights": [
+          "Owned the platform frontend: designed and defined the product architecture, prioritizing scalability, maintainability and consistency across teams.",
+          "Built and integrated the critical business flows — payments, banking and authentication — with external providers like Plaid, Stripe and AWS Cognito.",
+          "Refactored backend modules (Nest.js, TypeORM, PostgreSQL) to harden user-data security, optimized repositories and endpoints, and built Stripe webhooks, Socket.io WebSocket connections and REST endpoints.",
+          "Led the team's code reviews and brought AI tooling into the development flow, always under my own review, to speed up testing and UI implementation."
+        ]
+      },
+      "precision-logistica": {
+        "description": "Precisión Logística is a Colombian freight transport and logistics company that integrates transport, logistics talent and technology to guarantee operational continuity for cargo-generating companies.",
+        "role": "Frontend Lead",
+        "period": "Feb 2026 — Jun 2026",
+        "highlights": [
+          "I was the only frontend developer on the project: single-handedly built the frontend of all 4 portals (internal, client, HR and point of sale) of a multi-role logistics SaaS.",
+          "Designed high-complexity interfaces on a scalable, high-performance architecture, and built the complete quoting, service-order, HR and client-portal modules.",
+          "Integrated the platform end-to-end with RNDC, Colombia's government freight dispatch system.",
+          "Coordinated authentication security and role-based access control with the backend team; set the automated testing strategy (80% coverage on auth and the API client) and documented architecture decisions as ADRs."
+        ]
+      },
+      "geeks5g": {
+        "description": "Geeks5G is an Austin (USA) agency offering digital marketing, web design and custom software development for small and medium businesses.",
+        "role": "Full-Stack Web Developer",
+        "period": "May 2025 — Jan 2026",
+        "highlights": [
+          "Built the entire frontend of Emergency Service (getservice.ai): the dispatch logic I designed automatically assigns and re-escalates to the nearest professional.",
+          "The platform runs in production in the United States today, with 30+ active locksmiths and 300+ completed jobs.",
+          "Solved non-trivial business rules, such as tax rates that change from one US state to another, and integrated Google Maps, geocoding and Twilio/Payarc webhooks.",
+          "Defined the state architecture with TanStack Query and Redux, and translated each client's business requirements into technical solutions."
+        ]
+      },
+      "bancolombia": {
+        "description": "Bancolombia is one of Colombia's largest banks and a financial group present across several Latin American countries. It offers personal, business and investment banking services.",
+        "role": "Junior Software Engineer",
+        "period": "Feb 2024 — Aug 2024",
+        "highlights": [
+          "Built internal monitoring interfaces that improved the team's traceability and incident resolution in a high-criticality banking environment.",
+          "Wrote unit tests to ensure deployment reliability and quality, and took part in code migrations between repositories.",
+          "Collaborated on code reviews, contributing to the team's consistency and best practices."
+        ]
+      },
+      "dicosoft": {
+        "description": "DicoSoft Digital is a digital marketing agency specialized in medical clinics and practices, with complementary web development services. Its clients are mainly in healthcare (dentistry, dermatology, aesthetics).",
+        "role": "Web Developer",
+        "period": "Aug 2024 — May 2025",
+        "highlights": [
+          "Built platforms in React and WordPress that lifted client conversion rates by 25%.",
+          "Optimized GoHighLevel workflows, improving clients' operational efficiency by 35%.",
+          "Managed hosting, DNS and security protocols to keep client platforms stable."
+        ]
+      },
+      "radkiddo": {
+        "description": "Rad Kiddo is a US-based kids' streetwear brand. It sells tees, hoodies, pants and shorts through a Shopify online store, shipping across the USA.",
+        "role": "E-commerce Developer",
+        "period": "Jul 2023 — Feb 2024",
+        "highlights": [
+          "Designed and built a hybrid e-commerce platform: React for high-interactivity components and WordPress/WooCommerce for catalog management, lifting conversion by 25%.",
+          "Implemented the MercadoPago payment gateway and dynamic geolocation, improving user experience and site performance by 30%.",
+          "Integrated Cloudinary for optimized media handling and advanced JavaScript for custom cart and filter behavior."
+        ]
+      }
+    }
+  },
+  "Projects": {
+    "noShots": "Screenshots coming soon",
+    "viewLive": "View Live",
+    "items": {
+      "toolbooks": {
+        "name": "ToolBooks",
+        "description": "Bookkeeping & payroll SaaS (US). Led the frontend and integrated the payments, banking and authentication flows with Plaid, Stripe and AWS Cognito.",
+        "longDescription": "Owned the frontend of a US bookkeeping and payroll platform: defined the product architecture, integrated Plaid, Stripe and AWS Cognito, and refactored backend modules in Nest.js, TypeORM and PostgreSQL while building webhooks, WebSockets and REST endpoints.",
+        "metrics": "19 months · Frontend Lead"
+      },
+      "geeks5g": {
+        "name": "Emergency Service",
+        "description": "Dispatch platform for locksmiths (getservice.ai), live in the US. Automatically assigns and re-escalates to the nearest professional, with Google Maps and Twilio/Payarc webhooks.",
+        "metrics": "300+ jobs · 30+ locksmiths"
+      },
+      "qper": {
+        "name": "QPER — Logistics SaaS",
+        "description": "Multi-role logistics SaaS for Colombian transport companies: 4 portals built single-handedly (internal, client, HR and point of sale) and full RNDC integration.",
+        "metrics": "4 portals · 80% coverage"
+      },
+      "radkiddo": {
+        "name": "Rad Kiddo",
+        "description": "Hybrid e-commerce: React for high-interactivity components, WordPress/WooCommerce catalog, MercadoPago payments and Cloudinary-optimized media.",
+        "metrics": "+25% conversion"
+      },
+      "portfolio": {
+        "name": "This Portfolio",
+        "description": "Immersive portfolio with GSAP cinematics, Three.js shaders and scroll-driven animations."
+      }
+    }
+  },
+  "Technologies": {
+    "label": "Process & stack",
+    "title": "How I take a problem to production",
+    "subtitle": "Four decisions I make on every project, always in this order.",
+    "process": {
+      "understand": {
+        "title": "Frame the problem",
+        "desc": "I start with the why, not the ticket: what the business is actually deciding, what the user really needs, what the system constrains. If the requirement doesn't hold up, I push back before writing it, not after."
+      },
+      "architecture": {
+        "title": "Architecture that scales",
+        "desc": "The fiftieth feature should cost what the first one did. A coupled system does not get changed: it gets rewritten."
+      },
+      "build": {
+        "title": "Implementation with judgment",
+        "desc": "Real server state, production integrations and accessibility from the first component — not as a pass at the end. I use AI to speed up the mechanical parts; what lands in the repo goes through my review."
+      },
+      "quality": {
+        "title": "Quality & handoff",
+        "desc": "I test where failure is expensive, not where coverage is easy. I measure before optimizing, and leave the context written down for whoever inherits the code."
+      }
+    },
+    "visuals": {
+      "terminal": {
+        "q1": "who actually uses this?",
+        "q2": "what is the business deciding?",
+        "q3": "what constrains the system?",
+        "q4": "what happens when it fails?"
+      },
+      "tree": {
+        "app": "routes",
+        "core": "core",
+        "features": "one per domain",
+        "domain": "rules",
+        "application": "use cases",
+        "infrastructure": "adapters",
+        "ui": "screens",
+        "layers": "domain · application · infrastructure · ui",
+        "shared": "design system"
+      }
+    },
+    "tapHint": "Tap to read",
+    "hoverHint": "Hover to read"
+  },
+  "About": {
+    "label": "About",
+    "title": "Beyond the Code",
+    "quote": "The system decides; the component obeys.",
+    "bio": [
+      "I trained in electronics, robotics and mechatronics engineering, with a diploma in IoT, before moving into the web. That background shaped how I approach problems: I map the whole machine first, then drop down to the part.",
+      "These days I work with product teams on what usually hurts once a SaaS scales: complex business logic, multi-role systems, real-time data. I like being handed ownership of the whole problem, whatever the domain.",
+      "I also use AI inside my own workflow, for testing and for UI, always under my own review, because speed only matters if what comes out actually works. What I care about most is staying sharp."
+    ],
+    "facts": {
+      "location": "Location",
+      "locationValue": "Medellín, Colombia",
+      "languages": "Languages",
+      "languagesValue": "ES (native) / EN (professional)",
+      "current": "Current",
+      "currentValue": "Full-Stack Engineer",
+      "education": "Education",
+      "educationValue": "Mechatronics Eng. · IoT"
+    },
+    "interests": {
+      "travel": "Travel",
+      "hiphop": "Hip Hop",
+      "kungfu": "Kung Fu",
+      "animals": "Animals",
+      "mechatronics": "Mechatronics"
+    }
+  },
+  "Contact": {
+    "title": "Let's build\nsomething.",
+    "status": "Currently open to new opportunities.",
+    "links": {
+      "email": "Email",
+      "linkedin": "LinkedIn",
+      "github": "GitHub"
+    }
+  },
+  "Footer": {
+    "tagline": "Full-Stack Engineer building frontends that keep scaling without piling up technical debt.",
+    "available": "Available for new projects",
+    "ctaLabel": "Let's talk",
+    "navTitle": "Navigate",
+    "connectTitle": "Connect",
+    "email": "Email",
+    "emailAria": "Send an email",
+    "backToTop": "Back to top",
+    "rights": "All rights reserved",
+    "designedBy": "Designed & built by {name}",
+    "builtWith": "with Next.js, GSAP & Three.js",
+    "githubAria": "GitHub profile",
+    "linkedinAria": "LinkedIn profile"
+  },
+  "Preloader": {
+    "title": "Loading portfolio...",
+    "username": "christian@portfolio",
+    "commands": [
+      "git clone christianlamadrid/portfolio",
+      "pnpm install && pnpm build",
+      "./launch"
+    ],
+    "outputs": {
+      "0": [
+        "✔ Cloned 1337 objects, done."
+      ],
+      "1": [
+        "✔ 428 packages · built in 3.4s"
+      ],
+      "2": [
+        "✔ Welcome aboard — enjoy the ride"
+      ]
+    }
+  },
+  "Common": {
+    "scroll": "Scroll",
+    "skipToContent": "Skip to content"
+  }
+}

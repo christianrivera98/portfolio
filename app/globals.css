@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+/* Lenis smooth scroll — required styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent],
+.lenis.lenis-smooth [data-lenis-prevent-wheel],
+.lenis.lenis-smooth [data-lenis-prevent-touch] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 :root {
   /* Base */
   --background: 0 0% 100%;
@@ -17,6 +41,18 @@
   --border: 30 6% 43%;
   --ring: 356 96% 22%;
   --radius: 0.75rem;
+
+  /* Tablet shader backdrop (REQ-02) — order: crimson, black, crimson */
+  --shader-color-1: #a0030e;
+  --shader-color-2: #000000;
+  --shader-color-3: #a0030e;
+
+  /* Lighter crimson accent for text on dark surfaces */
+  --accent: 356 96% 55%;
+
+  /* Bento card surface — a step lighter than the section so cards float
+     without a border. */
+  --card-surface: 0 0% 8%;
 }
 
 
@@ -37,15 +73,325 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+}
+
+/* Preloader gate — see components/organisms/preloader/preloader-gate-script.tsx.
+   The lock lives in CSS so it is already applied (or already absent) on the very
+   first paint, before React hydrates. */
+html[data-preloader="run"],
+html[data-preloader="run"] body {
+  overflow: hidden;
+}
+
+html[data-preloader="run"] body {
+  position: fixed;
+  width: 100%;
+}
+
+html[data-preloader="seen"] .preloader-overlay {
+  display: none;
 }
 
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
+  font-family: var(--font-manrope), sans-serif;
 }
 
 :focus-visible {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
+}
+
+/* Typography utilities */
+.font-serif-display {
+  font-family: var(--font-manrope), sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-manrope), sans-serif;
+}
+
+/* Hero 3D scene — mounts after idle over its static poster, so the swap reads as a
+   dissolve instead of a pop. No layout involved, so it cannot shift anything. */
+@keyframes hero-room-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.hero-room-fade {
+  animation: hero-room-in 900ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-room-fade { animation: none; }
+}
+
+/* Project CTA — subtle animated gradient from the tablet shader palette.
+   Static at rest; the gradient drifts fluidly while hovered. */
+@keyframes shader-cta-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.shader-cta {
+  background-image: linear-gradient(
+    110deg,
+    var(--shader-color-1),
+    var(--shader-color-2),
+    var(--shader-color-3)
+  );
+  background-size: 220% 220%;
+  background-position: 0% 50%;
+}
+
+.shader-cta:hover {
+  animation: shader-cta-shift 3.2s ease-in-out infinite;
+}
+
+/* Menu links — the crimson wipes across the glyphs left→right on hover while the
+   whole row scales up slightly from its left edge. Two hard gradient stops over a
+   200% track make the fill read as a sweep instead of a fade. */
+.menu-link {
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.menu-link:hover,
+.menu-link:focus-visible {
+  transform: scale(1.045);
+}
+
+.menu-link-label {
+  background-image: linear-gradient(
+    90deg,
+    hsl(var(--accent)) 0%,
+    hsl(var(--accent)) 50%,
+    rgb(255 255 255 / 0.9) 50%,
+    rgb(255 255 255 / 0.9) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-link:hover .menu-link-label,
+.menu-link:focus-visible .menu-link-label {
+  background-position: 0 0;
+}
+
+.menu-link-index {
+  transition: color 0.45s ease;
+}
+
+.menu-link:hover .menu-link-index,
+.menu-link:focus-visible .menu-link-index {
+  color: hsl(var(--accent));
+}
+
+/* Menu toggle — same crimson sweep as the links, applied to the two bars. The
+   scale lives on the button because GSAP owns the bars' rotate/y for the X. */
+.menu-toggle {
+  cursor: pointer;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+  transform: scale(1.12);
+}
+
+.menu-toggle-line {
+  background-image: linear-gradient(
+    90deg,
+    hsl(var(--accent)) 0%,
+    hsl(var(--accent)) 50%,
+    rgb(255 255 255 / 0.8) 50%,
+    rgb(255 255 255 / 0.8) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-toggle:hover .menu-toggle-line,
+.menu-toggle:focus-visible .menu-toggle-line {
+  background-position: 0 0;
+}
+
+/* Stack journey — the twelve extruded logos that travel from the hero to the
+   bento. Fixed, so it spans every section (each one is its own overflow-hidden
+   island), and at z-6: over the section backgrounds and the hero scrims, under
+   every section's content (z-10). That ordering is what keeps it behind the
+   bento. */
+.stack-journey {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+/* The skills grid only exists for reduced motion, where the rings never run.
+   The twelve names are in an sr-only list either way, so hiding it costs the
+   accessibility tree nothing. */
+.tech-fallback {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-fallback {
+    display: block;
+  }
+}
+
+/* Process cards: pointer spotlight + tilt.
+   The gradient is painted once into a fixed-size layer and then moved with a
+   transform, rather than re-painting a gradient whose centre changes. */
+.process-card-spotlight::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle closest-side,
+    hsl(var(--primary) / 0.35),
+    transparent 100%
+  );
+  transform: translate3d(calc(var(--mx, 50%) - 190px), calc(var(--my, 0px) - 190px), 0);
+  will-change: transform;
+}
+
+/* No border: the edge reads from the surface being lighter than the section
+   plus a layered ambient shadow, so the card floats instead of being outlined. */
+.process-card {
+  background: hsl(var(--card-surface));
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  box-shadow: 0 2px 4px hsl(0 0% 0% / 0.4), 0 10px 24px -8px hsl(0 0% 0% / 0.55),
+    0 28px 56px -16px hsl(0 0% 0% / 0.45);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease-out;
+}
+
+.process-card:hover,
+.process-card:focus-within,
+.process-card[data-active="true"] {
+  box-shadow: 0 2px 4px hsl(0 0% 0% / 0.4), 0 10px 24px -8px hsl(0 0% 0% / 0.55),
+    0 18px 44px -12px hsl(var(--primary) / 0.3), 0 0 28px hsl(var(--accent) / 0.12);
+}
+
+/* Card faces are a scrim over the ambient visual, weighted towards the bottom
+   where the title sits, so the copy keeps its contrast. While the pixel grid
+   runs they go fully opaque: the incoming face is cloned into every pixel, and
+   a translucent clone would let the outgoing text read through it. */
+.process-card-face {
+  /* Diagonal, matching the visuals' own fade: nearly clear over the top-right
+     corner where the simulation lives, solid over the copy at bottom-left. */
+  background: linear-gradient(
+    205deg,
+    hsl(var(--card-surface) / 0.3) 0%,
+    hsl(var(--card-surface) / 0.78) 42%,
+    hsl(var(--card-surface) / 0.97) 72%
+  );
+}
+
+[data-transitioning="true"] .process-card-face {
+  background: hsl(var(--card-surface));
+}
+
+/* Ambient card visuals. The card is the viewport of a shallow 3D scene: each
+   simulation sits in a corner, tilted like a UI mock caught at an angle, and
+   fades out diagonally before it reaches the copy. */
+.card-visual {
+  opacity: 1;
+  perspective: 900px;
+  perspective-origin: 100% 0%;
+}
+
+.visual-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform-origin: top right;
+  /* Fades towards the bottom-left, which is where the title and the hint live. */
+  -webkit-mask-image: linear-gradient(205deg, #000 0%, #000 54%, transparent 88%);
+  mask-image: linear-gradient(205deg, #000 0%, #000 54%, transparent 88%);
+}
+
+/* The wide card is short: a diagonal fade would swallow the console body, so it
+   fades sideways instead, away from the copy on the left. */
+.visual-corner-wide {
+  -webkit-mask-image: linear-gradient(270deg, #000 0%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(270deg, #000 0%, #000 78%, transparent 100%);
+}
+
+.visual-tilt-a {
+  transform: rotateX(7deg) rotateY(-17deg) rotate(-1.2deg);
+}
+
+.visual-tilt-b {
+  transform: rotateX(-6deg) rotateY(-14deg) rotate(1deg);
+}
+
+/* The tall card keeps its full-height sheet; only the bottom needs to clear. */
+.visual-sheet {
+  position: absolute;
+  inset: 0;
+  /* Two masks intersected: fade at the bottom before the copy, and at the right
+     edge so the deeper rows trail off instead of being cut mid-word. */
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 92%),
+    linear-gradient(90deg, #000 0%, #000 74%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 92%),
+    linear-gradient(90deg, #000 0%, #000 74%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+/* The section's .font-mono maps to the display sans; the card visuals need a
+   real mono, both to look like a terminal and because the typing effect is a
+   stepped clip-path wipe over fixed-width glyphs. */
+.visual-mono {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* Top highlight rides above the opaque swap faces, which would otherwise cover
+   an inset shadow painted on the card itself. */
+.process-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process-card {
+    transform: none;
+  }
+  .process-card-spotlight::before {
+    display: none;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
