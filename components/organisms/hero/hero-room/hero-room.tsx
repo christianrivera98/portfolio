@@ -12,6 +12,7 @@ import { RoomShell } from "./room-shell"
 import { Desk } from "./desk"
 import { Person } from "./person"
 import { Monitor } from "./monitor"
+import { StaticShadows } from "./static-shadows"
 import { Shelf } from "./shelf"
 import { Decor } from "./decor"
 
@@ -75,6 +76,7 @@ export function HeroRoom({ social, active }: { social: SocialKey | null; active:
       gl={{ antialias: true, toneMappingExposure: 1.35 }}
     >
       <FrameDriver active={active} />
+      <StaticShadows refresh={`${resolvedTheme}-${active}`} />
       <color attach="background" args={[theme.fog]} />
       <fog attach="fog" args={[theme.fog, 8, 18]} />
       <ambientLight intensity={theme.ambient + 0.12} color={theme.fill} />
