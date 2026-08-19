@@ -51,7 +51,10 @@ const heroInset = (vw: number) => (vw >= 1024 ? 112 : vw >= 768 ? 48 : 24)
 /** Room the row is allowed to take before it would run into the scroll invite. */
 function rowMetrics(vp: Viewport) {
   const inset = heroInset(vp.width)
-  const available = (vp.rightLimit ?? vp.width) - inset
+  // Without the scroll invite to stop at — it is desktop-only — the row still
+  // owes the right edge the same margin the copy keeps on the left, or the last
+  // logo hangs half off the screen.
+  const available = (vp.rightLimit ?? vp.width - inset) - inset
   const gap = vp.mobile ? 6 : 14
   const size = Math.max(
     LOGO_SIZE.min,

@@ -2,54 +2,55 @@
 
 import { useEffect } from "react"
 import gsap from "gsap"
-import type * as THREE from "three"
+import type { Renderer } from "@/components/organisms/stack-journey/stack-render"
 
 /** How close the pointer has to get, in px, before a logo reacts at all. */
 const RADIUS = 240
 /** Peak pull and tilt: small on purpose — enough to show the slab has sides. */
 const PULL = 24
 const TILT = 0.62
+const LIFT = 0.1
 
 type Setter = (value: number) => void
 
 /**
  * Magnetic hover for the stack logos: the ones near the pointer lean towards it
- * and drift a few pixels, so the extruded edge catches the light. Everything
- * eases back on its own once the pointer moves away.
+ * and drift a few pixels, so the extruded edge catches the light.
  *
- * Distances are measured in viewport pixels against each logo's landing spot
- * (kept in `userData`), so the effect never needs a raycast and the layer can
- * stay `pointer-events: none` — the hero underneath keeps all of its clicks.
+ * It tweens *offsets*, never the meshes. The renderer adds them on top of
+ * whatever the journey says, so the magnet can ease back at its own pace while
+ * the scroll keeps moving the same logos — the earlier version animated the
+ * meshes directly and kept dragging them back to the hero row for half a second
+ * after the journey had already started.
+ *
+ * Distances are measured in viewport pixels against the pose the renderer
+ * recorded, so the effect never needs a raycast and the layer can stay
+ * `pointer-events: none` — the hero underneath keeps all of its clicks.
  */
-export function useLogoMagnet(
-  meshesRef: React.RefObject<(THREE.Mesh | null)[]>,
-  invalidate: () => void,
-  enabled: boolean
-) {
+export function useLogoMagnet(rendererRef: React.RefObject<Renderer | null>, enabled: boolean) {
   useEffect(() => {
-    const logos = (meshesRef.current ?? []).filter(Boolean) as THREE.Mesh[]
-    if (!enabled || !logos.length) return
+    const renderer = rendererRef.current
+    if (!enabled || !renderer) return
 
-    const ease = { duration: 0.55, ease: "power3.out", onUpdate: invalidate }
-    const setters = logos.map((logo) => ({
-      logo,
-      x: gsap.quickTo(logo.position, "x", ease) as Setter,
-      y: gsap.quickTo(logo.position, "y", ease) as Setter,
-      rotX: gsap.quickTo(logo.rotation, "x", ease) as Setter,
-      rotY: gsap.quickTo(logo.rotation, "y", ease) as Setter,
-      scale: gsap.quickTo(logo.scale, "x", ease) as Setter,
-      scaleY: gsap.quickTo(logo.scale, "y", ease) as Setter,
+    const ease = { duration: 0.55, ease: "power3.out", onUpdate: renderer.request }
+    const setters = renderer.offsets.map((offset) => ({
+      dx: gsap.quickTo(offset, "dx", ease) as Setter,
+      dy: gsap.quickTo(offset, "dy", ease) as Setter,
+      rx: gsap.quickTo(offset, "rx", ease) as Setter,
+      ry: gsap.quickTo(offset, "ry", ease) as Setter,
+      lift: gsap.quickTo(offset, "lift", ease) as Setter,
     }))
 
     // True while at least one logo is off its resting pose. Without it, every
     // pointer move anywhere on the page would re-target all twelve logos and
-    // invalidate the scene, redrawing frames in which nothing actually changes.
+    // redraw frames in which nothing actually changes.
     let disturbed = false
 
     const apply = (pointerX: number, pointerY: number) => {
       let anyPull = false
-      setters.forEach(({ logo, x, y, rotX, rotY, scale, scaleY }) => {
-        const { screenX, screenY, worldX, worldY, tilt, turn, size } = logo.userData
+
+      setters.forEach((set, index) => {
+        const { screenX, screenY } = renderer.logos[index].userData
         if (screenX === undefined) return
 
         const dx = pointerX - screenX
@@ -60,20 +61,19 @@ export function useLogoMagnet(
         if (strength > 0) anyPull = true
         if (strength === 0 && !disturbed) return
 
-        x(worldX + (dx / RADIUS) * PULL * strength)
-        y(worldY - (dy / RADIUS) * PULL * strength)
-        rotY(turn - (dx / RADIUS) * TILT * strength)
-        rotX(tilt - (dy / RADIUS) * TILT * strength)
+        set.dx((dx / RADIUS) * PULL * strength)
+        set.dy((dy / RADIUS) * PULL * strength)
+        set.ry(-(dx / RADIUS) * TILT * strength)
+        set.rx(-(dy / RADIUS) * TILT * strength)
         // The nearest logo grows a touch: with an orthographic camera nothing
         // gets bigger by moving towards it, so the lift has to be a scale.
-        scale(size * (1 + 0.1 * strength))
-        scaleY(size * (1 + 0.1 * strength))
+        set.lift(LIFT * strength)
       })
+
       disturbed = anyPull
     }
 
     const onMove = (event: PointerEvent) => apply(event.clientX, event.clientY)
-
     // Far enough away that every logo settles back to its resting pose.
     const onLeave = () => apply(-9999, -9999)
 
@@ -83,9 +83,13 @@ export function useLogoMagnet(
     return () => {
       window.removeEventListener("pointermove", onMove)
       document.removeEventListener("pointerleave", onLeave)
-      // The quickTo tweens are left to expire on their own: killing everything
-      // on these objects would also take out the scrubbed journey phases that
-      // own the same meshes once the hero is gone.
+      // Offsets are plain objects, so clearing them can never strand a mesh
+      // half way to the pointer the way killing mesh tweens would.
+      renderer.offsets.forEach((offset) => {
+        gsap.killTweensOf(offset)
+        Object.assign(offset, { dx: 0, dy: 0, rx: 0, ry: 0, lift: 0 })
+      })
+      renderer.request()
     }
-  }, [enabled, invalidate, meshesRef])
+  }, [enabled, rendererRef])
 }

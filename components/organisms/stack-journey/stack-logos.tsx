@@ -9,6 +9,7 @@ import { useMediaQuery } from "@/hooks/useMediaQuery"
 import { useStackJourney } from "@/hooks/useStackJourney"
 import { SKILL_LOGOS } from "../technologies/technologies.config"
 import { MATERIAL } from "./stack-journey.config"
+import type { Renderer } from "./stack-render"
 
 const FILES = SKILL_LOGOS.map((logo) => logo.file)
 
@@ -20,6 +21,8 @@ const FILES = SKILL_LOGOS.map((logo) => logo.file)
 export function StackLogos() {
   const stage = useRef<THREE.Group>(null)
   const meshes = useRef<(THREE.Mesh | null)[]>([])
+  // The single writer, shared with the magnet so both speak through it.
+  const renderer = useRef<Renderer | null>(null)
   const invalidate = useThree((state) => state.invalidate)
   const geometries = useExtrudedLogos(FILES)
   // Hover has no meaning on a touch screen, and the listener would fire on every
@@ -41,8 +44,8 @@ export function StackLogos() {
     []
   )
 
-  useStackJourney(meshes, invalidate, !!geometries, setLiveStable)
-  useLogoMagnet(meshes, invalidate, live && finePointer)
+  useStackJourney(meshes, invalidate, !!geometries, setLiveStable, renderer)
+  useLogoMagnet(renderer, live && finePointer)
 
   if (!geometries) return null
 
