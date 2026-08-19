@@ -21,7 +21,9 @@ export function StackCanvas() {
       // long frames. Antialiasing keeps the edges clean.
       dpr={1}
       camera={{ position: [0, 0, 600], zoom: 1, near: 1, far: 2000 }}
-      gl={{ antialias: true, alpha: true }}
+      // No MSAA: a full-screen buffer with multisampling is the single most
+      // expensive thing about this scene, and these are flat white silhouettes.
+      gl={{ antialias: false, alpha: true, powerPreference: "low-power" }}
       style={{ pointerEvents: "none" }}
     >
       <ambientLight intensity={1.2} />

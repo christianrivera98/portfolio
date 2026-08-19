@@ -239,6 +239,21 @@ body {
   pointer-events: none;
 }
 
+/* The skills grid is the accessible copy of the twelve names and the fallback
+   wherever the rings do not run — phones and reduced motion. Where they do run
+   it stays in the accessibility tree but out of sight, rather than display:none,
+   which would take the names with it. */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .tech-fallback {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
 /* Process cards: pointer spotlight + tilt.
    The gradient is painted once into a fixed-size layer and then moved with a
    transform, rather than re-painting a gradient whose centre changes. */

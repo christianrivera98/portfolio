@@ -4,7 +4,7 @@ import { useRef } from "react"
 import { useTranslations } from "next-intl"
 import { useTechnologiesAnimations } from "@/hooks/useTechnologiesAnimations"
 import { ProcessCard } from "./process-card"
-import { StackSignature } from "./stack-signature"
+import { SkillsGrid } from "./skills-grid"
 import type { CardVariant } from "./process-card"
 import { PROCESS_CARDS } from "./technologies.config"
 
@@ -55,19 +55,25 @@ export function Technologies() {
           </p>
         </div>
 
-        {/* Asymmetric bento: the four steps read as a column of uneven cells,
-            with the stack constellation as the tall protagonist beside them. */}
-        <div className="tech-bento grid grid-cols-1 gap-4 lg:grid-cols-12 lg:gap-5">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-7 lg:gap-5">
-            {PROCESS_CARDS.map((card, index) => (
-              <div key={card.id} className={CELLS[index].place}>
-                <ProcessCard id={card.id} index={index} variant={CELLS[index].variant} />
-              </div>
-            ))}
-          </div>
+        {/* Asymmetric bento, narrowed and centred: the stack no longer sits in a
+            cell beside it, it orbits it — and the rings need air on both sides. */}
+        <div className="tech-bento mx-auto grid w-full max-w-[800px] grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-5">
+          {PROCESS_CARDS.map((card, index) => (
+            <div key={card.id} className={CELLS[index].place}>
+              <ProcessCard id={card.id} index={index} variant={CELLS[index].variant} />
+            </div>
+          ))}
+        </div>
 
-          <div className="tech-stack-cell lg:col-span-5">
-            <StackSignature />
+        <div className="mx-auto mt-16 w-full max-w-[800px]">
+          <p className="tech-skills-label mb-8 font-mono text-[11px] uppercase tracking-[0.3em] text-foreground/60">
+            {t("skillsLabel")}
+          </p>
+          {/* The orbiting logos are decorative, so the twelve names live here in
+              readable DOM. The grid is also the fallback wherever the rings do
+              not run: phones and reduced motion. */}
+          <div className="tech-fallback">
+            <SkillsGrid />
           </div>
         </div>
       </div>

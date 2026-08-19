@@ -7,11 +7,10 @@ import { useGSAP } from "@gsap/react"
 import type * as THREE from "three"
 import type { Viewport } from "@/components/organisms/stack-journey/stack-journey.config"
 import { createEntry, placeRow } from "@/components/organisms/stack-journey/stack-phases"
-import {
-  createDriftPhase,
-  createExitPhase,
-  createScatterPhase,
-} from "@/components/organisms/stack-journey/stack-scroll-phases"
+import { createExitPhase } from "@/components/organisms/stack-journey/stack-exit-phase"
+import { createDriftPhase } from "@/components/organisms/stack-journey/stack-drift-phase"
+import { createScatterPhase } from "@/components/organisms/stack-journey/stack-scatter-phase"
+import { createOrbitPhase } from "@/components/organisms/stack-journey/stack-orbit-phase"
 import { readViewport } from "@/components/organisms/stack-journey/stack-viewport"
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
@@ -80,6 +79,8 @@ export function useStackJourney(
           const phases = mobile
             ? [createExitPhase(phase)]
             : [createScatterPhase(phase), createDriftPhase(phase)]
+          // Phones keep the accessible grid in the bento instead of a ring.
+          const orbit = mobile ? null : createOrbitPhase(phase)
 
           const reposition = () => {
             if (landed.current) placeRow(phase)
@@ -91,6 +92,7 @@ export function useStackJourney(
             setLive(false)
             gate.kill()
             entry?.kill()
+            orbit?.kill()
             phases.forEach((tween) => {
               tween.scrollTrigger?.kill()
               tween.kill()
