@@ -74,6 +74,16 @@ html.lenis body {
 
 html {
   scroll-behavior: auto;
+  /* The navbar's progress bar already says how far down the page you are, so
+     the native bar is hidden and the viewport keeps its full width. Only the
+     page scroller loses it: anything that scrolls inside the page keeps its
+     own. Wheel, touch and keyboard are untouched — what goes away is the
+     drag handle. */
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 /* Preloader gate — see components/organisms/preloader/preloader-gate-script.tsx.
