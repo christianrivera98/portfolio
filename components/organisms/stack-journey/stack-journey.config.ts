@@ -23,7 +23,7 @@ export const ICON_VIEWBOX = 24
  * segments: these are twelve meshes built at runtime, not a hero asset.
  */
 export const EXTRUDE = {
-  depth: 1.5,
+  depth: 2.4,
   bevelEnabled: true,
   bevelThickness: 0.14,
   bevelSize: 0.1,

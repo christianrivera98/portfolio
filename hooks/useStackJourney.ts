@@ -14,7 +14,10 @@ import {
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
-const SPIN_BASE = 13
+/** Resting pose: a slight lean plus an alternating quarter turn, so the slabs
+ *  read as solids even while nothing is moving. */
+const REST_TILT = -0.16
+const REST_TURN = 0.46
 
 /**
  * Choreography of the stack logos across the page. Phase 0: they fly in from
@@ -28,7 +31,8 @@ export function useStackJourney(
   stageRef: React.RefObject<THREE.Group | null>,
   meshesRef: React.RefObject<(THREE.Mesh | null)[]>,
   invalidate: () => void,
-  ready: boolean
+  ready: boolean,
+  setLive: (live: boolean) => void
 ) {
   const landed = useRef(false)
 
@@ -55,40 +59,43 @@ export function useStackJourney(
           const place = () => {
             const vp = viewport()
             logos.forEach((logo, i) => {
-              const { x, y } = toWorld(heroRowPose(i, vp), vp)
+              const pose = heroRowPose(i, vp)
+              const { x, y } = toWorld(pose, vp)
               logo.position.set(x, y, 0)
+              anchor(logo, i, pose.x, pose.y, x, y)
             })
             invalidate()
           }
 
-          // A touch of tilt so the slab reads as a solid rather than a card,
-          // and an eased turn: it hurries through the edge-on quarter and dwells
-          // on the faces, so the icon is legible most of the time.
-          logos.forEach((logo) => logo.rotation.set(-0.12, 0, 0))
+          // Where the magnet pulls from and back to: the landing spot in screen
+          // pixels, the same point in world units, and the resting rotation.
+          const anchor = (
+            logo: THREE.Mesh,
+            index: number,
+            screenX: number,
+            screenY: number,
+            worldX: number,
+            worldY: number
+          ) => {
+            logo.userData.screenX = screenX
+            logo.userData.screenY = screenY
+            logo.userData.worldX = worldX
+            logo.userData.worldY = worldY
+            logo.userData.size = logo.scale.x
+            logo.userData.tilt = REST_TILT
+            logo.userData.turn = index % 2 ? REST_TURN : -REST_TURN
+            logo.rotation.set(REST_TILT, logo.userData.turn, 0)
+          }
 
-          const spins = logos.map((logo, i) =>
-            gsap.to(logo.rotation, {
-              y: `+=${Math.PI * 2}`,
-              duration: SPIN_BASE + i * 0.9,
-              ease: "power1.inOut",
-              repeat: -1,
-              paused: true,
-              onUpdate: invalidate,
-            })
-          )
-
-          // Turning only runs while the hero is on screen. A toggle and not an
-          // onLeave/onEnterBack pair on purpose: the layer mounts after the
-          // preloader, so on a page that is already scrolled down those two
-          // never fire and the scene would render for ever at full rate.
+          // The magnet only listens while the hero is on screen. A toggle and
+          // not an onLeave/onEnterBack pair on purpose: the layer mounts after
+          // the preloader, so on a page that is already scrolled down those two
+          // never fire and the scene would keep working for nothing.
           const gate = ScrollTrigger.create({
             trigger: "#home",
             start: "top bottom",
             end: "bottom top",
-            onToggle: (self) => {
-              if (self.isActive && landed.current) spins.forEach((spin) => spin.play())
-              else spins.forEach((spin) => spin.pause())
-            },
+            onToggle: (self) => setLive(self.isActive && landed.current),
           })
 
           // Flying in is only worth it while the hero is on screen; mounting
@@ -111,13 +118,15 @@ export function useStackJourney(
                 onUpdate: invalidate,
                 onComplete: () => {
                   landed.current = true
-                  if (gate.isActive) spins.forEach((spin) => spin.play())
+                  place()
+                  setLive(gate.isActive)
                 },
               }
             )
           } else {
             landed.current = true
             place()
+            setLive(gate.isActive)
           }
 
           // Placeholder until the drift phase lands: the block rides up and off
@@ -142,16 +151,16 @@ export function useStackJourney(
 
           return () => {
             ScrollTrigger.removeEventListener("refreshInit", reposition)
+            setLive(false)
             gate.kill()
             trigger.kill()
             entry?.kill()
-            spins.forEach((spin) => spin.kill())
           }
         }
       )
 
       return () => mm.revert()
     },
-    { dependencies: [ready, invalidate, stageRef, meshesRef] }
+    { dependencies: [ready, invalidate, setLive, stageRef, meshesRef] }
   )
 }

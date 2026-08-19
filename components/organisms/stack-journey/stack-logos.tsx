@@ -1,9 +1,11 @@
 "use client"
 
-import { useMemo, useRef } from "react"
+import { useCallback, useMemo, useRef, useState } from "react"
 import { useThree } from "@react-three/fiber"
 import * as THREE from "three"
 import { useExtrudedLogos } from "@/hooks/useExtrudedLogos"
+import { useLogoMagnet } from "@/hooks/useLogoMagnet"
+import { useMediaQuery } from "@/hooks/useMediaQuery"
 import { useStackJourney } from "@/hooks/useStackJourney"
 import { SKILL_LOGOS } from "../technologies/technologies.config"
 import { LOGO_SIZE, MATERIAL } from "./stack-journey.config"
@@ -21,6 +23,11 @@ export function StackLogos() {
   const invalidate = useThree((state) => state.invalidate)
   const mobile = useThree((state) => state.size.width) < 768
   const geometries = useExtrudedLogos(FILES)
+  // Hover has no meaning on a touch screen, and the listener would fire on every
+  // drag: the magnet is for fine pointers only.
+  const finePointer = useMediaQuery("(pointer: fine)")
+  const [live, setLive] = useState(false)
+  const setLiveStable = useCallback((next: boolean) => setLive(next), [])
 
   const materials = useMemo(
     () => [
@@ -30,7 +37,8 @@ export function StackLogos() {
     []
   )
 
-  useStackJourney(stage, meshes, invalidate, !!geometries)
+  useStackJourney(stage, meshes, invalidate, !!geometries, setLiveStable)
+  useLogoMagnet(meshes, invalidate, live && finePointer)
 
   if (!geometries) return null
   const size = mobile ? LOGO_SIZE.mobile : LOGO_SIZE.desktop
