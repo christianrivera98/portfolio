@@ -8,12 +8,20 @@
 
 export type Pose = { x: number; y: number }
 
-export type Viewport = { width: number; height: number; mobile: boolean }
+export type Viewport = {
+  width: number
+  height: number
+  mobile: boolean
+  /** Bottom of the hero CTAs, measured live: the row hangs below it. */
+  ctaBottom?: number
+  /** Left edge of the scroll invite, so the row never runs under it. */
+  rightLimit?: number
+}
 
-/** Logo box, in px. Two rows of six under the hero CTAs. */
-export const LOGO_SIZE = { desktop: 88, mobile: 40 } as const
+/** Bounds for the single row: it shrinks to fit, never past these. */
+export const LOGO_SIZE = { min: 20, max: 66 } as const
 
-export const ROW_LENGTH = 6
+export const ROW_LENGTH = 12
 
 /** SVG viewBox of every simple-icons file, used to normalise the shapes. */
 export const ICON_VIEWBOX = 24
@@ -31,30 +39,51 @@ export const EXTRUDE = {
   curveSegments: 8,
 } as const
 
-/** Matte white face, crimson edge — the site's own palette. */
-export const MATERIAL = { face: "#f4f4f5", edge: "#8f0714" } as const
+/**
+ * White on white: the face is plain, the rim a shade darker so the light alone
+ * separates them. No brand colour on the logos themselves.
+ */
+export const MATERIAL = { face: "#ffffff", edge: "#c8c8ce" } as const
 
 /** Left padding of the hero copy: `lg:pl-28` = 112px, `px-6` = 24px below lg. */
 const heroInset = (vw: number) => (vw >= 1024 ? 112 : vw >= 768 ? 48 : 24)
 
+/** Room the row is allowed to take before it would run into the scroll invite. */
+function rowMetrics(vp: Viewport) {
+  const inset = heroInset(vp.width)
+  const available = (vp.rightLimit ?? vp.width) - inset
+  const gap = vp.mobile ? 6 : 14
+  const size = Math.max(
+    LOGO_SIZE.min,
+    Math.min(LOGO_SIZE.max, (available - (ROW_LENGTH - 1) * gap) / ROW_LENGTH)
+  )
+  return { inset, gap, size }
+}
+
 /**
- * Where the logos settle in the hero: a block of two rows of six filling the
- * bottom-left quadrant, under the CTAs.
+ * Where the logos settle in the hero: one row of twelve under the CTAs, sitting
+ * in the middle of the band left between them and the bottom of the hero.
  */
 export function heroRowPose(index: number, vp: Viewport): Pose {
-  const size = vp.mobile ? LOGO_SIZE.mobile : LOGO_SIZE.desktop
-  const gap = vp.mobile ? 8 : 16
-  const column = index % ROW_LENGTH
-  const row = Math.floor(index / ROW_LENGTH)
-  const block = 2 * size + gap
+  const { inset, gap, size } = rowMetrics(vp)
+  const band = vp.ctaBottom ?? vp.height - 100
+
+  // Centred in the band under the CTAs, nudged up so it reads as sitting
+  // between them and the scroll invite rather than at the very bottom.
+  const lift = vp.mobile ? 4 : 30
 
   return {
-    x: heroInset(vp.width) + column * (size + gap) + size / 2,
-    y: vp.height - block - (vp.mobile ? 20 : 12) + row * (size + gap) + size / 2,
+    x: inset + index * (size + gap) + size / 2,
+    y: band + (vp.height - band) / 2 - lift,
   }
 }
 
-/** Where the block comes in from: off the left edge, slightly lower. */
+/** Logo box for the current viewport, so the mesh scale matches the layout. */
+export function heroLogoSize(vp: Viewport) {
+  return rowMetrics(vp).size
+}
+
+/** Where the row comes in from: off the left edge, slightly lower. */
 export function heroEntryPose(index: number, vp: Viewport): Pose {
   const landed = heroRowPose(index, vp)
   return { x: -0.25 * vp.width, y: landed.y + 30 }

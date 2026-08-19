@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react"
 import type * as THREE from "three"
 import {
   heroEntryPose,
+  heroLogoSize,
   heroRowPose,
   toWorld,
   type Viewport,
@@ -50,18 +51,36 @@ export function useStackJourney(
         { isMobile: "(max-width: 767px)", isDesktop: "(min-width: 768px)" },
         (context) => {
           const mobile = !!context.conditions?.isMobile
-          const viewport = (): Viewport => ({
-            width: window.innerWidth,
-            height: window.innerHeight,
-            mobile,
-          })
+          // The row hangs off the live layout rather than off magic numbers: it
+          // centres in the band under the CTAs and stops short of the scroll
+          // invite, whatever the copy does at this width.
+          const viewport = (): Viewport => {
+            // The lowest CTA, not the first: on narrow screens they wrap and the
+            // row has to clear the last line, not the top one.
+            const ctaBottom = [...document.querySelectorAll(".hero-cta")].reduce(
+              (lowest, el) => Math.max(lowest, el.getBoundingClientRect().bottom),
+              0
+            )
+            const invite = document
+              .querySelector(".hero-scroll-invite")
+              ?.getBoundingClientRect()
+            return {
+              width: window.innerWidth,
+              height: window.innerHeight,
+              mobile,
+              ctaBottom: ctaBottom || undefined,
+              rightLimit: invite?.width ? invite.left - 24 : undefined,
+            }
+          }
 
           const place = () => {
             const vp = viewport()
+            const size = heroLogoSize(vp)
             logos.forEach((logo, i) => {
               const pose = heroRowPose(i, vp)
               const { x, y } = toWorld(pose, vp)
               logo.position.set(x, y, 0)
+              logo.scale.setScalar(size)
               anchor(logo, i, pose.x, pose.y, x, y)
             })
             invalidate()

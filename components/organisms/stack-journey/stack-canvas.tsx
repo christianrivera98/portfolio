@@ -21,10 +21,12 @@ export function StackCanvas() {
       gl={{ antialias: true, alpha: true }}
       style={{ pointerEvents: "none" }}
     >
-      <ambientLight intensity={1.6} />
-      {/* Key light almost head-on so the white face reads against the dark hero */}
-      <directionalLight position={[-120, 260, 900]} intensity={3.2} />
-      <directionalLight position={[340, -200, 240]} intensity={1.1} color="#ff5566" />
+      <ambientLight intensity={1.2} />
+      {/* Key light almost head-on so the white face reads against the dark hero,
+          plus a dim rim from below: the shading is what separates face from
+          edge now that both are white. */}
+      <directionalLight position={[-120, 260, 900]} intensity={2.8} />
+      <directionalLight position={[320, -260, 180]} intensity={0.9} />
       <StackLogos />
     </Canvas>
   )

@@ -8,7 +8,7 @@ import { useLogoMagnet } from "@/hooks/useLogoMagnet"
 import { useMediaQuery } from "@/hooks/useMediaQuery"
 import { useStackJourney } from "@/hooks/useStackJourney"
 import { SKILL_LOGOS } from "../technologies/technologies.config"
-import { LOGO_SIZE, MATERIAL } from "./stack-journey.config"
+import { MATERIAL } from "./stack-journey.config"
 
 const FILES = SKILL_LOGOS.map((logo) => logo.file)
 
@@ -21,7 +21,6 @@ export function StackLogos() {
   const stage = useRef<THREE.Group>(null)
   const meshes = useRef<(THREE.Mesh | null)[]>([])
   const invalidate = useThree((state) => state.invalidate)
-  const mobile = useThree((state) => state.size.width) < 768
   const geometries = useExtrudedLogos(FILES)
   // Hover has no meaning on a touch screen, and the listener would fire on every
   // drag: the magnet is for fine pointers only.
@@ -41,7 +40,6 @@ export function StackLogos() {
   useLogoMagnet(meshes, invalidate, live && finePointer)
 
   if (!geometries) return null
-  const size = mobile ? LOGO_SIZE.mobile : LOGO_SIZE.desktop
 
   return (
     <group ref={stage}>
@@ -53,7 +51,6 @@ export function StackLogos() {
           }}
           geometry={geometry}
           material={materials}
-          scale={size}
         />
       ))}
     </group>
