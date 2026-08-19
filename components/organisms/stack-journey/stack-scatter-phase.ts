@@ -36,7 +36,7 @@ export function createScatterPhase({ logos, viewport, invalidate }: PhaseArgs) {
     draw()
   }
 
-  return gsap.to(state, {
+  const tween = gsap.to(state, {
     progress: 1,
     ease: "none",
     onUpdate: apply,
@@ -52,5 +52,11 @@ export function createScatterPhase({ logos, viewport, invalidate }: PhaseArgs) {
       },
     },
   })
+
+  // Scrubbed phases stop calling onUpdate once they settle, so whoever settles
+  // last owns the meshes. Handing `apply` to the next phase lets it give the
+  // logos back when it winds down — without it, coming back up the page left
+  // them wherever the later phase had put them.
+  return { tween, apply }
 }
 

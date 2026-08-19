@@ -8,17 +8,28 @@ import { throttled, type PhaseArgs } from "./stack-phase-utils"
  * Experience scrolls past, so the logos read as sitting at different depths
  * behind the content.
  */
-export function createDriftPhase({ logos, viewport, invalidate }: PhaseArgs) {
+export function createDriftPhase(
+  { logos, viewport, invalidate }: PhaseArgs,
+  handBack: () => void
+) {
   const draw = throttled(invalidate)
   const state = { progress: 0 }
   let vp = viewport()
-  let live = false
+  let touched = false
 
   const apply = () => {
-    // Silent until the phase is really running. ScrollTrigger applies progress 0
-    // on every refresh, and at progress 0 this phase writes the drift pose — so
-    // without this guard the logos sat scattered while still in the hero.
-    if (!live && state.progress === 0) return
+    // Never write at progress 0. This phase is created after the scatter, so it
+    // runs after it in the same tick and would win: coming back up the page the
+    // logos stayed scattered over the hero because this wrote the drift pose
+    // while the scatter was busy rebuilding the row.
+    if (state.progress === 0) {
+      if (touched) {
+        touched = false
+        handBack()
+      }
+      return
+    }
+    touched = true
     const t = state.progress
 
     logos.forEach((logo, i) => {
@@ -32,7 +43,7 @@ export function createDriftPhase({ logos, viewport, invalidate }: PhaseArgs) {
     draw()
   }
 
-  return gsap.to(state, {
+  const tween = gsap.to(state, {
     progress: 1,
     ease: "none",
     onUpdate: apply,
@@ -43,13 +54,11 @@ export function createDriftPhase({ logos, viewport, invalidate }: PhaseArgs) {
       end: "top center",
       scrub: 1.2,
       invalidateOnRefresh: true,
-      onToggle: (self) => {
-        live = self.isActive
-      },
-      onRefresh: (self) => {
+      onRefresh: () => {
         vp = viewport()
-        live = self.isActive
       },
     },
   })
+
+  return { tween, apply }
 }

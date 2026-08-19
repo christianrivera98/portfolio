@@ -84,11 +84,16 @@ export function useStackJourney(
           // Phones keep the landing but not the journey: the scrubbed phases
           // doubled the long frames on the 360/CPU-4x profile, and that device
           // is already the tightest one on the page.
+          // Chained so each phase can hand the meshes back to the previous one
+          // when it winds down; see createScatterPhase for why.
+          const scatter = mobile ? null : createScatterPhase(phase)
+          const drift = scatter ? createDriftPhase(phase, scatter.apply) : null
+          // Phones keep the accessible grid in the bento instead of a ring.
+          const orbit = drift ? createOrbitPhase(phase, drift.apply) : null
+
           const phases = mobile
             ? [createExitPhase(phase)]
-            : [createScatterPhase(phase), createDriftPhase(phase)]
-          // Phones keep the accessible grid in the bento instead of a ring.
-          const orbit = mobile ? null : createOrbitPhase(phase)
+            : [scatter!.tween, drift!.tween]
 
           const reposition = () => {
             if (landed.current) placeRow(phase)

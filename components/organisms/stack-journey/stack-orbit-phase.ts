@@ -1,6 +1,5 @@
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import type * as THREE from "three"
-import { driftPose } from "./stack-drift.config"
 import { toWorld, type Viewport } from "./stack-journey.config"
 import { orbitPose, type OrbitGeometry } from "./stack-orbit.config"
 
@@ -10,7 +9,10 @@ type OrbitArgs = {
   invalidate: () => void
 }
 
-const BLEND = 0.28
+// Short on purpose: the logos arrive from wherever the drift left them, which
+// can be off the top of the screen, so a long blend reads as a gap with no
+// logos at all right where the section starts.
+const BLEND = 0.1
 const SPIN_FPS = 12
 const ORBIT_SECONDS = 40
 const LOGO_MIN = 52
@@ -25,7 +27,10 @@ const LOGO_MAX = 74
  * layer is fixed, so the centre is derived from a cached document position and
  * the live scroll offset — never from a per-frame `getBoundingClientRect`.
  */
-export function createOrbitPhase({ logos, viewport, invalidate }: OrbitArgs) {
+export function createOrbitPhase(
+  { logos, viewport, invalidate }: OrbitArgs,
+  handBack: () => void
+) {
   const state = { progress: 0, spin: 0 }
   const material = logos[0].material as THREE.Material
   let vp = viewport()
@@ -33,7 +38,10 @@ export function createOrbitPhase({ logos, viewport, invalidate }: OrbitArgs) {
   // Cached on scroll rather than read per tick: the ring turns on its own clock
   // and would otherwise poll the scroll position sixty times a second.
   let scroll = 0
-  let live = false
+  let touched = false
+  // Where each logo was when the section came into view. The drift leaves them
+  // past their scatter pose, so blending from `driftPose` would jump.
+  const origin = logos.map(() => ({ x: 0, y: 0 }))
   // Once the blend is done the drift origin stops mattering, so the arrival
   // maths is skipped entirely for the rest of the section.
   let arrived = false
@@ -46,7 +54,14 @@ export function createOrbitPhase({ logos, viewport, invalidate }: OrbitArgs) {
   }
 
   const apply = () => {
-    if (!live && state.progress === 0) return
+    if (state.progress === 0) {
+      if (touched) {
+        touched = false
+        handBack()
+      }
+      return
+    }
+    touched = true
     const centreY = anchor.topDoc + anchor.height / 2 - scroll
     const geometry: OrbitGeometry = {
       centreX: vp.width / 2,
@@ -67,7 +82,7 @@ export function createOrbitPhase({ logos, viewport, invalidate }: OrbitArgs) {
         return
       }
 
-      const from = toWorld(driftPose(i, vp), vp)
+      const from = origin[i]
       logo.position.x = from.x + (target.x - from.x) * blend
       logo.position.y = from.y + (target.y - from.y) * blend
       logo.scale.setScalar(size * (0.8 + 0.2 * blend))
@@ -108,9 +123,13 @@ export function createOrbitPhase({ logos, viewport, invalidate }: OrbitArgs) {
       apply()
     },
     onToggle: (self) => {
-      live = self.isActive
-      if (self.isActive) startSpin()
-      else stopSpin()
+      if (self.isActive) {
+        logos.forEach((logo, i) => {
+          origin[i].x = logo.position.x
+          origin[i].y = logo.position.y
+        })
+        startSpin()
+      } else stopSpin()
     },
   })
 
