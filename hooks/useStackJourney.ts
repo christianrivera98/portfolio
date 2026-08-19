@@ -15,6 +15,9 @@ import { readViewport } from "@/components/organisms/stack-journey/stack-viewpor
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
+/** How far down the page the hero still counts as "parked at the top". */
+const GATE_PX = 40
+
 /**
  * Orchestrates the stack logos across the page: they land in a row in the hero,
  * the row breaks as it leaves, and the field drifts up behind Experience.
@@ -54,23 +57,28 @@ export function useStackJourney(
           // layer mounts after the preloader, so on a page that is already
           // scrolled down those two never fire and the scene would keep working
           // for nothing.
+          // Gated on absolute scroll rather than on a trigger element: with
+          // `trigger: "#home"` the active range works out to negative scroll, so
+          // the gate never opened and both the entry and the magnet were
+          // silently dead. The magnet only runs with the hero parked at the top,
+          // which is also where the scatter has not started yet.
+          const atTop = () => window.scrollY < GATE_PX
           const gate = ScrollTrigger.create({
-            trigger: "#home",
-            start: "top bottom",
-            end: "top top",
+            start: 0,
+            end: GATE_PX,
             onToggle: (self) => setLive(self.isActive && landed.current),
           })
 
           const land = () => {
             landed.current = true
             placeRow(phase)
-            setLive(gate.isActive)
+            setLive(atTop())
           }
 
           // Flying in is only worth it with the hero on screen; mounting with
           // the page already scrolled past it just places the row.
           let entry: gsap.core.Tween | null = null
-          if (gate.isActive) entry = createEntry(phase, land)
+          if (window.scrollY < window.innerHeight) entry = createEntry(phase, land)
           else land()
 
           // Phones keep the landing but not the journey: the scrubbed phases

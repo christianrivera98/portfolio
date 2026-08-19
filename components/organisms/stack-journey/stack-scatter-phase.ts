@@ -6,8 +6,9 @@ import { lerp, throttled, type PhaseArgs } from "./stack-phase-utils"
 
 /**
  * Hero → scatter. As the hero leaves, the row breaks: each logo travels out to
- * its spot in the field, shrinks with depth, turns a full turn so it lands
- * facing the visitor again, and the whole field dims to ambience.
+ * its spot in the field, eases towards its depth and the whole field dims to
+ * ambience. No turning: a logo mid-rotation shows its back face, which at this
+ * size reads as a mirrored icon rather than as depth.
  */
 export function createScatterPhase({ logos, viewport, invalidate }: PhaseArgs) {
   const draw = throttled(invalidate)
@@ -29,7 +30,6 @@ export function createScatterPhase({ logos, viewport, invalidate }: PhaseArgs) {
       logo.position.x = lerp(from.x, to.x, t)
       logo.position.y = lerp(from.y, to.y, t)
       logo.scale.setScalar(lerp(size, size * spot.depth, t))
-      logo.rotation.y = logo.userData.turn + Math.PI * 2 * t * (i % 2 ? 1 : -1)
     })
 
     material.opacity = lerp(1, 0.45, t)

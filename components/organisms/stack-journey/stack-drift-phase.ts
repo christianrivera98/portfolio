@@ -12,8 +12,13 @@ export function createDriftPhase({ logos, viewport, invalidate }: PhaseArgs) {
   const draw = throttled(invalidate)
   const state = { progress: 0 }
   let vp = viewport()
+  let live = false
 
   const apply = () => {
+    // Silent until the phase is really running. ScrollTrigger applies progress 0
+    // on every refresh, and at progress 0 this phase writes the drift pose — so
+    // without this guard the logos sat scattered while still in the hero.
+    if (!live && state.progress === 0) return
     const t = state.progress
 
     logos.forEach((logo, i) => {
@@ -22,7 +27,6 @@ export function createDriftPhase({ logos, viewport, invalidate }: PhaseArgs) {
 
       logo.position.y = base.y - spot.parallax * vp.height * t
       logo.position.x = base.x + ((i % 3) - 1) * 40 * t
-      logo.rotation.y = logo.userData.turn + Math.PI * 2 * t * (i % 2 ? -1 : 1)
     })
 
     draw()
@@ -39,8 +43,12 @@ export function createDriftPhase({ logos, viewport, invalidate }: PhaseArgs) {
       end: "top center",
       scrub: 1.2,
       invalidateOnRefresh: true,
-      onRefresh: () => {
+      onToggle: (self) => {
+        live = self.isActive
+      },
+      onRefresh: (self) => {
         vp = viewport()
+        live = self.isActive
       },
     },
   })

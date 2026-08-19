@@ -13,8 +13,8 @@ type OrbitArgs = {
 const BLEND = 0.28
 const SPIN_FPS = 12
 const ORBIT_SECONDS = 40
-const LOGO_MIN = 34
-const LOGO_MAX = 58
+const LOGO_MIN = 52
+const LOGO_MAX = 74
 
 /**
  * Arrival and orbit. The first quarter of the section blends each logo from
@@ -33,6 +33,7 @@ export function createOrbitPhase({ logos, viewport, invalidate }: OrbitArgs) {
   // Cached on scroll rather than read per tick: the ring turns on its own clock
   // and would otherwise poll the scroll position sixty times a second.
   let scroll = 0
+  let live = false
   // Once the blend is done the drift origin stops mattering, so the arrival
   // maths is skipped entirely for the rest of the section.
   let arrived = false
@@ -45,6 +46,7 @@ export function createOrbitPhase({ logos, viewport, invalidate }: OrbitArgs) {
   }
 
   const apply = () => {
+    if (!live && state.progress === 0) return
     const centreY = anchor.topDoc + anchor.height / 2 - scroll
     const geometry: OrbitGeometry = {
       centreX: vp.width / 2,
@@ -68,7 +70,7 @@ export function createOrbitPhase({ logos, viewport, invalidate }: OrbitArgs) {
       const from = toWorld(driftPose(i, vp), vp)
       logo.position.x = from.x + (target.x - from.x) * blend
       logo.position.y = from.y + (target.y - from.y) * blend
-      logo.scale.setScalar(size * (0.4 + 0.6 * blend))
+      logo.scale.setScalar(size * (0.8 + 0.2 * blend))
       logo.rotation.set(0, logo.userData.turn * (1 - blend), 0)
     })
 
@@ -105,7 +107,11 @@ export function createOrbitPhase({ logos, viewport, invalidate }: OrbitArgs) {
       arrived = self.progress >= BLEND
       apply()
     },
-    onToggle: (self) => (self.isActive ? startSpin() : stopSpin()),
+    onToggle: (self) => {
+      live = self.isActive
+      if (self.isActive) startSpin()
+      else stopSpin()
+    },
   })
 
   measure()

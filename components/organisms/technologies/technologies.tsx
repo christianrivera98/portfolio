@@ -6,7 +6,7 @@ import { useTechnologiesAnimations } from "@/hooks/useTechnologiesAnimations"
 import { ProcessCard } from "./process-card"
 import { SkillsGrid } from "./skills-grid"
 import type { CardVariant } from "./process-card"
-import { PROCESS_CARDS } from "./technologies.config"
+import { PROCESS_CARDS, SKILL_LOGOS } from "./technologies.config"
 
 /**
  * Explicit placement, in PROCESS_CARDS order (01 · 02 · 03 · 04). From sm up the
@@ -65,17 +65,18 @@ export function Technologies() {
           ))}
         </div>
 
-        <div className="mx-auto mt-16 w-full max-w-[800px]">
-          <p className="tech-skills-label mb-8 font-mono text-[11px] uppercase tracking-[0.3em] text-foreground/60">
-            {t("skillsLabel")}
-          </p>
-          {/* The orbiting logos are decorative, so the twelve names live here in
-              readable DOM. The grid is also the fallback wherever the rings do
-              not run: phones and reduced motion. */}
-          <div className="tech-fallback">
-            <SkillsGrid />
-          </div>
+        {/* The orbiting logos are decorative, so the twelve names live here in
+            readable DOM. The grid itself only surfaces for reduced motion,
+            where the rings never run. */}
+        <ul className="sr-only">
+          {SKILL_LOGOS.map((logo) => (
+            <li key={logo.label}>{logo.label}</li>
+          ))}
+        </ul>
+        <div className="tech-fallback mx-auto mt-16 w-full max-w-[800px]" aria-hidden>
+          <SkillsGrid />
         </div>
+
       </div>
     </section>
   )
