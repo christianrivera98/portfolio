@@ -20,7 +20,7 @@ interface LaptopProps {
   interactive?: boolean
 }
 
-export function Laptop({ reduced, social, interactive = true }: LaptopProps) {
+export function Laptop({ reduced, social, interactive = true }: Readonly<LaptopProps>) {
   const group = useRef<THREE.Group>(null)
   const overlay = useRef<THREE.Mesh>(null)
   const { texture, draw } = useCodeScreenTexture()
