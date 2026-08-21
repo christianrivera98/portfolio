@@ -1,0 +1,74 @@
+"use client"
+
+type Props = {
+  labels: string[]
+  active: number
+  onSelect: (index: number) => void
+}
+
+const COLUMN = "flex w-[84px] flex-col items-center gap-2"
+const FRAME = "aspect-video w-16 rounded-[2px] border"
+const CAPTION = "font-mono text-[10px] tracking-[0.18em]"
+
+const index = (i: number) => String(i + 1).padStart(2, "0")
+
+/**
+ * The chapter rail: five slots the scaled-down clips park on, plus the scrubbed
+ * progress line. The slots are also the keyboard route into the theatre, since
+ * the pinned chapters hold no focusable content of their own.
+ *
+ * Two layers on purpose. The buttons are what the entry Flip animates; the
+ * `.rail-slot` boxes underneath are pure geometry and never move, so remeasuring
+ * a fit mid-flight still lands on the row's real coordinates.
+ *
+ * The slots are captioned by number, not by name: at 84px a wrapped
+ * "Mecatronica" ran into its neighbour. The name is the button's accessible
+ * name and it is already the chapter's headline on stage.
+ */
+export function InterestRail({ labels, active, onSelect }: Readonly<Props>) {
+  return (
+    <div className="theatre-rail is-deck">
+      <div className="rail-row relative">
+        <div className="pointer-events-none flex gap-4 opacity-0" aria-hidden="true">
+          {labels.map((label, i) => (
+            <div key={label} className={COLUMN}>
+              <span className={`rail-slot ${FRAME} border-transparent`} />
+              <span className={CAPTION}>{index(i)}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="absolute inset-0 flex gap-4">
+          {labels.map((label, i) => (
+            <button
+              key={label}
+              type="button"
+              onClick={() => onSelect(i)}
+              aria-current={i === active}
+              aria-label={label}
+              className={`rail-item ${COLUMN} rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(var(--accent))]`}
+            >
+              <span
+                aria-hidden="true"
+                className={`${FRAME} transition-colors duration-300 ${
+                  i === active ? "border-[hsl(var(--accent))]" : "border-white/15 hover:border-white/40"
+                }`}
+              />
+              <span
+                className={`${CAPTION} transition-colors duration-300 ${
+                  i === active ? "text-white/90" : "text-white/40"
+                }`}
+              >
+                {index(i)}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="rail-track h-px w-[320px] max-w-[70vw] bg-white/10">
+        <div className="rail-progress h-full w-full origin-left scale-x-0 bg-[hsl(var(--accent))]" />
+      </div>
+    </div>
+  )
+}

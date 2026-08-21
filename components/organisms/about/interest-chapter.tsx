@@ -14,14 +14,16 @@ type Props = {
    * download for a visitor who scrolls past.
    */
   loadable: boolean
+  /** Whether the clip may run once it is on screen. */
+  playable: boolean
 }
 
-export function InterestChapter({ interest, index, loadable }: Readonly<Props>) {
+export function InterestChapter({ interest, index, loadable, playable }: Readonly<Props>) {
   const t = useTranslations("About")
-  const videoRef = useVideoInView(loadable)
+  const videoRef = useVideoInView(loadable && playable)
 
   return (
-    <article className="chapter" data-chapter={index}>
+    <article className="chapter" data-chapter={index} data-motif={interest.motif}>
       <div className="chapter-media relative aspect-video w-full overflow-hidden rounded-sm border border-white/[0.06] bg-white/[0.02]">
         <video
           ref={videoRef}

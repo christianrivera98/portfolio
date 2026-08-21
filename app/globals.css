@@ -405,3 +405,75 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Interests theatre — the five interests as a pinned, scroll-scrubbed
+   narrative. The overlay layout is opted into by this query, not by JS, so a
+   phone and anyone asking for reduced motion keep the plain stacked chapters
+   the markup ships with and there is no layout flash before hydration. */
+.theatre-rail {
+  display: none;
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .theatre-viewport {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .theatre-chapters {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+
+  .chapter {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Clear of the fixed navbar at the top and of the rail at the bottom, so
+       the stage and its copy sit centred in what is actually free. */
+    padding-top: 10vh;
+    padding-bottom: 14vh;
+    pointer-events: none;
+  }
+
+  /* Every chapter's media rests exactly on the stage, so the rail slot is the
+     only geometry GSAP has to solve for — and the clip always decodes at full
+     stage size instead of being blown up from a thumbnail. */
+  .chapter-media {
+    height: 42vh;
+    width: calc(42vh * 16 / 9);
+    max-width: 92%;
+    aspect-ratio: auto;
+    will-change: transform;
+  }
+
+  .chapter-copy {
+    margin-top: 2.5rem;
+    text-align: center;
+  }
+
+  .theatre-rail {
+    position: absolute;
+    inset: auto 0 4vh 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+/* The rail starts as a deck: the five slots collapsed on top of each other and
+   dimmed. Flip reads that state, the class comes off, and the row it becomes is
+   what the entry of the scrub plays. */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .theatre-rail.is-deck .rail-item {
+    margin-inline: -34px;
+    opacity: 0.35;
+  }
+}

@@ -1,6 +1,6 @@
 import type { InterestMotif } from "./about.config"
-import { MotifInkBamboo } from "./motif-ink-bamboo"
-import { PAW_SHAPES, WAVE_BARS, gearPath } from "./about.motifs"
+import { MotifBamboo, MotifInk } from "./motif-ink-bamboo"
+import { GRID_D, PAW_SHAPES, WAVE_BARS, gearPath } from "./about.motifs"
 
 const SVG = "absolute inset-0 h-full w-full"
 const STROKE = "stroke-[hsl(var(--accent))]"
@@ -48,15 +48,7 @@ function Paw() {
   return (
     <svg viewBox="0 0 120 120" className={SVG} aria-hidden="true">
       {PAW_SHAPES.map(([cx, cy, rx, ry]) => (
-        <ellipse
-          key={`${cx}-${cy}`}
-          className="motif-pad fill-[hsl(var(--accent))]"
-          cx={cx}
-          cy={cy}
-          rx={rx}
-          ry={ry}
-          opacity="0.65"
-        />
+        <ellipse key={`${cx}-${cy}`} className="motif-pad fill-[hsl(var(--accent))]" cx={cx} cy={cy} rx={rx} ry={ry} opacity="0.65" />
       ))}
     </svg>
   )
@@ -66,33 +58,45 @@ function Paw() {
 function Gears() {
   return (
     <svg viewBox="0 0 120 120" fill="none" className={SVG} aria-hidden="true">
-      <path
-        d="M0 30h120M0 60h120M0 90h120M30 0v120M60 0v120M90 0v120"
-        className={STROKE}
-        strokeWidth="0.6"
-        opacity="0.25"
-      />
+      <path d={GRID_D} className={STROKE} strokeWidth="0.6" opacity="0.25" />
       <g className={STROKE} strokeWidth="1.6" opacity="0.7">
-        <path className="motif-gear" d={gearPath(10, 26, 7)} transform="translate(44 52)" />
-        <path className="motif-gear" d={gearPath(8, 17, 5)} transform="translate(84 82)" />
+        <path className="motif-gear" d={gearPath(12, 26, 5)} transform="translate(44 52)" />
+        <circle cx="44" cy="52" r="8" />
+        <path className="motif-gear" d={gearPath(9, 17, 4)} transform="translate(84 82)" />
+        <circle cx="84" cy="82" r="5" />
       </g>
     </svg>
   )
 }
 
-const MOTIFS: Record<InterestMotif, () => React.JSX.Element> = {
+const MOTIFS: Record<Exclude<InterestMotif, "ink">, () => React.JSX.Element> = {
   compass: Compass,
   waveform: Waveform,
-  ink: () => <MotifInkBamboo className={SVG} />,
   paw: Paw,
   gears: Gears,
 }
 
+const LAYER = "motif pointer-events-none absolute inset-0 opacity-40"
+const CORNER = "absolute bottom-[4%] left-[4%] aspect-square h-[38%]"
+
 export function InterestMotifLayer({ motif }: { motif: InterestMotif }) {
+  if (motif === "ink") {
+    return (
+      <div className={LAYER}>
+        <div className="absolute inset-y-0 left-[3%] w-[20%]">
+          <MotifBamboo />
+        </div>
+        <div className={CORNER}>
+          <MotifInk />
+        </div>
+      </div>
+    )
+  }
+
   const Motif = MOTIFS[motif]
   return (
-    <div className="motif pointer-events-none absolute inset-0 grid place-items-center opacity-45">
-      <div className="aspect-square h-[52%]">
+    <div className={LAYER}>
+      <div className={CORNER}>
         <Motif />
       </div>
     </div>

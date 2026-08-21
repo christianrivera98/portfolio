@@ -27,6 +27,10 @@ export const PAW_SHAPES = [
   [90, 46, 9, 12],
 ] as const
 
+/** Retro-futurist grid the gears turn against. */
+export const GRID_D =
+  "M0 30h120M0 60h120M0 90h120M30 0v120M60 0v120M90 0v120"
+
 /**
  * Stylised gear outline for the mechatronics chapter. Alternating radii around
  * the circle give the teeth; the path is generated so the tooth count can
