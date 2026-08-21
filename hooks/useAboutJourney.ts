@@ -49,7 +49,9 @@ export function useAboutJourney(
           ease: "none",
           scrollTrigger: {
             trigger: viewport,
-            start: "center center",
+            // Pushed past the middle by the fixed navbar's height, otherwise
+            // the top of every panel sits behind it while the run is pinned.
+            start: "center center+=44",
             end: () => `+=${travel()}`,
             pin: true,
             scrub: 1,
