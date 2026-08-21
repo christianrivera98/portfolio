@@ -43,7 +43,7 @@ export function About() {
         </div>
 
         {/* One run: the editorial intro, then the five interests */}
-        <div className="mx-auto w-full max-w-6xl px-6 md:px-12">
+        <div className="journey-rail mx-auto w-full max-w-6xl px-6 md:px-12">
           <AboutJourney />
         </div>
       </div>

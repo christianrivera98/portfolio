@@ -440,6 +440,21 @@ body {
 }
 
 @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  /* Full-bleed run: the rail only holds the panels, the viewport it travels
+     through spans the screen. That is what keeps the edge fades off the copy —
+     they now dissolve the panels against the margin, not over the text. */
+  .journey-rail {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  /* The fade is exactly the margin the rail leaves beside the panels, so it
+     covers that gap and nothing else: the copy stays clear and the next panel
+     does not peek past the rail. */
+  .journey {
+    --journey-fade: max(2.5rem, calc((100vw - 66rem) / 2));
+  }
+
   .journey-viewport {
     position: relative;
     overflow: hidden;
@@ -459,7 +474,7 @@ body {
     position: absolute;
     inset-block: 0;
     z-index: 2;
-    width: clamp(4rem, 10vw, 10rem);
+    width: var(--journey-fade);
     pointer-events: none;
     will-change: transform;
     transform: translateZ(0);
@@ -467,22 +482,24 @@ body {
 
   .journey-viewport::before {
     left: 0;
-    background: linear-gradient(to right, #0a0a0a 22%, transparent);
+    background: linear-gradient(to right, #0a0a0a 62%, transparent);
   }
 
   .journey-viewport::after {
     right: 0;
-    background: linear-gradient(to left, #0a0a0a 22%, transparent);
+    background: linear-gradient(to left, #0a0a0a 62%, transparent);
   }
 
   /* The intro panel is the one with intrinsic height, so stretching the row
-     against it is what makes every chapter as tall as the grid used to be. */
+     against it is what makes every chapter as tall as the grid used to be, and
+     the run opens and closes on the rail: its pad is the same margin. */
   .journey-track {
     position: relative;
     flex-direction: row;
     align-items: stretch;
     gap: 1.5rem;
     width: max-content;
+    padding-inline: var(--journey-fade);
     will-change: transform;
   }
 
@@ -490,9 +507,9 @@ body {
     flex: 0 0 auto;
   }
 
-  /* Matches the section container: max-w-6xl minus its md:px-12 padding. */
+  /* The rail: max-w-6xl, or the screen minus the two margins below that. */
   .journey-panel--intro {
-    width: min(1056px, calc(100vw - 6rem));
+    width: min(66rem, calc(100vw - 2 * var(--journey-fade)));
   }
 
   .journey-panel--chapter {
@@ -508,7 +525,9 @@ body {
   /* One above the run and one below it, both filled by the same scrub. */
   .journey-progress {
     display: block;
+    width: min(66rem, calc(100vw - 2 * var(--journey-fade)));
     margin-block: clamp(0.5rem, 1.6vh, 1rem);
+    margin-inline: auto;
   }
 
   /* The stage — header plus run — is what gets pinned, so it all has to fit
