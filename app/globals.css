@@ -508,6 +508,50 @@ body {
   /* One above the run and one below it, both filled by the same scrub. */
   .journey-progress {
     display: block;
-    margin-block: 1.25rem;
+    margin-block: clamp(0.5rem, 1.6vh, 1rem);
+  }
+
+  /* The stage — header plus run — is what gets pinned, so it all has to fit
+     the viewport under the navbar. Everything the stage spends on chrome is
+     capped in `vh`: at 900px and up the values are the ones the design already
+     used, and below that they give ground instead of pushing the run off the
+     bottom of the screen. */
+  .about-header {
+    margin-bottom: clamp(1.25rem, 4vh, 2.5rem);
+  }
+
+  .about-header h2 {
+    font-size: min(4.5rem, 8vh);
+    line-height: 1.05;
+  }
+
+  .journey-track {
+    height: clamp(24rem, calc(100svh - 19rem), 40rem);
+  }
+
+  /* The intro is the panel with intrinsic height, so its type is what decides
+     whether the run fits: same sizes on a tall screen, a notch down on a short
+     one rather than a clipped bio. */
+  .journey-panel--intro .about-quote {
+    font-size: min(1.875rem, 3.4vh);
+  }
+
+  .journey-panel--intro .about-bio-p {
+    font-size: min(1.125rem, 2.1vh);
+  }
+
+  /* With the run's height set from the outside, the intro's photo is the part
+     that gives: it fills what the facts leave and crops rather than pushing
+     the panel taller than the stage. */
+  .journey-panel--intro,
+  .about-photo-wrapper {
+    height: 100%;
+  }
+
+  .about-photo {
+    flex: 1 1 auto;
+    min-height: 0;
+    aspect-ratio: auto;
   }
 }
+

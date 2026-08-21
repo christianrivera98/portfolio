@@ -33,6 +33,9 @@ export function useAboutJourney(
       const mm = gsap.matchMedia()
 
       mm.add(HORIZONTAL, () => {
+        // The stage is header + run: pinning it is what keeps the title in
+        // place instead of letting it scroll off while the run is scrubbed.
+        const stage = root.closest<HTMLElement>(".about-stage") ?? root
         const viewport = root.querySelector<HTMLElement>(".journey-viewport")
         const track = root.querySelector<HTMLElement>(".journey-track")
         const bars = gsap.utils.toArray<HTMLElement>(".journey-progress-fill", root)
@@ -61,12 +64,12 @@ export function useAboutJourney(
           x: () => -travel(),
           ease: "none",
           scrollTrigger: {
-            // The wrapper is what gets pinned, not the viewport: the two
-            // progress bars bracket the run and have to travel with it.
-            trigger: root,
-            // Pushed past the middle by the fixed navbar's height, otherwise
-            // the top of every panel sits behind it while the run is pinned.
-            start: "center center+=44",
+            // The stage is what gets pinned, not the viewport: the header and
+            // the two progress bars bracket the run and travel with it.
+            trigger: stage,
+            // The stage lands just under the fixed navbar and stays there for
+            // the whole run, so nothing sits behind the bar while it is pinned.
+            start: "top top+=88",
             end: () => `+=${travel()}`,
             pin: true,
             scrub: 1,
