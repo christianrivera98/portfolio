@@ -79,14 +79,6 @@ export function useAboutAnimations(
           scrollTrigger: trigger(fact),
         })
       })
-
-      // Interest cards stagger
-      gsap.utils.toArray<HTMLElement>(".interest-card").forEach((card, i) => {
-        gsap.from(card, {
-          y: 30, opacity: 0, duration: 0.6, ease: "power3.out", delay: i * 0.08,
-          scrollTrigger: trigger(card, "top 90%"),
-        })
-      })
     },
     { scope: containerRef, dependencies: [prefersReduced] }
   )

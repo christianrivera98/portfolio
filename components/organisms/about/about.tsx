@@ -4,8 +4,7 @@ import { useRef } from "react"
 import { useTranslations } from "next-intl"
 import { useAboutAnimations } from "@/hooks/useAboutAnimations"
 import { AboutPhoto } from "./about-photo"
-import { InterestCard } from "./interest-card"
-import { ABOUT_PROFILE } from "./about.config"
+import { InterestsTheatre } from "./interests-theatre"
 
 export function About() {
   const containerRef = useRef<HTMLElement>(null)
@@ -65,16 +64,8 @@ export function About() {
           </div>
         </div>
 
-        {/* Interests */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-          {ABOUT_PROFILE.interests.map((interest) => (
-            <InterestCard
-              key={interest.id}
-              interest={interest}
-              label={t(`interests.${interest.id}`)}
-            />
-          ))}
-        </div>
+        {/* Interests — five chapters the scroll walks through */}
+        <InterestsTheatre />
       </div>
     </section>
   )
