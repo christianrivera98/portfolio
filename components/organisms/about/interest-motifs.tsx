@@ -77,7 +77,8 @@ const MOTIFS: Record<Exclude<InterestMotif, "ink">, () => React.JSX.Element> = {
 }
 
 const LAYER = "motif pointer-events-none absolute inset-0 opacity-40"
-const CORNER = "absolute bottom-[4%] left-[4%] aspect-square h-[38%]"
+// Top-left: the bottom of every panel belongs to the copy that sits over it.
+const CORNER = "absolute left-[5%] top-[5%] aspect-square h-[30%]"
 
 export function InterestMotifLayer({ motif }: { motif: InterestMotif }) {
   if (motif === "ink") {
