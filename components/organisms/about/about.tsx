@@ -39,7 +39,6 @@ export function About() {
             >
               {t("title")}
             </h2>
-            <div className="about-accent-line mt-6 h-[2px] w-16 origin-left scale-x-0 bg-[hsl(356,96%,32%)]" />
           </div>
         </div>
 

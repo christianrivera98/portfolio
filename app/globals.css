@@ -516,6 +516,16 @@ body {
      capped in `vh`: at 900px and up the values are the ones the design already
      used, and below that they give ground instead of pushing the run off the
      bottom of the screen. */
+  /* The stage takes the viewport it is pinned into, so on a tall screen the
+     run sits centred in it instead of hanging off the header with dead space
+     underneath. */
+  .about-stage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100svh - 5.5rem);
+  }
+
   .about-header {
     margin-bottom: clamp(1.25rem, 4vh, 2.5rem);
   }
@@ -526,7 +536,7 @@ body {
   }
 
   .journey-track {
-    height: clamp(24rem, calc(100svh - 19rem), 40rem);
+    height: clamp(24rem, calc(100svh - 19rem), 46rem);
   }
 
   /* The intro is the panel with intrinsic height, so its type is what decides
