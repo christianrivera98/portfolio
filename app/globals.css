@@ -405,3 +405,182 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* About journey — the whole section reads as one horizontal run: the editorial
+   intro first, then the five interests, all at the intro grid's height. The
+   horizontal layout is opted into by this query, not by JS, so a phone and
+   anyone asking for reduced motion keep the stacked panels the markup ships
+   with and there is no layout flash before hydration. */
+.journey-progress {
+  display: none;
+}
+
+.journey-track {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+/* Stacked, the clip is portrait so its overlaid copy has room to breathe; once
+   there is width to spare it goes back to landscape, and the card stops short
+   of the full column so a desktop reading this layout — anyone on reduced
+   motion — does not get a two-screen-tall panel. */
+.chapter-media {
+  aspect-ratio: 4 / 5;
+}
+
+@media (min-width: 640px) {
+  .chapter-media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .journey-panel--chapter {
+    max-width: 900px;
+  }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  /* Full-bleed run: the rail only holds the panels, the viewport it travels
+     through spans the screen. That is what keeps the edge fades off the copy —
+     they now dissolve the panels against the margin, not over the text. */
+  .journey-rail {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  /* The fade is exactly the margin the rail leaves beside the panels, so it
+     covers that gap and nothing else: the copy stays clear and the next panel
+     does not peek past the rail. */
+  .journey {
+    --journey-fade: max(2.5rem, calc((100vw - 66rem) / 2));
+  }
+
+  .journey-viewport {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Edge fade: the panels do not end at a cut, they dissolve into the surface
+     on both sides. Gradient scrims rather than a `mask-image` on the viewport,
+     because the surface behind is a flat colour and the result is identical
+     without masking a pinned, transformed container.
+
+     The layer promotion is the usual precaution for a static overlay sitting on
+     top of scrubbed content: on its own layer the scrim is composited instead
+     of being repainted against the track moving underneath it. */
+  .journey-viewport::before,
+  .journey-viewport::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    z-index: 2;
+    width: var(--journey-fade);
+    pointer-events: none;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  .journey-viewport::before {
+    left: 0;
+    background: linear-gradient(to right, #0a0a0a 62%, transparent);
+  }
+
+  .journey-viewport::after {
+    right: 0;
+    background: linear-gradient(to left, #0a0a0a 62%, transparent);
+  }
+
+  /* The intro panel is the one with intrinsic height, so stretching the row
+     against it is what makes every chapter as tall as the grid used to be, and
+     the run opens and closes on the rail: its pad is the same margin. */
+  .journey-track {
+    position: relative;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 1.5rem;
+    width: max-content;
+    padding-inline: var(--journey-fade);
+    will-change: transform;
+  }
+
+  .journey-panel {
+    flex: 0 0 auto;
+  }
+
+  /* The rail: max-w-6xl, or the screen minus the two margins below that. */
+  .journey-panel--intro {
+    width: min(66rem, calc(100vw - 2 * var(--journey-fade)));
+  }
+
+  .journey-panel--chapter {
+    width: min(560px, calc((100vw - 6rem) * 0.62));
+  }
+
+  .chapter-media {
+    height: 100%;
+    aspect-ratio: auto;
+    will-change: transform;
+  }
+
+  /* One above the run and one below it, both filled by the same scrub. */
+  .journey-progress {
+    display: block;
+    width: min(66rem, calc(100vw - 2 * var(--journey-fade)));
+    margin-block: clamp(0.5rem, 1.6vh, 1rem);
+    margin-inline: auto;
+  }
+
+  /* The stage — header plus run — is what gets pinned, so it all has to fit
+     the viewport under the navbar. Everything the stage spends on chrome is
+     capped in `vh`: at 900px and up the values are the ones the design already
+     used, and below that they give ground instead of pushing the run off the
+     bottom of the screen. */
+  /* The stage takes the viewport it is pinned into, so on a tall screen the
+     run sits centred in it instead of hanging off the header with dead space
+     underneath. */
+  .about-stage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100svh - 5.5rem);
+  }
+
+  .about-header {
+    margin-bottom: clamp(1.25rem, 4vh, 2.5rem);
+  }
+
+  .about-header h2 {
+    font-size: min(4.5rem, 8vh);
+    line-height: 1.05;
+  }
+
+  .journey-track {
+    height: clamp(24rem, calc(100svh - 19rem), 46rem);
+  }
+
+  /* The intro is the panel with intrinsic height, so its type is what decides
+     whether the run fits: same sizes on a tall screen, a notch down on a short
+     one rather than a clipped bio. */
+  .journey-panel--intro .about-quote {
+    font-size: min(1.875rem, 3.4vh);
+  }
+
+  .journey-panel--intro .about-bio-p {
+    font-size: min(1.125rem, 2.1vh);
+  }
+
+  /* With the run's height set from the outside, the intro's photo is the part
+     that gives: it fills what the facts leave and crops rather than pushing
+     the panel taller than the stage. */
+  .journey-panel--intro,
+  .about-photo-wrapper {
+    height: 100%;
+  }
+
+  .about-photo {
+    flex: 1 1 auto;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+}
+

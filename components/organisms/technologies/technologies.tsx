@@ -35,7 +35,9 @@ export function Technologies() {
     >
       <div className="absolute bottom-1/4 left-0 size-[500px] rounded-full bg-[hsl(var(--primary))] opacity-[0.02] blur-[120px] pointer-events-none" />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 md:px-12">
+      {/* Header — same rail as every other section: left-aligned, not centred
+          with the content below it. */}
+      <div className="relative z-10 w-full max-w-6xl px-6 md:px-12 lg:pl-28 lg:pr-0">
         <div className="mb-16">
           {/* Hidden states live in the hook, not here: with reduced motion the
               hook bails out early and an inline clip-path would never reopen. */}
@@ -54,7 +56,9 @@ export function Technologies() {
             {t("subtitle")}
           </p>
         </div>
+      </div>
 
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 md:px-12">
         {/* Asymmetric bento, narrowed and centred: the stack no longer sits in a
             cell beside it, it orbits it — and the rings need air on both sides. */}
         <div className="tech-bento mx-auto grid w-full max-w-[800px] grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-5">

@@ -39,13 +39,6 @@ export function useAboutAnimations(
         })
       }
 
-      // Accent line
-      gsap.fromTo(
-        ".about-accent-line",
-        { scaleX: 0 },
-        { scaleX: 1, transformOrigin: "left center", duration: 0.8, ease: "power2.inOut", scrollTrigger: trigger(".about-accent-line") }
-      )
-
       // Photo mask reveal (clip-path from top)
       gsap.to(".about-photo", {
         clipPath: "inset(0 0 0% 0)",
@@ -77,14 +70,6 @@ export function useAboutAnimations(
         gsap.from(fact, {
           x: -20, opacity: 0, duration: 0.5, ease: "power3.out", delay: i * 0.08,
           scrollTrigger: trigger(fact),
-        })
-      })
-
-      // Interest cards stagger
-      gsap.utils.toArray<HTMLElement>(".interest-card").forEach((card, i) => {
-        gsap.from(card, {
-          y: 30, opacity: 0, duration: 0.6, ease: "power3.out", delay: i * 0.08,
-          scrollTrigger: trigger(card, "top 90%"),
         })
       })
     },

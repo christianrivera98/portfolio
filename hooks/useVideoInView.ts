@@ -15,7 +15,13 @@ export function useVideoInView(enabled: boolean) {
 
   useEffect(() => {
     const video = ref.current
-    if (!video || !enabled) return
+    if (!video) return
+    // Disabling is also what stops a clip that was already running — the
+    // theatre hands the stage from one chapter to the next this way.
+    if (!enabled) {
+      video.pause()
+      return
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {

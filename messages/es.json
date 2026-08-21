@@ -208,9 +208,16 @@
     "interests": {
       "travel": "Viajar",
       "hiphop": "Hip Hop",
-      "kungfu": "Kung Fu",
+      "kungfu": "Kung Fu Panda",
       "animals": "Animales",
       "mechatronics": "Mecatrónica"
+    },
+    "interestsBody": {
+      "travel": "Conocer culturas y personas nuevas, y ver con mis propios ojos las maravillas del mundo. Saber que siempre queda más por descubrir me llena de vida.",
+      "hiphop": "Cuando lo bailo, suelto el peso emocional. Bailar es mi forma de liberarme.",
+      "kungfu": "Mi película favorita. Me enseñó que el secreto para lograr lo que quieres es creer en ti mismo.",
+      "animals": "Para mí son lo más puro y genuino que existe en el planeta. Los amo.",
+      "mechatronics": "De niño soñaba con una vida como la de 'La Familia del Futuro'; por eso estudié Mecatrónica con diplomado en IoT. Mi meta es unir el desarrollo de software con la robótica que aprendí."
     }
   },
   "Contact": {
