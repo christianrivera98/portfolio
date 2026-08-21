@@ -208,9 +208,16 @@
     "interests": {
       "travel": "Travel",
       "hiphop": "Hip Hop",
-      "kungfu": "Kung Fu",
+      "kungfu": "Kung Fu Panda",
       "animals": "Animals",
       "mechatronics": "Mechatronics"
+    },
+    "interestsBody": {
+      "travel": "New cultures, new people, and seeing the world's wonders with my own eyes. Knowing there's always more to discover is what makes me feel alive.",
+      "hiphop": "When I dance it, I let go of the emotional weight. Dancing is how I set myself free.",
+      "kungfu": "My favorite movie. It taught me that the secret to achieving what you want is believing in yourself.",
+      "animals": "To me they're the purest, most genuine beings on the planet. I love them.",
+      "mechatronics": "As a kid I dreamed of a life like 'Meet the Robinsons'; that's why I studied Mechatronics with an IoT diploma. My goal is to merge software with the robotics I learned."
     }
   },
   "Contact": {
