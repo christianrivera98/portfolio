@@ -38,7 +38,7 @@ export function InterestPanel({ interest, index, loadable, playable }: Readonly<
         {/* Title and copy live inside the clip's own box. The scrim under them
             never drops below 92% of the surface, which is what keeps the text
             legible whatever frame the clip happens to be on. */}
-        <div className="chapter-copy absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/92 to-transparent px-6 pb-6 pt-14 lg:pb-28 lg:pt-20">
+        <div className="chapter-copy absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/92 to-transparent px-6 pb-6 pt-14 lg:pb-10 lg:pt-20">
           <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-[hsl(var(--accent))]">
             {String(index + 1).padStart(2, "0")}
           </span>

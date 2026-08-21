@@ -407,11 +407,11 @@ body {
 }
 
 /* About journey — the whole section reads as one horizontal run: the editorial
-   intro first, then the five interests, all at the intro grid's own height. The
+   intro first, then the five interests, all at the intro grid's height. The
    horizontal layout is opted into by this query, not by JS, so a phone and
    anyone asking for reduced motion keep the stacked panels the markup ships
    with and there is no layout flash before hydration. */
-.journey-rail {
+.journey-progress {
   display: none;
 }
 
@@ -445,9 +445,40 @@ body {
     overflow: hidden;
   }
 
+  /* Edge fade: the panels do not end at a cut, they dissolve into the surface
+     on both sides. Gradient scrims rather than a `mask-image` on the viewport,
+     because the surface behind is a flat colour and the result is identical
+     without masking a pinned, transformed container.
+
+     The layer promotion is the usual precaution for a static overlay sitting on
+     top of scrubbed content: on its own layer the scrim is composited instead
+     of being repainted against the track moving underneath it. */
+  .journey-viewport::before,
+  .journey-viewport::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    z-index: 2;
+    width: clamp(4rem, 10vw, 10rem);
+    pointer-events: none;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  .journey-viewport::before {
+    left: 0;
+    background: linear-gradient(to right, #0a0a0a 22%, transparent);
+  }
+
+  .journey-viewport::after {
+    right: 0;
+    background: linear-gradient(to left, #0a0a0a 22%, transparent);
+  }
+
   /* The intro panel is the one with intrinsic height, so stretching the row
      against it is what makes every chapter as tall as the grid used to be. */
   .journey-track {
+    position: relative;
     flex-direction: row;
     align-items: stretch;
     gap: 1.5rem;
@@ -459,12 +490,9 @@ body {
     flex: 0 0 auto;
   }
 
-  /* Matches the section container: max-w-6xl minus its md:px-12 padding. The
-     bottom padding is the band the rail rides in, so nothing in any panel ends
-     up underneath it. */
+  /* Matches the section container: max-w-6xl minus its md:px-12 padding. */
   .journey-panel--intro {
     width: min(1056px, calc(100vw - 6rem));
-    padding-bottom: 7.5rem;
   }
 
   .journey-panel--chapter {
@@ -477,30 +505,9 @@ body {
     will-change: transform;
   }
 
-  /* The rail rides over the run instead of sitting under it: same div as the
-     clips, so the section keeps the intro grid's height. */
-  .journey-rail {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1.25rem 0.9rem;
-    border-radius: 0.375rem;
-    background: hsl(0 0% 4% / 0.72);
-    transform: translateX(-50%);
-  }
-}
-
-/* The rail starts as a deck: the five slots collapsed on top of each other and
-   dimmed. Flip reads that state, the class comes off, and the row it becomes is
-   what the entry plays. */
-@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
-  .journey-rail.is-deck .rail-item {
-    margin-inline: -34px;
-    opacity: 0.35;
+  /* One above the run and one below it, both filled by the same scrub. */
+  .journey-progress {
+    display: block;
+    margin-block: 1.25rem;
   }
 }

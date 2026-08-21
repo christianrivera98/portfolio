@@ -8,10 +8,10 @@ import { EasePack } from "gsap/EasePack"
 import { useGSAP } from "@gsap/react"
 import {
   addPanelAnimations,
-  addRailEntry,
   addStackedReveals,
   panelScrollY,
 } from "@/components/organisms/about/journey-stage"
+import { setScrollHold } from "@/lib/scroll-hold"
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin, EasePack)
 
@@ -35,20 +35,35 @@ export function useAboutJourney(
       mm.add(HORIZONTAL, () => {
         const viewport = root.querySelector<HTMLElement>(".journey-viewport")
         const track = root.querySelector<HTMLElement>(".journey-track")
-        const rail = root.querySelector<HTMLElement>(".journey-rail")
-        const progress = root.querySelector<HTMLElement>(".rail-progress")
+        const bars = gsap.utils.toArray<HTMLElement>(".journey-progress-fill", root)
         const panels = gsap.utils.toArray<HTMLElement>(".journey-panel", root)
-        if (!viewport || !track || !rail || !panels.length) return
+        if (!viewport || !track || !panels.length) return
 
         // Pinned once, then the whole run is one horizontal tween the scrollbar
         // scrubs; every panel hangs its own triggers off it.
-        const travel = () => track.scrollWidth - viewport.clientWidth
+        //
+        // Layout is read on refresh and cached: measuring live DOM inside a
+        // scrubbed update forces a reflow on every frame.
+        let travelPx = 0
+        let centreLine = 0
+        const edges: number[] = []
+        const measure = () => {
+          travelPx = track.scrollWidth - viewport.clientWidth
+          centreLine = viewport.clientWidth / 2
+          edges.length = 0
+          panels.forEach((p) => edges.push(p.offsetLeft + p.offsetWidth))
+        }
+        measure()
+        const travel = () => travelPx
+
         let current = -2
         const tween = gsap.to(track, {
           x: () => -travel(),
           ease: "none",
           scrollTrigger: {
-            trigger: viewport,
+            // The wrapper is what gets pinned, not the viewport: the two
+            // progress bars bracket the run and have to travel with it.
+            trigger: root,
             // Pushed past the middle by the fixed navbar's height, otherwise
             // the top of every panel sits behind it while the run is pinned.
             start: "center center+=44",
@@ -57,10 +72,16 @@ export function useAboutJourney(
             scrub: 1,
             anticipatePin: 1,
             invalidateOnRefresh: true,
+            // The navbar's bar holds while this run is being scrubbed, so it
+            // only moves again once both of these bars are full.
+            onRefresh: (self) => {
+              measure()
+              setScrollHold({ start: self.start, end: self.end })
+            },
             onUpdate: (self) => {
-              if (progress) gsap.set(progress, { scaleX: self.progress })
-              const centre = self.progress * travel() + viewport.clientWidth / 2
-              const at = panels.findIndex((p) => centre < p.offsetLeft + p.offsetWidth)
+              gsap.set(bars, { scaleX: self.progress })
+              const centre = self.progress * travelPx + centreLine
+              const at = edges.findIndex((edge) => centre < edge)
               // Panel 0 is the intro, so -1 means "no interest is on centre".
               const index = gsap.utils.clamp(-1, panels.length - 2, at - 1)
               if (index === current) return
@@ -69,8 +90,6 @@ export function useAboutJourney(
             },
           },
         })
-
-        const stopEntry = addRailEntry(root, rail, viewport)
 
         gsap.utils
           .toArray<HTMLElement>(".chapter", root)
@@ -83,8 +102,7 @@ export function useAboutJourney(
         report.onHorizontal(true)
 
         return () => {
-          stopEntry()
-          rail.classList.add("is-deck")
+          setScrollHold(null)
           seekRef.current = null
           report.onHorizontal(false)
         }

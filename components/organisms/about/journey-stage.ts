@@ -1,5 +1,4 @@
 import gsap from "gsap"
-import { Flip } from "gsap/Flip"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { addMotifTimeline } from "./journey-motifs"
 import type { InterestMotif } from "./about.config"
@@ -79,32 +78,4 @@ export function addStackedReveals(root: HTMLElement) {
       scrollTrigger: { trigger: panel, start: "top 88%", toggleActions: "play none none reverse" },
     })
   })
-}
-
-/**
- * Deck → row: the rail's slots arrive stacked and dimmed, Flip reads that
- * state, the class comes off, and the row they become is what plays once the
- * section reaches the viewport. Returns its own teardown.
- */
-export function addRailEntry(root: HTMLElement, rail: HTMLElement, viewport: HTMLElement) {
-  const deck = Flip.getState(gsap.utils.toArray(".rail-item", root), { props: "opacity" })
-  rail.classList.remove("is-deck")
-  const entry = Flip.from(deck, {
-    duration: 0.7,
-    ease: "power2.inOut",
-    stagger: 0.05,
-    absolute: true,
-    paused: true,
-  })
-  const trigger = ScrollTrigger.create({
-    trigger: viewport,
-    start: "top 85%",
-    once: true,
-    onEnter: () => entry.play(),
-  })
-
-  return () => {
-    trigger.kill()
-    entry.kill()
-  }
 }

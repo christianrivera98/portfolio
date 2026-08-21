@@ -5,6 +5,7 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion"
+import { getScrollHold } from "@/lib/scroll-hold"
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
@@ -31,15 +32,40 @@ export function useNavbarAnimations(
     gsap.fromTo(navRef.current, { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", delay: 0.3 })
   }, { dependencies: [isComplete, prefersReduced] })
 
-  // Scroll progress bar
+  // Scroll progress bar. A pinned run (About) eats page scroll without moving
+  // the reader through content, so that stretch is discounted: the bar holds
+  // while the run is being scrubbed and carries on once it is done.
   useGSAP(() => {
-    if (!progressRef.current) return
-    gsap.to(progressRef.current, {
-      scaleX: 1,
-      transformOrigin: "left center",
-      ease: "none",
-      scrollTrigger: { trigger: document.documentElement, start: "top top", end: "bottom bottom", scrub: 0.3 },
+    const bar = progressRef.current
+    if (!bar) return
+    gsap.set(bar, { transformOrigin: "left center", scaleX: 0 })
+    const to = gsap.quickTo(bar, "scaleX", { duration: 0.3, ease: "none" })
+
+    // `max` arrives from the trigger instead of being measured here: reading
+    // the document size on every scroll event forces a reflow per frame, which
+    // is worth ~700ms frames on a throttled phone.
+    const paint = (max: number) => {
+      const hold = getScrollHold()
+      const y = window.scrollY
+      const span = hold ? Math.max(0, hold.end - hold.start) : 0
+      const eaten = hold ? gsap.utils.clamp(0, span, y - hold.start) : 0
+      const scrollable = max - span
+      to(scrollable > 0 ? gsap.utils.clamp(0, 1, (y - eaten) / scrollable) : 0)
+    }
+
+    // No trigger element: a pinned run elsewhere resizes the page under it, and
+    // a document-bound trigger stops updating once its own end goes stale.
+    const trigger = ScrollTrigger.create({
+      start: 0,
+      end: () => ScrollTrigger.maxScroll(window),
+      // Last to refresh, so the page size it reads already includes the space
+      // any pinned run added.
+      refreshPriority: -1,
+      onUpdate: (self) => paint(self.end),
+      onRefresh: (self) => paint(self.end),
     })
+
+    return () => trigger.kill()
   }, [])
 
   // Detect scroll for backdrop
