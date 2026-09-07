@@ -54,3 +54,8 @@ next-env.d.ts
 # largos y trazas de pintado. Herramienta de trabajo, no parte del sitio.
 .*-probe.mjs
 .perf-profile.mjs
+
+# capturas de trabajo sin usar en public/
+public/images/editadaComprimida.png
+public/projects/toolbooks/media/Captura de pantalla 2026-06-30 112242.png
+public/projects/toolbooks/media/Captura de pantalla 2026-06-30 112433.png
