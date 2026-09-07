@@ -2,7 +2,6 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
-// Severidades fijadas para que no las degrade eslint-config-next: docs/auditoria/04-react-compiler.md
 const reactCompilerRules = {
   "react-hooks/component-hook-factories": "error",
   "react-hooks/config": "error",
