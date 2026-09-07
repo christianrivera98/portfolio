@@ -1,16 +1,16 @@
 import type { MetadataRoute } from "next"
 import { routing } from "@/i18n/routing"
-import { SITE_CONFIG } from "@/lib/site.config"
+import { SITE_URL } from "@/lib/site-url"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return routing.locales.map((locale) => ({
-    url: `${SITE_CONFIG.url}/${locale}`,
+    url: `${SITE_URL}/${locale}`,
     lastModified: new Date(),
     changeFrequency: "monthly",
     priority: locale === routing.defaultLocale ? 1 : 0.8,
     alternates: {
       languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `${SITE_CONFIG.url}/${l}`])
+        routing.locales.map((l) => [l, `${SITE_URL}/${l}`])
       ),
     },
   }))
