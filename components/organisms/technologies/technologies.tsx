@@ -8,11 +8,6 @@ import { SkillsGrid } from "./skills-grid"
 import type { CardVariant } from "./process-card"
 import { PROCESS_CARDS, SKILL_LOGOS } from "./technologies.config"
 
-/**
- * Explicit placement, in PROCESS_CARDS order (01 · 02 · 03 · 04). From sm up the
- * steps split into two sub-columns: 01 over 03 on the left, 02 tall beside them
- * spanning both rows, and 04 across the full width underneath.
- */
 const CELLS: { variant: CardVariant; place: string }[] = [
   { variant: "std", place: "sm:col-start-1 sm:row-start-1" },
   { variant: "tall", place: "sm:col-start-2 sm:row-start-1 sm:row-span-2" },
@@ -35,12 +30,8 @@ export function Technologies() {
     >
       <div className="absolute bottom-1/4 left-0 size-[500px] rounded-full bg-[hsl(var(--primary))] opacity-[0.02] blur-[120px] pointer-events-none" />
 
-      {/* Header — same rail as every other section: left-aligned, not centred
-          with the content below it. */}
       <div className="relative z-10 w-full max-w-6xl px-6 md:px-12 lg:pl-28 lg:pr-0">
         <div className="mb-16">
-          {/* Hidden states live in the hook, not here: with reduced motion the
-              hook bails out early and an inline clip-path would never reopen. */}
           <span className="tech-label inline-block font-mono text-[11px] uppercase tracking-[0.3em] text-foreground/60">
             {t("label")}
           </span>
@@ -59,8 +50,6 @@ export function Technologies() {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 md:px-12">
-        {/* Asymmetric bento, narrowed and centred: the stack no longer sits in a
-            cell beside it, it orbits it — and the rings need air on both sides. */}
         <div className="tech-bento mx-auto grid w-full max-w-[800px] grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-5">
           {PROCESS_CARDS.map((card, index) => (
             <div key={card.id} className={CELLS[index].place}>
@@ -69,9 +58,6 @@ export function Technologies() {
           ))}
         </div>
 
-        {/* The orbiting logos are decorative, so the twelve names live here in
-            readable DOM. The grid itself only surfaces for reduced motion,
-            where the rings never run. */}
         <ul className="sr-only">
           {SKILL_LOGOS.map((logo) => (
             <li key={logo.label}>{logo.label}</li>

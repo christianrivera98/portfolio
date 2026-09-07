@@ -4,7 +4,6 @@ import { useCardVisual } from "@/hooks/useCardVisual"
 import { buildEditorTimeline } from "./visual-timelines"
 import { EDITOR_LINES } from "./visuals.config"
 
-/** 03 — a mini editor typing highlighted source. Code needs no translation. */
 export function EditorVisual() {
   const ref = useCardVisual(buildEditorTimeline)
 

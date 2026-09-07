@@ -50,12 +50,6 @@ export function animateExperienceCards() {
   })
 }
 
-/**
- * Scroll-scrubbed master timeline: draws the big vertical line AND paints each
- * badge border + experience divider crimson at the exact moment the line's draw
- * front reaches it (REQ-05). Each element is placed at its vertical fraction of
- * the entries block, which equals the line-draw progress at that point.
- */
 export function animateTimelinePaint(
   containerRef: React.RefObject<HTMLElement | null>
 ) {

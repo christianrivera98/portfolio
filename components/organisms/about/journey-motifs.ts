@@ -1,14 +1,6 @@
 import gsap from "gsap"
 import type { InterestMotif } from "./about.config"
 
-/**
- * The motif each chapter plays while it holds the stage. Every one of these is
- * a transform — the ink brush is a scaleX sweep over a finished path rather
- * than a stroke-dashoffset draw, so nothing here repaints per frame.
- *
- * `at` is the chapter's own position on the master timeline and `span` its
- * length, both in timeline units, so the motif advances with the scrub.
- */
 export function addMotifTimeline(
   tl: gsap.core.Timeline,
   chapter: HTMLElement,
@@ -40,7 +32,6 @@ export function addMotifTimeline(
   }
 
   if (motif === "ink") {
-    // The signature moment: the brush opens the circle, the bamboo drifts.
     tl.fromTo(
       q(".motif-ink"),
       { scaleX: 0, opacity: 0.2 },

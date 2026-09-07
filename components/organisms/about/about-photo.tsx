@@ -8,7 +8,6 @@ export function AboutPhoto() {
 
   return (
     <div className="about-photo-wrapper flex flex-col gap-8">
-      {/* Photo with grayscale + mask */}
       <div
         className="about-photo relative aspect-[3/4] w-full max-w-[360px] overflow-hidden rounded-sm"
         style={{
@@ -28,7 +27,6 @@ export function AboutPhoto() {
         />
       </div>
 
-      {/* Quick Facts */}
       <div className="about-facts grid grid-cols-2 gap-x-6 gap-y-4 max-w-[360px]">
         {ABOUT_FACT_KEYS.map((key) => (
           <div key={key} className="about-fact">

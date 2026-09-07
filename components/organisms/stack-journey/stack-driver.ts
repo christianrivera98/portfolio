@@ -7,7 +7,6 @@ import { createSpin } from "./stack-spin"
 import { readStops } from "./stack-stops"
 import { readViewport } from "./stack-viewport"
 
-/** How long the scrubbed journey takes to catch up with the scrollbar. */
 const SCRUB = 0.55
 
 type DriverArgs = {
@@ -20,10 +19,6 @@ type DriverArgs = {
   hasLanded: () => boolean
 }
 
-/**
- * Everything the journey needs for one breakpoint: one ScrollTrigger that moves
- * a number, one renderer that turns it into poses, and the ring's clock.
- */
 export function createDriver({
   logos,
   material,
@@ -37,8 +32,6 @@ export function createDriver({
   let stops = readStops(vp)
   const renderer = createRenderer(logos, material, render, () => ({ vp, stops }))
 
-  // Layout is read on refresh and cached: measuring live DOM inside a scrubbed
-  // update reflows on every frame of the scroll.
   const measure = () => {
     vp = readViewport(mobile)
     stops = readStops(vp)
@@ -59,8 +52,6 @@ export function createDriver({
       scrub: SCRUB,
       invalidateOnRefresh: true,
       onRefresh: measure,
-      // The smoothed progress lags the scrollbar on purpose; the rings still
-      // have to sit on the bento, so they follow the raw offset instead.
       onUpdate: (self) => {
         renderer.state.anchor = self.scroll()
         renderer.request()
@@ -68,11 +59,6 @@ export function createDriver({
     },
   })
 
-  // ScrollTrigger parks the page at 0 while it measures, and our onUpdate
-  // caches that 0. If the progress lands back on the value it already had —
-  // scrolled past the end, say — no further update fires to correct it, and the
-  // layer redraws the hero row in the middle of another section. The global
-  // refresh event runs once everything is measured and the scroll restored.
   const resync = () => {
     const y = window.scrollY
     renderer.state.anchor = y

@@ -1,10 +1,3 @@
-/**
- * Content for the ambient visuals behind each process card. Structure and
- * decoration live here; every human-readable label is an i18n key resolved
- * under `Technologies.visuals.*`.
- */
-
-/** Same palette as the hero screens, so the fake source reads as one product. */
 const KW = "#e85d6a"
 const FN = "#d4d4d8"
 const STR = "#7aa2a8"
@@ -12,7 +5,6 @@ const MUT = "#5a5a63"
 
 export type CodeToken = { text: string; color: string }
 
-/** 03 — the snippet that types itself in the mini editor. Deliberately neutral. */
 export const EDITOR_LINES: CodeToken[][] = [
   [
     { text: "export function ", color: KW },
@@ -35,11 +27,6 @@ export const EDITOR_LINES: CodeToken[][] = [
   [{ text: "}", color: MUT }],
 ]
 
-/**
- * 02 — Domain Driven Feature Architecture: every feature owns its four layers,
- * with `shared/`, `core/` and `app/` around them. `note` is an i18n key; the
- * layer list on the collapsed features is language-neutral on purpose.
- */
 export type TreeRow = { text: string; note?: string }
 
 export const TREE_ROWS: TreeRow[] = [
@@ -57,11 +44,8 @@ export const TREE_ROWS: TreeRow[] = [
   { text: "└─ shared/", note: "shared" },
 ]
 
-/** 01 — discovery questions typed into the mini terminal. */
 export const TERMINAL_KEYS = ["q1", "q2", "q3", "q4"] as const
 
-/** 04 — the production build as VS Code's integrated terminal prints it. Console
- *  output is language-neutral, so it stays here instead of in the messages. */
 export const BUILD_COMMAND = "npm run build"
 
 export const BUILD_OUTPUT: string[] = [

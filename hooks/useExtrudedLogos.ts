@@ -8,15 +8,6 @@ import {
   ICON_VIEWBOX,
 } from "@/components/organisms/stack-journey/stack-journey.config"
 
-/**
- * Turns the monochrome stack SVGs into extruded geometries — the same icons the
- * skills grid draws flat, but with real thickness and an edge that catches the
- * light when they turn.
- *
- * Each file is fetched once, parsed with SVGLoader and centred, then normalised
- * so one unit of the 24×24 viewBox maps to 1/24 of the logo box. The SVG y axis
- * points down, hence the flip.
- */
 export function useExtrudedLogos(files: string[]): THREE.ExtrudeGeometry[] | null {
   const [geometries, setGeometries] = useState<THREE.ExtrudeGeometry[] | null>(null)
 

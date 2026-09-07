@@ -1,14 +1,8 @@
-// Language-neutral company data for the sticky tablet. Order MUST mirror
-// EXPERIENCE_ENTRIES so the scroll-driven index maps 1:1 to each period.
-// `title` is a proper noun (not translated); the description lives in
-// messages (Experience.items.<id>.description).
 export interface CompanyInfo {
   id: string
   title: string
   logo: string
   stack: string[]
-  // true when the logo PNG is transparent with dark content → needs a light
-  // backdrop to be legible. Logos that ship their own background omit this.
   transparentLogo?: boolean
 }
 

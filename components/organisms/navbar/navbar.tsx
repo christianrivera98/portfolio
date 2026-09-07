@@ -40,7 +40,6 @@ export function Navbar({ menuOpen, onToggleMenu }: NavbarProps) {
           CL
         </a>
 
-        {/* Section indicator */}
         <span
           className={`hidden md:block text-[11px] font-mono tracking-wider transition-opacity duration-300 ${
             menuOpen ? "opacity-0" : "text-white/30"

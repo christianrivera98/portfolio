@@ -6,11 +6,6 @@ type Props = {
   onSelect: (index: number) => void
 }
 
-/**
- * The keyboard route through the run. The panels hold nothing focusable of
- * their own and the visible chrome is now just the two progress bars, so these
- * buttons stay out of the way until they are tabbed to.
- */
 export function JourneyJumps({ labels, active, onSelect }: Readonly<Props>) {
   return (
     <div className="journey-jumps absolute left-0 top-2 z-10 flex gap-2">

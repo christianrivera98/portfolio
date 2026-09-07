@@ -6,10 +6,6 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 
 gsap.registerPlugin(ScrollToPlugin)
 
-/**
- * Smooth-scrolls to an in-page anchor (#id) via GSAP, matching the navbar menu
- * so footer links and nav feel identical. Pass "#top" to return to the top.
- */
 export function useScrollToSection() {
   return useCallback((e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>, hash: string) => {
     const target = hash === "#top" ? 0 : document.querySelector(hash) ? hash : null

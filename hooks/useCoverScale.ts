@@ -2,11 +2,6 @@
 
 import { useEffect, useRef, useState } from "react"
 
-/**
- * Scales a fixed-size stage to fully cover its container (object-fit: cover),
- * measuring the container with a ResizeObserver. Returns the ref to attach to
- * the container and the computed cover scale factor.
- */
 export function useCoverScale(stageWidth: number, stageHeight: number) {
   const ref = useRef<HTMLDivElement>(null)
   const [scale, setScale] = useState(1)

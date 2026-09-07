@@ -1,9 +1,5 @@
 "use client"
 
-/**
- * Animated mouse hint that simulates a downward scroll gesture: a rounded
- * outline body with a wheel-dot that travels down on a loop. Decorative.
- */
 export function ScrollMouse({ className }: { className?: string }) {
   return (
     <span

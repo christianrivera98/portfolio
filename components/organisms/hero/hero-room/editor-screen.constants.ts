@@ -1,4 +1,3 @@
-/** VS Code-style editor screen: layout + syntax-colored source typed line by line. */
 export interface EToken {
   text: string
   color: string
@@ -7,20 +6,20 @@ export interface EToken {
 export const EDITOR = {
   w: 1000,
   h: 625,
-  act: 60, // activity bar width
-  side: 210, // explorer width
+  act: 60,
+  side: 210,
   tabH: 42,
   statusH: 30,
   uiPad: 18,
-  rowH: 34, // explorer row height
+  rowH: 34,
   iconSize: 22,
   tabW: 180,
-  codeX: 72, // code offset inside editor (after gutter)
+  codeX: 72,
   bg: "#1e1e1e",
   sidebar: "#252526",
   activity: "#333333",
   tabBar: "#2d2d2d",
-  status: "#a21d2b", // crimson status bar (brand)
+  status: "#a21d2b",
   gutter: "#6a6a6a",
   text: "#d4d4d4",
   accent: "#e11d2e",
@@ -31,13 +30,13 @@ export const EDITOR = {
   holdMs: 1800,
 } as const
 
-const KW = "#569cd6" // blue keyword
-const PUR = "#c586c0" // import/export/return
-const STR = "#ce9178" // string
-const VAR = "#9cdcfe" // identifier
-const TYP = "#4ec9b0" // type/component
-const CMT = "#6a9955" // comment
-const P = "#d4d4d4" // punctuation
+const KW = "#569cd6"
+const PUR = "#c586c0"
+const STR = "#ce9178"
+const VAR = "#9cdcfe"
+const TYP = "#4ec9b0"
+const CMT = "#6a9955"
+const P = "#d4d4d4"
 
 export const EXPLORER = ["src", "  components", "    hero.tsx", "    navbar.tsx", "  app", "    page.tsx", "  lib"]
 

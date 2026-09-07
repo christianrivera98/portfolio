@@ -5,7 +5,6 @@ import { useCardVisual } from "@/hooks/useCardVisual"
 import { buildTreeTimeline } from "./visual-timelines"
 import { TREE_ROWS } from "./visuals.config"
 
-/** 02 — a domain-sliced file tree unfolding row by row. */
 export function TreeVisual() {
   const t = useTranslations("Technologies.visuals.tree")
   const ref = useCardVisual(buildTreeTimeline)

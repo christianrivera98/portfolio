@@ -25,10 +25,8 @@ export function ExperienceCard({
       className="experience-card group relative grid grid-cols-[4px_1fr] md:grid-cols-[200px_1fr] gap-5 md:gap-12 py-8 md:py-14 transition-colors duration-300"
       data-index={index}
     >
-      {/* Mobile accent bar */}
       <div className="md:hidden self-stretch rounded-full bg-gradient-to-b from-[hsl(356,96%,32%)] via-[hsl(356,96%,22%)] to-transparent opacity-40 group-hover:opacity-70 transition-opacity duration-300" />
 
-      {/* Left: Period + Type (desktop) */}
       <div className="experience-meta hidden md:flex flex-col gap-2 md:text-right">
         <span className="text-sm font-mono tracking-wide text-white/35">
           {period}
@@ -44,8 +42,6 @@ export function ExperienceCard({
         </span>
       </div>
 
-      {/* Right: Content. min-w-0 lets the 1fr grid column shrink so text wraps
-          instead of overflowing the viewport. */}
       <div className="flex min-w-0 flex-col gap-4">
         <div className="flex min-w-0 flex-col gap-1.5">
           <span className="md:hidden text-xs font-mono tracking-wide text-white/35 mb-1">
@@ -65,8 +61,6 @@ export function ExperienceCard({
             <span className="experience-number text-xs font-mono text-white/15 group-hover:text-[hsl(356,96%,32%)]/60 transition-colors duration-300 hidden md:inline">
               {String(index + 1).padStart(2, "0")}
             </span>
-            {/* Hover box bounded to the title content (w-fit) so the preview
-                only fires when the cursor is right over the title. */}
             <div className="group/title inline-flex w-fit items-center gap-3 xl:cursor-pointer 2xl:cursor-default" {...titleHover}>
               <h3 className="experience-company font-serif-display font-bold text-2xl md:text-3xl text-white tracking-tight">
                 {entry.company}

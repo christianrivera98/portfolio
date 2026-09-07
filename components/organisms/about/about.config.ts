@@ -1,4 +1,3 @@
-/** Which original vector motif backs each interest — see `about.motifs.ts`. */
 export type InterestMotif = "compass" | "waveform" | "ink" | "paw" | "gears"
 
 export type Interest = {
@@ -7,11 +6,8 @@ export type Interest = {
   motif: InterestMotif
 }
 
-// Language-neutral data only; quote / bio / facts / interest labels and bodies
-// live in messages (About.*)
 export const ABOUT_PROFILE = {
   photo: "/images/profile.png",
-  // Order is the reading order of the theatre: chapter 01 is the first entry.
   interests: [
     { id: "travel", video: "/videos/travel.mp4", motif: "compass" },
     { id: "hiphop", video: "/videos/hiphop.mp4", motif: "waveform" },
@@ -21,7 +17,6 @@ export const ABOUT_PROFILE = {
   ] satisfies Interest[],
 } as const
 
-// Keys into About.facts.* — each maps to a `${key}` label and `${key}Value` value
 export const ABOUT_FACT_KEYS = [
   "location",
   "languages",

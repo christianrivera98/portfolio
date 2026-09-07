@@ -4,19 +4,17 @@ import { EDITOR as E, EXPLORER, EDITOR_CODE } from "@/components/organisms/hero/
 
 const TOTAL = EDITOR_CODE.reduce((s, l) => s + l.reduce((a, t) => a + t.text.length, 0), 0)
 const CYCLE = TOTAL * E.typeMs + E.holdMs
-const EDX = E.act + E.side // editor left edge
+const EDX = E.act + E.side
 
 function chrome(ctx: CanvasRenderingContext2D) {
   ctx.fillStyle = E.bg
   ctx.fillRect(0, 0, E.w, E.h)
-  // activity bar
   ctx.fillStyle = E.activity
   ctx.fillRect(0, 0, E.act, E.h)
   ;[0, 1, 2, 3].forEach((i) => {
     ctx.fillStyle = i === 0 ? E.accent : "#7a7a7a"
     ctx.fillRect((E.act - E.iconSize) / 2, 24 + i * 52, E.iconSize, E.iconSize)
   })
-  // explorer
   ctx.fillStyle = E.sidebar
   ctx.fillRect(E.act, 0, E.side, E.h)
   ctx.font = E.uiFont
@@ -32,7 +30,6 @@ function chrome(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = active ? "#ffffff" : "#bdbdbd"
     ctx.fillText(name, E.act + E.uiPad, y + 14)
   })
-  // tab bar
   ctx.fillStyle = E.tabBar
   ctx.fillRect(EDX, 0, E.w - EDX, E.tabH)
   ctx.fillStyle = E.bg
@@ -52,7 +49,6 @@ function statusBar(ctx: CanvasRenderingContext2D) {
   ctx.fillText("⎇ main*    TypeScript    UTF-8    Ln 6", E.uiPad, E.h - 8)
 }
 
-/** Builds a CanvasTexture that renders a typing VS Code editor and loops. */
 export function useEditorScreenTexture() {
   return useMemo(() => {
     const canvas = document.createElement("canvas")

@@ -5,7 +5,6 @@ import { GRID_D, PAW_SHAPES, WAVE_BARS, gearPath } from "./about.motifs"
 const SVG = "absolute inset-0 h-full w-full"
 const STROKE = "stroke-[hsl(var(--accent))]"
 
-/** Compass rose — travel. The needle is what the timeline spins. */
 function Compass() {
   return (
     <svg viewBox="0 0 120 120" fill="none" className={SVG} aria-hidden="true">
@@ -23,7 +22,6 @@ function Compass() {
   )
 }
 
-/** Waveform — hip hop. Each bar scales on its own baseline. */
 function Waveform() {
   return (
     <svg viewBox="0 0 120 120" className={SVG} aria-hidden="true">
@@ -43,7 +41,6 @@ function Waveform() {
   )
 }
 
-/** Paw — animals. */
 function Paw() {
   return (
     <svg viewBox="0 0 120 120" className={SVG} aria-hidden="true">
@@ -54,7 +51,6 @@ function Paw() {
   )
 }
 
-/** Counter-rotating gears over a grid — mechatronics. */
 function Gears() {
   return (
     <svg viewBox="0 0 120 120" fill="none" className={SVG} aria-hidden="true">
@@ -77,7 +73,6 @@ const MOTIFS: Record<Exclude<InterestMotif, "ink">, () => React.JSX.Element> = {
 }
 
 const LAYER = "motif pointer-events-none absolute inset-0 opacity-40"
-// Top-left: the bottom of every panel belongs to the copy that sits over it.
 const CORNER = "absolute left-[5%] top-[5%] aspect-square h-[30%]"
 
 export function InterestMotifLayer({ motif }: { motif: InterestMotif }) {

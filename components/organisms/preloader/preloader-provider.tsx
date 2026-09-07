@@ -13,7 +13,6 @@ export function PreloaderProvider({ children }: { children: React.ReactNode }) {
     setPlayed(true)
   }, [])
 
-  // A skipped visit is complete from the start: nothing locks the scroll.
   const isComplete = skipped || played
 
   return (

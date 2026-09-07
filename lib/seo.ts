@@ -36,14 +36,10 @@ export async function buildMetadata(locale: string): Promise<Metadata> {
       siteName: SITE_CONFIG.name,
     },
     twitter: {
-      // `summary_large_image` without an image renders an empty card; upgrade it
-      // the day an og-image exists.
       card: "summary",
       title: t("title"),
       description: t("description"),
     },
-    // No `icons` key on purpose: setting it makes Next skip the file-based
-    // convention, and app/favicon.ico is the only icon that actually exists.
     manifest: "/manifest.json",
   }
 }

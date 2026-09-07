@@ -9,28 +9,14 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
 import { ProcessCardFace } from "./process-card-face"
 import { CardVisual } from "./visuals/card-visual"
 
-/**
- * WIDE cells span both sub-columns, STD cells sit one-up in the left column and
- * TALL spans two rows beside them, so each gets its own ratio.
- */
 export type CardVariant = "wide" | "std" | "tall"
 
 const ASPECT: Record<CardVariant, string> = {
-  // One fixed ratio per variant per breakpoint — never derived from the copy.
   wide: "[--card-aspect:29/26] sm:[--card-aspect:24/7]",
   std: "[--card-aspect:29/26] sm:[--card-aspect:11/9]",
-  // The tall cell has no ratio of its own: it stretches to 01 + 03 + the gap.
-  // Below sm the grid is a single column, so it falls back to the shared ratio.
   tall: "[--card-aspect:29/26] sm:h-full sm:[--card-aspect:auto]",
 }
 
-/**
- * One bento card: the step title swaps into its description.
- *
- * PixelSwap owns the interaction rather than a wrapper button — in `click` mode
- * it already exposes role="button", tabIndex and Enter/Space, and in `hover`
- * mode it wires focus/blur, so wrapping it would nest two focusable controls.
- */
 export function ProcessCard({
   id,
   index,
@@ -58,7 +44,6 @@ export function ProcessCard({
     >
       <CardVisual id={id} />
 
-      {/* spotlight tracking the pointer, parked centre-top until it moves */}
       <div className="process-card-spotlight pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
       <PixelSwap
@@ -66,8 +51,6 @@ export function ProcessCard({
         onActiveChange={setActive}
         style={{ aspectRatio: "var(--card-aspect)" }}
         className="h-full focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))]"
-        // Snappier and cheaper than the defaults: a bigger pixel means fewer
-        // windows, and every window clones the incoming face once.
         pixelSize={56}
         gap={2}
         pixelScale={0.35}

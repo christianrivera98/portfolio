@@ -10,13 +10,11 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-[#0a0a0a]">
-      {/* Crimson hairline + soft glow anchoring the section to the theme */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[hsl(356,96%,32%)]/40 to-transparent" />
       <div className="pointer-events-none absolute -bottom-32 left-1/2 h-64 w-[80%] -translate-x-1/2 rounded-full bg-[hsl(356,96%,22%)] opacity-[0.06] blur-[120px]" />
 
       <div className="relative mx-auto w-full max-w-6xl px-6 py-16 md:px-12 md:py-20">
         <div className="flex flex-col gap-12 lg:flex-row lg:justify-between lg:gap-16">
-          {/* Brand block */}
           <div className="flex max-w-md flex-col gap-5">
             <span className="flex items-center gap-2.5">
               <span className="relative flex h-2 w-2">

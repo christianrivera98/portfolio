@@ -25,9 +25,7 @@ export function Hero() {
   const [social, setSocial] = useState<SocialKey | null>(null)
   const t = useTranslations("Hero")
   const prefersReduced = usePrefersReducedMotion()
-  // The 3D chunk is ~870 KB: it waits for idle, and never mounts under reduced motion.
   const show3D = useDeferredMount(!prefersReduced)
-  // ...and once mounted it only draws while the hero is actually on screen.
   const roomActive = useInViewport(sectionRef)
 
   useHeroIntroAnimation(isComplete, sectionRef)
@@ -54,9 +52,7 @@ export function Hero() {
           </div>
         )}
       </div>
-      {/* legibility scrim behind the left-aligned copy */}
       <div className="absolute inset-0 z-[5] pointer-events-none bg-gradient-to-r from-[#0a0a0a] from-5% via-[#0a0a0a]/60 via-35% to-transparent to-60%" />
-      {/* solid black base + fade: hides the floor and the chair base */}
       <div className="absolute inset-x-0 bottom-0 h-[26%] z-[5] pointer-events-none bg-[#0a0a0a]" />
       <div className="absolute inset-x-0 bottom-[26%] h-[14%] z-[5] pointer-events-none bg-gradient-to-t from-[#0a0a0a] to-transparent" />
 

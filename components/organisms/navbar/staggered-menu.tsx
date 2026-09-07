@@ -15,7 +15,7 @@ interface StaggeredMenuProps {
   onClose: () => void
 }
 
-export function StaggeredMenu({ open, onClose }: StaggeredMenuProps) {
+export function StaggeredMenu({ open, onClose }: Readonly<StaggeredMenuProps>) {
   const t = useTranslations("Nav")
   const listRef = useRef<HTMLUListElement>(null)
   const overlayRef = useRef<HTMLDivElement>(null)

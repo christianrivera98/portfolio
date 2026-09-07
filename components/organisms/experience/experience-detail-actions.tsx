@@ -5,11 +5,6 @@ import { Info, ArrowUpRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useExperienceDetail } from "./experience-detail.context"
 
-/**
- * Company affordance beside a title. Mobile/tablet (<xl): a tappable info icon
- * that opens the detail overlay. Laptop (xl+): a non-interactive hint that
- * brightens on title hover, signalling "hover to see this company".
- */
 export function CompanyInfoButton({ index }: { index: number }) {
   const t = useTranslations("Experience")
   const { openCompany } = useExperienceDetail()
@@ -37,10 +32,6 @@ export function CompanyInfoButton({ index }: { index: number }) {
   )
 }
 
-/**
- * Charismatic text CTA below a title — only when the job shipped a project.
- * Invites the visitor to get to know the product built there ({label} brand).
- */
 export function ProjectDetailsCta({ projectId, label }: { projectId: string; label: string }) {
   const t = useTranslations("Experience")
   const { openProject } = useExperienceDetail()

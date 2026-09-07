@@ -1,18 +1,5 @@
 import type { Pose, Viewport } from "./stack-journey.config"
 
-/**
- * Where each logo drifts to once the hero is gone: scattered over the margins
- * of the page, in fractions of the viewport, well away from the column the
- * copy occupies. `depth` scales it down — the further back, the smaller — and
- * `parallax` is how much of a viewport height it travels while the visitor
- * scrolls through Experience, which is what makes the field feel deep. Kept
- * small: a large one carries the top row off the screen just before the rings
- * are due to form.
- *
- * Authored by hand rather than randomised so the composition is stable between
- * loads, same as the old constellation, and kept out of the 0.2–0.55 band where
- * the body copy of Experience sits.
- */
 export type Drift = { x: number; y: number; depth: number; parallax: number }
 
 export const DRIFT: Drift[] = [

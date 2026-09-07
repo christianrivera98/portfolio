@@ -8,15 +8,7 @@ const PREFETCH_TIMEOUT_MS = 4000
 
 type PreviewTextures = Partial<Record<SocialKey, THREE.Texture>>
 
-/**
- * Loads the laptop's social preview textures off the critical path: on the first
- * hover/focus of a social CTA, and — only on hover-capable devices — when the
- * browser goes idle. Unlike useTexture it never suspends, so the 3D scene paints
- * without these bytes competing with the LCP.
- */
 export function useSocialPreviews(social: SocialKey | null): PreviewTextures {
-  // Mutated in place instead of held in state: useFrame reads it every frame,
-  // so a texture landing must not cost a React re-render.
   const [textures] = useState<PreviewTextures>(() => ({}))
   const requested = useRef(new Set<SocialKey>())
   const { gl } = useThree()
@@ -41,7 +33,6 @@ export function useSocialPreviews(social: SocialKey | null): PreviewTextures {
     if (social) load(social)
   }, [social, load])
 
-  // Touch devices never hover a CTA, so they pay nothing for these textures.
   useEffect(() => {
     if (!window.matchMedia("(hover: hover)").matches) return
     const keys = Object.keys(SOCIAL_PREVIEWS) as SocialKey[]

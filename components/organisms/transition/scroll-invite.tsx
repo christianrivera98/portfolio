@@ -20,11 +20,6 @@ const TabletBackground = dynamic(
   { ssr: false }
 )
 
-/**
- * Desktop sticky tablet. By default it mirrors the company whose period is
- * beside it (scroll-synced). When a project CTA is clicked it renders that
- * project's screenshot slider instead, with a hide button to return to sync.
- */
 export function ScrollInvite() {
   const tabletRef = useRef<HTMLDivElement>(null)
   const active = useActiveExperience(COMPANIES.length, tabletRef)
@@ -33,9 +28,6 @@ export function ScrollInvite() {
   const tt = useTranslations("Transition")
   const reduce = useReducedMotion()
   const project = detail?.kind === "project" ? detail.projectId : null
-  // `hidden 2xl:block` only hides this: the subtree still mounted, and its
-  // Grainient backdrop still took a WebGL context — one of four on the page —
-  // to shade a 1x1 canvas nobody can see.
   const wide = useMediaQuery("(min-width: 1536px)")
   const fade = reduce
     ? {}
@@ -48,7 +40,6 @@ export function ScrollInvite() {
       <div className="sticky top-[12vh] flex justify-end pr-[5%]">
         <div ref={tabletRef} className="pointer-events-auto relative w-115 xl:w-145">
           <ScrollTablet background={<TabletBackground />}>
-            {/* Same tablet, fluid crossfade between company info and slides. */}
             <AnimatePresence mode="wait">
               <motion.div key={project ?? "company"} {...fade} transition={{ duration: 0.4, ease: "easeInOut" }}>
                 {project ? <ProjectSlides projectId={project} /> : <CompanyCard index={active} />}

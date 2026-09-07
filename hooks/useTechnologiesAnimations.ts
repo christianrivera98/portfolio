@@ -17,7 +17,6 @@ export function useTechnologiesAnimations(
   useGSAP(
     () => {
       if (prefersReduced) return
-      // Section label clip-path reveal
       gsap.set(".tech-accent-line", { scaleX: 0 })
       gsap.fromTo(
         ".tech-label",
@@ -34,9 +33,7 @@ export function useTechnologiesAnimations(
         }
       )
 
-      // Title SplitText reveal
       if (titleRef.current) {
-        // words,chars — splitting into bare chars lets the browser break mid-word
         const split = SplitText.create(titleRef.current, { type: "words,chars" })
         gsap.from(split.chars, {
           y: 80,
@@ -54,7 +51,6 @@ export function useTechnologiesAnimations(
         })
       }
 
-      // Subtitle reveal
       gsap.set(".tech-subtitle", { opacity: 0, y: 25 })
       ScrollTrigger.create({
         trigger: ".tech-subtitle",
@@ -64,7 +60,6 @@ export function useTechnologiesAnimations(
           gsap.to(".tech-subtitle", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }),
       })
 
-      // Accent line draw
       gsap.fromTo(
         ".tech-accent-line",
         { scaleX: 0 },
@@ -81,9 +76,6 @@ export function useTechnologiesAnimations(
         }
       )
 
-      // Reveal-on-enter via an explicit onEnter tween. Pre-created from-tweens
-      // got stuck hidden under StrictMode re-invocation; firing a fresh gsap.to
-      // on enter is reliable. Generous start so it never stays hidden.
       gsap.set(".process-card", { opacity: 0, y: 50 })
       ScrollTrigger.create({
         trigger: ".tech-bento",

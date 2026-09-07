@@ -4,14 +4,6 @@ import { useEffect, type RefObject } from "react"
 
 const MAX_TILT_DEG = 5
 
-/**
- * Publishes the pointer position on the element as custom properties: `--mx` /
- * `--my` in pixels for a spotlight, and `--rx` / `--ry` in degrees for a tilt.
- *
- * Pixels, not percentages, so the spotlight can be moved with a transform
- * instead of repainting a gradient every frame. Writes are coalesced into one
- * rAF, since pointermove fires far more often than the display refreshes.
- */
 export function usePointerSpotlight(
   ref: RefObject<HTMLElement | null>,
   enabled = true

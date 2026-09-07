@@ -5,7 +5,6 @@ import { useCardVisual } from "@/hooks/useCardVisual"
 import { buildTerminalTimeline } from "./visual-timelines"
 import { TERMINAL_KEYS } from "./visuals.config"
 
-/** 01 — discovery questions typed into a mini terminal. */
 export function TerminalVisual() {
   const t = useTranslations("Technologies.visuals.terminal")
   const ref = useCardVisual(buildTerminalTimeline)

@@ -1,4 +1,3 @@
-// `id` maps to a translated title/description in messages (Technologies.process.*)
 export type ProcessCard = { id: string }
 
 export const PROCESS_CARDS: ProcessCard[] = [
@@ -8,9 +7,6 @@ export const PROCESS_CARDS: ProcessCard[] = [
   { id: "quality" },
 ]
 
-// Brand logos — language-neutral. The 12 tools I lean on most (6×2 grid):
-// eight frontend, four backend / infra. Rendered monochrome and brightened on
-// hover. Files in /projects/logos_stacks.
 export type SkillLogo = { file: string; label: string }
 
 const LOGO_DIR = "/projects/logos_stacks"

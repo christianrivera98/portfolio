@@ -280,9 +280,7 @@ export interface TerminalProps {
   outputs?: Record<number, string[]>;
   username?: string;
   className?: string;
-  /** Extra classes for the scrolling output pane — its height lives there. */
   contentClassName?: string;
-  /** "none" drops the macOS title bar, for embedding as an editor-style panel. */
   chrome?: "mac" | "none";
   typingSpeed?: number;
   delayBetweenCommands?: number;
@@ -291,7 +289,6 @@ export interface TerminalProps {
   onComplete?: () => void;
 }
 
-// Reveal several chars per render to cut re-render overhead (keeps it fast in dev).
 const CHARS_PER_TICK = 4
 
 export function Terminal({
@@ -450,7 +447,6 @@ export function Terminal({
       )}
     >
       <div className="overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 shadow-2xl">
-        {/* Title Bar */}
         <div
           className={cn(
             "flex items-center gap-2 bg-neutral-800 px-4 py-3",
@@ -470,7 +466,6 @@ export function Terminal({
           <div className="w-[52px]" />
         </div>
 
-        {/* Terminal Content */}
         <div
           ref={contentRef}
           className={cn("no-visible-scrollbar h-80 overflow-y-auto p-4 font-mono", contentClassName)}

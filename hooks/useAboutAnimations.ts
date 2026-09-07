@@ -23,14 +23,12 @@ export function useAboutAnimations(
         toggleActions: "play none none reverse" as const,
       })
 
-      // Section label clip-path reveal
       gsap.fromTo(
         ".about-label",
         { clipPath: "inset(0 100% 0 0)" },
         { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "power3.out", scrollTrigger: trigger(".about-label", "top 90%") }
       )
 
-      // Title SplitText reveal
       if (titleRef.current) {
         const split = SplitText.create(titleRef.current, { type: "chars" })
         gsap.from(split.chars, {
@@ -39,7 +37,6 @@ export function useAboutAnimations(
         })
       }
 
-      // Photo mask reveal (clip-path from top)
       gsap.to(".about-photo", {
         clipPath: "inset(0 0 0% 0)",
         duration: 1.2,
@@ -47,7 +44,6 @@ export function useAboutAnimations(
         scrollTrigger: trigger(".about-photo", "top 80%"),
       })
 
-      // Pull quote — SplitText words
       const quoteEl = containerRef.current?.querySelector(".about-quote")
       if (quoteEl) {
         const split = SplitText.create(quoteEl, { type: "words" })
@@ -57,7 +53,6 @@ export function useAboutAnimations(
         })
       }
 
-      // Bio paragraphs stagger
       gsap.utils.toArray<HTMLElement>(".about-bio-p").forEach((p, i) => {
         gsap.from(p, {
           y: 25, opacity: 0, duration: 0.7, ease: "power3.out", delay: i * 0.12,
@@ -65,7 +60,6 @@ export function useAboutAnimations(
         })
       })
 
-      // Quick facts stagger
       gsap.utils.toArray<HTMLElement>(".about-fact").forEach((fact, i) => {
         gsap.from(fact, {
           x: -20, opacity: 0, duration: 0.5, ease: "power3.out", delay: i * 0.08,

@@ -17,7 +17,6 @@ export function useContactAnimations(
   useGSAP(
     () => {
       if (prefersReduced) return
-      // Title — SplitText words with slow stagger
       if (titleRef.current) {
         const split = SplitText.create(titleRef.current, { type: "words" })
         gsap.from(split.words, {
@@ -35,7 +34,6 @@ export function useContactAnimations(
         })
       }
 
-      // Status text fade-in
       gsap.from(".contact-status", {
         y: 20,
         opacity: 0,
@@ -48,7 +46,6 @@ export function useContactAnimations(
         },
       })
 
-      // Contact links stagger reveal
       gsap.utils.toArray<HTMLElement>(".contact-link").forEach((link, i) => {
         gsap.from(link, {
           y: 30,

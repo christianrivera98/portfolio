@@ -2,11 +2,9 @@
 
 import type { RoomTheme } from "./room.config"
 
-/** Floor lamp (the warm key light) on the right and a leafy plant on the left. */
 export function Decor({ theme }: { theme: RoomTheme }) {
   return (
     <group>
-      {/* floor lamp, right */}
       <group position={[4.4, 0, -0.4]}>
         <mesh position={[0, 1.5, 0]} castShadow>
           <cylinderGeometry args={[0.03, 0.03, 3, 10]} />
@@ -25,7 +23,6 @@ export function Decor({ theme }: { theme: RoomTheme }) {
         <pointLight position={[0, 2.9, 0.2]} color={theme.lampColor} intensity={theme.lampIntensity} distance={11} decay={2} castShadow />
       </group>
 
-      {/* plant, left */}
       <group position={[-4.6, 0, 0.3]}>
         <mesh position={[0, 0.4, 0]} castShadow>
           <cylinderGeometry args={[0.35, 0.28, 0.8, 16]} />

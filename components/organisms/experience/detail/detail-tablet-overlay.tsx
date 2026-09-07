@@ -10,16 +10,10 @@ import { useExperienceDetail } from "../experience-detail.context"
 import { TabletShell } from "./tablet-shell"
 import { DetailSlider } from "./detail-slider"
 
-/**
- * Mobile/tablet (<lg) detail surface: a centered tablet that fades in over a
- * dimmed backdrop, renders the slider and hides with a fluid spring on close.
- */
 export function DetailTabletOverlay() {
   const { detail, close } = useExperienceDetail()
   const tt = useTranslations("Transition")
   const reduce = useReducedMotion()
-  // This overlay is the modal only below xl. On laptop/desktop the tablet is
-  // inline/sticky, so the page must keep scrolling — lock only on mobile/tablet.
   const [isOverlay, setIsOverlay] = useState(false)
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 1279px)")

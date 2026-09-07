@@ -8,7 +8,6 @@ const TOTAL_CHARS = CODE_LINES.reduce(
 )
 const CYCLE_MS = TOTAL_CHARS * SCREEN.typeMs + SCREEN.holdMs
 
-/** Builds a CanvasTexture and returns a draw(elapsedMs) that types code, loops, and blinks a cursor. */
 export function useCodeScreenTexture() {
   return useMemo(() => {
     const canvas = document.createElement("canvas")

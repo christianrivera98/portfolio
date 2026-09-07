@@ -9,7 +9,7 @@ const KEY_W = 0.15
 const KEY_D = 0.14
 const KEY_H = 0.035
 const COLS = 13
-const Y = 0.035 // sits just above the base top
+const Y = 0.035
 
 interface Key {
   x: number
@@ -17,7 +17,6 @@ interface Key {
   w: number
 }
 
-/** Builds a compact 5-row keycap layout (4 full rows + a spacebar row). */
 function buildKeys(): Key[] {
   const keys: Key[] = []
   const x0 = -((COLS - 1) * PITCH) / 2
@@ -27,7 +26,7 @@ function buildKeys(): Key[] {
   }
   const zr = z0 + 4 * PITCH
   for (const c of [0, 1, 2]) keys.push({ x: x0 + c * PITCH, z: zr, w: KEY_W })
-  keys.push({ x: 0, z: zr, w: KEY_W * 6 }) // spacebar
+  keys.push({ x: 0, z: zr, w: KEY_W * 6 })
   for (const c of [10, 11, 12]) keys.push({ x: x0 + c * PITCH, z: zr, w: KEY_W })
   return keys
 }

@@ -3,10 +3,6 @@
 import { useTranslations } from "next-intl"
 import { ScrollMouse } from "@/components/ui/scroll-mouse"
 
-/**
- * Bottom-right scroll invite shown over the Hero: "Scrollea y conóceme" with
- * an animated mouse next to the first word. Decorative hint, desktop-only.
- */
 export function HeroScrollInvite() {
   const t = useTranslations("Transition")
   const [firstWord, ...rest] = t("title").split(" ")

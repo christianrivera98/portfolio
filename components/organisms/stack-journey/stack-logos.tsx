@@ -13,30 +13,19 @@ import type { Renderer } from "./stack-render"
 
 const FILES = SKILL_LOGOS.map((logo) => logo.file)
 
-/**
- * The twelve extruded logos and their choreography. One mesh per icon, two
- * materials: the flat caps in matte white, the extruded rim in crimson — that
- * pairing is what reads as thickness when a logo turns.
- */
 export function StackLogos() {
   const stage = useRef<THREE.Group>(null)
   const meshes = useRef<(THREE.Mesh | null)[]>([])
-  // The single writer, shared with the magnet so both speak through it.
   const renderer = useRef<Renderer | null>(null)
   const gl = useThree((state) => state.gl)
   const scene = useThree((state) => state.scene)
   const camera = useThree((state) => state.camera)
-  // The layer owns its own frame scheduling, so it draws the scene itself.
   const render = useCallback(() => gl.render(scene, camera), [gl, scene, camera])
   const geometries = useExtrudedLogos(FILES)
-  // Hover has no meaning on a touch screen, and the listener would fire on every
-  // drag: the magnet is for fine pointers only.
   const finePointer = useMediaQuery("(pointer: fine)")
   const [live, setLive] = useState(false)
   const setLiveStable = useCallback((next: boolean) => setLive(next), [])
 
-  // One material for caps and rim alike: two would double the draw calls for a
-  // difference the lighting already makes on its own.
   const material = useMemo(
     () =>
       new THREE.MeshStandardMaterial({

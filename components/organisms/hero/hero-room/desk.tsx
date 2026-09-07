@@ -8,7 +8,6 @@ const W = 5.4
 const D = 1.7
 const Z = -0.5
 
-/** Desk top, legs, a desk pad and a small mac-mini box. */
 export function Desk({ theme }: { theme: RoomTheme }) {
   const legX = W / 2 - 0.18
   return (
@@ -22,12 +21,10 @@ export function Desk({ theme }: { theme: RoomTheme }) {
           <meshStandardMaterial color={theme.deskLeg} roughness={0.5} metalness={0.4} />
         </mesh>
       ))}
-      {/* desk pad */}
       <mesh position={[0, TOP_Y + 0.045, Z + 0.05]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[2.6, 1.0]} />
         <meshStandardMaterial color="#1b1b1f" roughness={0.85} />
       </mesh>
-      {/* mac mini */}
       <RoundedBox args={[0.7, 0.12, 0.7]} radius={0.03} smoothness={3} position={[-1.7, TOP_Y + 0.105, Z - 0.1]} castShadow>
         <meshStandardMaterial color="#caccd0" roughness={0.4} metalness={0.5} />
       </RoundedBox>

@@ -3,11 +3,6 @@
 import { useTranslations } from "next-intl"
 import { AboutPhoto } from "./about-photo"
 
-/**
- * The panel the run opens on: the same editorial grid the section always had —
- * photo, quick facts, pull quote and bio. Its intrinsic height is what sets the
- * height of every interest panel that follows it.
- */
 export function AboutIntro() {
   const t = useTranslations("About")
   const bio = t.raw("bio") as string[]

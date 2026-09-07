@@ -2,12 +2,6 @@
 
 import { useEffect, useState, type RefObject } from "react"
 
-/**
- * Returns the experience period currently *beside* the sticky tablet, or null
- * when none is (idle state). Matches the entry whose vertical bounds contain
- * the tablet's center line — so the card only mirrors a company while that
- * company's period is actually next to the tablet. rAF-throttled.
- */
 export function useActiveExperience(count: number, tabletRef: RefObject<HTMLElement | null>) {
   const [active, setActive] = useState<number | null>(null)
 

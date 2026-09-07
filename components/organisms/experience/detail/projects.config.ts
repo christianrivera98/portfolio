@@ -1,18 +1,12 @@
 import { SITE_CONFIG } from "@/lib/site.config"
 
-// One slide in the project tablet. Videos autoplay muted on loop (no controls),
-// so they read as moving images; images are static screenshots.
 export type MediaItem =
   | { type: "image"; src: string }
   | { type: "video"; src: string }
 
-// Language-neutral data only; name / description / longDescription / metrics
-// live in messages (Projects.items.*)
 export type Project = {
   id: string
   tech: string[]
-  // `media` drives the experience tablet slides (ordered mix of clips + shots).
-  // `images` is the static subset the Projects-section 3D marquee renders.
   media?: MediaItem[]
   images?: string[]
   liveUrl?: string

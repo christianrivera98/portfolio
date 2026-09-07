@@ -6,13 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(ScrollTrigger)
 
-/**
- * GSAP scroll parallax effects for hero section.
- * Animates content, photo, and scroll indicator on scroll.
- *
- * @param scope - Ref to the hero <section>
- * @param prefersReduced - Whether user prefers reduced motion
- */
 export function useHeroScrollParallax(
   scope: React.RefObject<HTMLElement | null>,
   prefersReduced: boolean
@@ -21,7 +14,6 @@ export function useHeroScrollParallax(
     if (!scope.current || prefersReduced) return
 
     const ctx = gsap.context(() => {
-      // Hero content parallax — moves up at 0.5x speed on scroll out
       gsap.to(".hero-content", {
         yPercent: -15,
         opacity: 0.2,
@@ -34,7 +26,6 @@ export function useHeroScrollParallax(
         },
       })
 
-      // Photo parallax — moves slightly slower
       gsap.to(".hero-photo", {
         yPercent: -8,
         ease: "none",
@@ -46,7 +37,6 @@ export function useHeroScrollParallax(
         },
       })
 
-      // Scroll indicator — disappears quickly
       gsap.to(".hero-scroll-indicator", {
         opacity: 0,
         ease: "none",

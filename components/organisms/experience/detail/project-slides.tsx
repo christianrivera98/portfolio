@@ -6,13 +6,7 @@ import { PROJECTS } from "./projects.config"
 import { useTrackScroll } from "@/hooks/useTrackScroll"
 import { SlideMedia } from "./slide-media"
 
-/**
- * Horizontal media slider for a project. Mobile: drag (native pan-x).
- * Laptop/desktop: mouse drag + wheel mapped to X. Slides are static (clips
- * autoplay as moving images, no tap-to-expand) so a click never collapses the
- * tablet. Empty-state fallback.
- */
-export function ProjectSlides({ projectId }: { projectId: string }) {
+export function ProjectSlides({ projectId }: Readonly<{ projectId: string }>) {
   const t = useTranslations("Projects")
   const name = t(`items.${projectId}.name`)
   const project = PROJECTS.find((p) => p.id === projectId)

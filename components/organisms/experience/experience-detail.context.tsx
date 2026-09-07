@@ -2,8 +2,6 @@
 
 import { createContext, useContext, useState, useRef, useCallback, type ReactNode } from "react"
 
-// What the shared tablet/slider surface is currently showing. `company` mirrors
-// an EXPERIENCE_ENTRIES index; `project` mirrors a PROJECTS[id]. null = closed.
 export type ExperienceDetail =
   | { kind: "company"; index: number }
   | { kind: "project"; projectId: string }
@@ -21,8 +19,6 @@ const ExperienceDetailContext = createContext<ExperienceDetailContextValue | nul
 
 export function ExperienceDetailProvider({ children }: { children: ReactNode }) {
   const [detail, setDetail] = useState<ExperienceDetail | null>(null)
-  // Pinned = opened by a click; it stays until X / outside-click. Hover previews
-  // only show while pinned is false and close again on mouse-leave.
   const pinned = useRef(false)
 
   const openCompany = useCallback((index: number) => {

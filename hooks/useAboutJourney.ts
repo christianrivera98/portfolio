@@ -33,8 +33,6 @@ export function useAboutJourney(
       const mm = gsap.matchMedia()
 
       mm.add(HORIZONTAL, () => {
-        // The stage is header + run: pinning it is what keeps the title in
-        // place instead of letting it scroll off while the run is scrubbed.
         const stage = root.closest<HTMLElement>(".about-stage") ?? root
         const viewport = root.querySelector<HTMLElement>(".journey-viewport")
         const track = root.querySelector<HTMLElement>(".journey-track")
@@ -42,11 +40,6 @@ export function useAboutJourney(
         const panels = gsap.utils.toArray<HTMLElement>(".journey-panel", root)
         if (!viewport || !track || !panels.length) return
 
-        // Pinned once, then the whole run is one horizontal tween the scrollbar
-        // scrubs; every panel hangs its own triggers off it.
-        //
-        // Layout is read on refresh and cached: measuring live DOM inside a
-        // scrubbed update forces a reflow on every frame.
         let travelPx = 0
         let centreLine = 0
         const edges: number[] = []
@@ -64,19 +57,13 @@ export function useAboutJourney(
           x: () => -travel(),
           ease: "none",
           scrollTrigger: {
-            // The stage is what gets pinned, not the viewport: the header and
-            // the two progress bars bracket the run and travel with it.
             trigger: stage,
-            // The stage lands just under the fixed navbar and stays there for
-            // the whole run, so nothing sits behind the bar while it is pinned.
             start: "top top+=88",
             end: () => `+=${travel()}`,
             pin: true,
             scrub: 1,
             anticipatePin: 1,
             invalidateOnRefresh: true,
-            // The navbar's bar holds while this run is being scrubbed, so it
-            // only moves again once both of these bars are full.
             onRefresh: (self) => {
               measure()
               setScrollHold({ start: self.start, end: self.end })
@@ -85,7 +72,6 @@ export function useAboutJourney(
               gsap.set(bars, { scaleX: self.progress })
               const centre = self.progress * travelPx + centreLine
               const at = edges.findIndex((edge) => centre < edge)
-              // Panel 0 is the intro, so -1 means "no interest is on centre".
               const index = gsap.utils.clamp(-1, panels.length - 2, at - 1)
               if (index === current) return
               current = index

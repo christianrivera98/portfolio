@@ -1,7 +1,3 @@
-/**
- * One of the two bars that bracket the horizontal run. Both are driven by the
- * same class, so a single `gsap.set` moves them together.
- */
 export function JourneyProgress() {
   return (
     <div className="journey-progress h-px w-full bg-white/10">

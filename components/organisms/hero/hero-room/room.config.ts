@@ -1,4 +1,3 @@
-/** Per-theme palette + light setup for the 3D hero room. */
 export interface RoomTheme {
   wall: string
   floor: string

@@ -1,10 +1,6 @@
 import Image from "next/image"
 import { SKILL_LOGOS } from "./technologies.config"
 
-/**
- * Monochrome grid of the 12 tools I use most (6×2). No containers — just large
- * white marks that brighten and grow on hover.
- */
 export function SkillsGrid() {
   return (
     <div className="tech-skills grid grid-cols-3 gap-x-6 gap-y-10 sm:grid-cols-4 md:grid-cols-6">

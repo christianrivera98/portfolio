@@ -9,12 +9,6 @@ const TabletBackground = dynamic(
   { ssr: false }
 )
 
-/**
- * Presentational tablet bezel — the device frame that wraps any detail slider.
- * Shared across the mobile/tablet overlay, the laptop toggle and the desktop
- * sticky surface so every breakpoint renders the same shell, including the same
- * Grainient shader backdrop used on desktop (REQ-04).
- */
 export function TabletShell({
   children,
   className,

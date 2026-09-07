@@ -6,11 +6,6 @@ import Grainient from "@/components/Grainient"
 
 const SHADER_VARS = ["--shader-color-1", "--shader-color-2", "--shader-color-3"] as const
 
-/**
- * Normalizes any CSS color (named, 3-digit, rgb()) to a 6-digit `#rrggbb`.
- * The CSS minifier collapses `#000000` → `#000`, which Grainient's hex parser
- * rejects (falls back to white); the canvas roundtrip restores a full hex.
- */
 function toHex6(value: string): string {
   const ctx = document.createElement("canvas").getContext("2d")
   if (!ctx) return value
@@ -19,11 +14,6 @@ function toHex6(value: string): string {
   return ctx.fillStyle
 }
 
-/**
- * Grainient (OGL) crimson/black warped backdrop for the sticky tablet. Colors
- * come from CSS tokens (globals.css) so nothing is hardcoded here. Loaded
- * client-side only (dynamic ssr:false). Freezes animation on reduced motion.
- */
 export function TabletBackground() {
   const reduce = useReducedMotion()
   const [[color1, color2, color3]] = useState(() => {

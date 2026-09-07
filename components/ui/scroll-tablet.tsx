@@ -10,10 +10,6 @@ interface ScrollTabletProps {
   className?: string
 }
 
-/**
- * A device/tablet frame that tilts flat as it scrolls into view — a subtle
- * scroll-driven transition surface. Respects prefers-reduced-motion.
- */
 export function ScrollTablet({ children, background, className }: ScrollTabletProps) {
   const ref = useRef<HTMLDivElement>(null)
   const reduceMotion = useReducedMotion()

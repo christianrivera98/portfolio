@@ -6,11 +6,6 @@ import { motion, AnimatePresence, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { COMPANIES } from "./companies.config"
 
-/**
- * Company info shown inside the sticky tablet. Driven by `index` (the
- * experience period beside the tablet) or null when idle. Crossfades logo +
- * copy + tech stack; shows an idle hint when no period is beside it.
- */
 export function CompanyCard({ index }: { index: number | null }) {
   const t = useTranslations("Experience")
   const tt = useTranslations("Transition")
@@ -45,9 +40,6 @@ export function CompanyCard({ index }: { index: number | null }) {
         transition={{ duration: 0.35, ease: "easeOut" }}
         className="flex flex-col min-[575px]:h-[380px] min-[575px]:flex-row"
       >
-        {/* Mobile: column (logo on top, info below). ≥575px: keep the original
-            row layout. Transparent logos get a compact white panel; logos with
-            their own background show as-is. */}
         <div className="flex w-full shrink-0 items-center justify-center p-4 min-[575px]:w-[42%]">
           <div
             className={cn(
@@ -70,7 +62,6 @@ export function CompanyCard({ index }: { index: number | null }) {
           </div>
         </div>
 
-        {/* role, description, tech stack — right column ≥575px, stacked below on mobile */}
         <div className="flex min-w-0 flex-1 flex-col justify-center gap-3 px-6 pb-6 min-[575px]:px-0 min-[575px]:py-6 min-[575px]:pr-6">
           <h3 className="font-serif-display text-2xl font-bold leading-tight text-white">
             {company.title}
@@ -89,9 +80,6 @@ export function CompanyCard({ index }: { index: number | null }) {
                 key={logo}
                 className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 ring-1 ring-white/10"
               >
-                {/* These marks are SVG: the optimizer rejects that MIME type
-                    (400) unless dangerouslyAllowSVG is on, and vectors gain
-                    nothing from it anyway. */}
                 <Image src={logo} alt="" width={18} height={18} unoptimized className="h-4 w-4 object-contain" />
               </span>
             ))}

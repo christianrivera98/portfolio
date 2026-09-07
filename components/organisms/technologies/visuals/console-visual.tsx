@@ -6,11 +6,6 @@ import { BUILD_COMMAND, BUILD_OUTPUT } from "./visuals.config"
 
 const TABS = ["problems", "output", "terminal"]
 
-/**
- * 04 — VS Code's integrated terminal running the production build. Reuses the
- * preloader's Terminal for the typing and the syntax colours; `chrome="none"`
- * swaps its macOS title bar for the editor's panel tabs.
- */
 export function ConsoleVisual() {
   const reduced = usePrefersReducedMotion()
 

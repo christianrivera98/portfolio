@@ -9,12 +9,6 @@ import { InterestPanel } from "./interest-panel"
 import { JourneyJumps } from "./journey-jumps"
 import { JourneyProgress } from "./journey-progress"
 
-/**
- * The section as one run: the editorial intro, then the five interests, all at
- * the intro grid's height. Above `lg` the run is horizontal and the scroll
- * drives it, bracketed by the two progress bars; below that, and for anyone
- * asking for reduced motion, the same markup stacks and reads top to bottom.
- */
 export function AboutJourney() {
   const rootRef = useRef<HTMLDivElement>(null)
   const t = useTranslations("About")
@@ -46,8 +40,6 @@ export function AboutJourney() {
               key={interest.id}
               interest={interest}
               index={i}
-              // Only the panel on centre and the one arriving earn a src, so
-              // crossing the run never costs five downloads at once.
               loadable={!horizontal || i <= active + 1}
               playable={!horizontal || i === active || i === active + 1}
             />

@@ -1,24 +1,6 @@
-import gsap from "gsap"
-
-/**
- * Looping timelines for the card visuals. Each one ends its reveal on a
- * `settled` label: that frame is what reduced motion freezes on, so nobody ever
- * lands on a half-typed line.
- *
- * Everything animates clip-path, opacity or transform — no layout, and no text
- * repainted on every frame. Typing is a stepped clip-path wipe, which is why
- * the visuals are set in a mono font.
- */
-
 const typeLines = (tl: gsap.core.Timeline, target: string, steps: number, stagger: number) =>
   tl.to(target, { clipPath: "inset(0 0% 0 0)", duration: 0.8, stagger, ease: `steps(${steps})` })
 
-/**
- * The caret blinks a fixed number of times instead of forever: an endless child
- * would make the parent timeline infinite and it would never loop again. Added
- * last, at position 0, because inserting it earlier moves the timeline's end
- * and would push the typing that follows it to the back of the blink.
- */
 const blinkCaret = (tl: gsap.core.Timeline, times: number) =>
   tl.to(".visual-caret", { opacity: 0.1, duration: 0.55, repeat: times, yoyo: true }, 0)
 

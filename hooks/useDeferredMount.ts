@@ -4,10 +4,6 @@ import { useEffect, useState } from "react"
 
 const IDLE_TIMEOUT_MS = 2000
 
-/**
- * Delays mounting a heavy subtree until the browser goes idle, so its chunk stops
- * competing with the first useful paint. `enabled: false` never mounts it at all.
- */
 export function useDeferredMount(enabled = true): boolean {
   const [mounted, setMounted] = useState(false)
 

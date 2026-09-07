@@ -1,11 +1,9 @@
 import { SITE_CONFIG } from "@/lib/site.config"
 
-// Display name is language-neutral; copy lives in messages (Hero.*)
 export const HERO_PROFILE = {
   name: "CHRISTIAN LAMADRID",
 } as const
 
-// Social previews shown on the 3D laptop screen when hovering a social CTA
 export type SocialKey = "github" | "linkedin"
 
 export const SOCIAL_PREVIEWS: Record<SocialKey, string> = {
@@ -18,7 +16,6 @@ export type HeroCta = {
   href: string
   variant: "primary" | "outline"
   external: boolean
-  // Brand label (GitHub/LinkedIn); when omitted the label is translated via Hero.ctaWork
   label?: string
 }
 

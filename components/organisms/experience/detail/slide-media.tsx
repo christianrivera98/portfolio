@@ -5,12 +5,6 @@ import { useReducedMotion } from "motion/react"
 import { type MediaItem } from "./projects.config"
 import { useVideoInView } from "@/hooks/useVideoInView"
 
-/**
- * One slide. Video clips play muted on loop with NO controls — they read as
- * moving images; reduced-motion users get the first frame held still. Only the
- * clip scrolled into view downloads and plays. Static shots use next/image.
- * The wrapper fixes the aspect so the track overflows.
- */
 export function SlideMedia({ item, alt, sizes }: { item: MediaItem; alt: string; sizes: string }) {
   const reduce = useReducedMotion()
   const videoRef = useVideoInView(!reduce)

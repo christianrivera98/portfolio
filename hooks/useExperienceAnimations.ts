@@ -22,7 +22,6 @@ export function useExperienceAnimations(
   useGSAP(
     () => {
       if (prefersReduced) return
-      // Section label: clip-path reveal
       gsap.fromTo(
         ".experience-label",
         { clipPath: "inset(0 100% 0 0)" },
@@ -34,7 +33,6 @@ export function useExperienceAnimations(
         }
       )
 
-      // Section title: SplitText character reveal
       if (titleRef.current) {
         const split = SplitText.create(titleRef.current, { type: "chars" })
         gsap.from(split.chars, {
@@ -43,13 +41,11 @@ export function useExperienceAnimations(
         })
       }
 
-      // Subtitle reveal
       gsap.from(".experience-subtitle", {
         y: 25, opacity: 0, duration: 0.8, ease: "power3.out",
         scrollTrigger: { trigger: ".experience-subtitle", start: "top 88%", toggleActions: "play none none reverse" },
       })
 
-      // Accent line draw
       gsap.fromTo(
         ".experience-accent-line",
         { scaleX: 0 },
@@ -59,7 +55,6 @@ export function useExperienceAnimations(
         }
       )
 
-      // Timeline paint (line + badges + dividers, synced) + cards + dots
       animateTimelinePaint(containerRef)
       animateExperienceCards()
       animateTimelineDots()

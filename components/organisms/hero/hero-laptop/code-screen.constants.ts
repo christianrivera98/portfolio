@@ -1,4 +1,3 @@
-/** Tokenized fake source rendered onto the laptop screen (typed line by line). */
 export interface CodeToken {
   text: string
   color: string
@@ -15,14 +14,14 @@ export const SCREEN = {
   lineHeight: 30,
   padX: 26,
   padTop: 62,
-  typeMs: 26, // ms per character
-  holdMs: 1400, // pause once fully typed before looping
+  typeMs: 26,
+  holdMs: 1400,
 } as const
 
-const KW = "#e85d6a" // crimson keyword
-const FN = "#d4d4d8" // function / ident
-const STR = "#7aa2a8" // strings
-const MUT = "#5a5a63" // comments / punctuation
+const KW = "#e85d6a"
+const FN = "#d4d4d8"
+const STR = "#7aa2a8"
+const MUT = "#5a5a63"
 
 export const CODE_LINES: CodeToken[][] = [
   [{ text: "const ", color: KW }, { text: "dev", color: FN }, { text: " = {", color: MUT }],

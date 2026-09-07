@@ -25,7 +25,6 @@ export function ContactLinkRow({ link, label, isFirst }: Props) {
           </span>
         </div>
 
-        {/* Arrow */}
         <span className="text-white/20 group-hover:text-[hsl(356,96%,32%)] group-hover:translate-x-1 transition-all duration-300">
           <svg
             width="24"

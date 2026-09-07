@@ -11,14 +11,6 @@ import type { Renderer } from "@/components/organisms/stack-journey/stack-render
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
-/**
- * Drives the twelve stack logos from the hero to the rings around the bento.
- *
- * One ScrollTrigger, one writer: the trigger only moves a number and the
- * renderer turns that number into poses. Every stretch of the journey is a
- * function of that same number, so the path is continuous and coming back up
- * the page retraces it exactly.
- */
 export function useStackJourney(
   meshesRef: React.RefObject<(THREE.Mesh | null)[]>,
   render: () => void,
@@ -37,8 +29,6 @@ export function useStackJourney(
       material.transparent = true
       const mm = gsap.matchMedia()
 
-      // Both conditions are declared so one of them always matches — with a
-      // single query the handler would never run on the other side of it.
       mm.add({ isMobile: "(max-width: 767px)", isDesktop: "(min-width: 768px)" }, (context) => {
         const { renderer, destroy } = createDriver({
           logos,
